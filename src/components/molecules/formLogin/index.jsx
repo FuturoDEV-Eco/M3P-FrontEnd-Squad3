@@ -1,15 +1,37 @@
 import { TextField, InputLabel } from '@mui/material';
 import styled from './formLogin.module.css';
 import Cbutton from '../../atoms/Cbutton/Cbutton.jsx';
+import { useContext, useEffect, useState } from 'react';
+import UsuariosContext from '../../../context/usuariosContext.jsx';
+import { useForm } from 'react-hook-form';
 
 function FormLogin() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { login } = useContext(UsuariosContext);
+
+  async function realizarLogin(formValue) {
+    await login(formValue.email, formValue.senha);
+  }
+
   return (
     <div className={styled.boxlogin}>
-      <form className={styled.boxform}>
+      <form className={styled.boxform} onSubmit={handleSubmit(realizarLogin)}>
         <InputLabel htmlFor="name">Email</InputLabel>
         <TextField
-          helperText="error"
-          id="email"
+          {...register('email', {
+            required: 'Este campo é obrigatorio',
+            maxLength: {
+              value: 50,
+              message: 'Este campo aceita no máximo 50 carateres',
+            },
+          })}
+          helperText={errors.email?.message}
+          name="email"
           variant="outlined"
           size="small"
           type="email"
@@ -22,7 +44,15 @@ function FormLogin() {
         ></TextField>
         <InputLabel htmlFor="senha">Senha</InputLabel>
         <TextField
-          helperText="error"
+        {...register('senha', {
+          required: 'Este campo é obrigatorio',
+          maxLength: {
+            value: 50,
+            message: 'Este campo aceita no máximo 50 carateres',
+          },
+        })}
+          helperText={errors.senha?.message}
+          name="senha"
           id="senha"
           variant="outlined"
           size="small"

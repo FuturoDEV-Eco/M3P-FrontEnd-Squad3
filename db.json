@@ -1,11 +1,12 @@
 {
     "usuarios": [
         {
-            "nome": "caled",
+            "id": 1,
+            "nomeusuario": "prueba",
             "sexo": "masculino",
             "cpf": "704.252.389-45",
             "ndata": "03/11/1995",
-            "email": "caledarvs@gmail.com",
+            "email": "prueba@prueba.com",
             "senha": "1234",
             "cep": "88040320",
             "cidade": "florianopolis",
@@ -15,16 +16,17 @@
             "ncasa": "402"
         },
         {
-            "nome": "Gabriela",
+            "id": 2,
+            "nomeusuario": "Gabriela",
             "sexo": "Feminino",
             "cpf": "704.652.389-45",
             "datanasc": "28/03/1995",
-            "email": "gabriela@gmail.com",
+            "email": "gabriela@mai.com",
             "senha": "12345",
             "cep": "88040320",
             "cidade": "florianopolis",
             "estado": "SC",
-            "Bairro": "itacorubi",
+            "bairro": "itacorubi",
             "rua": "euclides silva",
             "casa": "403"
         }
