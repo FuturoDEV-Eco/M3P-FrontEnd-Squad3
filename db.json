@@ -1,0 +1,32 @@
+{
+    "usuarios": [
+        {
+            "nome": "caled",
+            "sexo": "masculino",
+            "cpf": "704.252.389-45",
+            "ndata": "03/11/1995",
+            "email": "caledarvs@gmail.com",
+            "senha": "1234",
+            "cep": "88040320",
+            "cidade": "florianopolis",
+            "estado": "SC",
+            "bairro": "pantanal",
+            "rua": "rua protenor vidal",
+            "ncasa": "402"
+        },
+        {
+            "nome": "Gabriela",
+            "sexo": "Feminino",
+            "cpf": "704.652.389-45",
+            "datanasc": "28/03/1995",
+            "email": "gabriela@gmail.com",
+            "senha": "12345",
+            "cep": "88040320",
+            "cidade": "florianopolis",
+            "estado": "SC",
+            "Bairro": "itacorubi",
+            "rua": "euclides silva",
+            "casa": "403"
+        }
+    ]
+}

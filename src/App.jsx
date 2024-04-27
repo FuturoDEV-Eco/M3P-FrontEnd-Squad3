@@ -1,15 +1,19 @@
-import './App.css'
-import { Outlet } from 'react-router-dom'
+import { useContext } from 'react';
+import './App.css';
+import { Outlet } from 'react-router-dom';
+import { UsuariosContext, UsuariosContextProvider,
+} from './context/usuariosContext';
+import Dashboard from './pages/Dashboard';
 
 function App() {
 
   return (
     <>
-    
-    <Outlet />
-      
+      <UsuariosContextProvider>
+      <Outlet />
+      </UsuariosContextProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
