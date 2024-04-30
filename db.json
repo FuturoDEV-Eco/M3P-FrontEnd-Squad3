@@ -1,34 +1,20 @@
 {
-    "usuarios": [
-        {
-            "id": 1,
-            "nomeusuario": "prueba",
-            "sexo": "masculino",
-            "cpf": "704.252.389-45",
-            "ndata": "03/11/1995",
-            "email": "prueba@prueba.com",
-            "senha": "1234",
-            "cep": "88040320",
-            "cidade": "florianopolis",
-            "estado": "SC",
-            "bairro": "pantanal",
-            "rua": "rua protenor vidal",
-            "ncasa": "402"
-        },
-        {
-            "id": 2,
-            "nomeusuario": "Gabriela",
-            "sexo": "Feminino",
-            "cpf": "704.652.389-45",
-            "datanasc": "28/03/1995",
-            "email": "gabriela@mai.com",
-            "senha": "12345",
-            "cep": "88040320",
-            "cidade": "florianopolis",
-            "estado": "SC",
-            "bairro": "itacorubi",
-            "rua": "euclides silva",
-            "casa": "403"
-        }
-    ]
+  "usuarios": [
+    {
+      "nomeusuario": "admin",
+      "sexo": "masculino",
+      "cpf": "12345",
+      "ndata": "03/11/1995",
+      "email": "admin@admin.com",
+      "senha": "1234",
+      "cep": "88040320",
+      "cidade": "florianopolis",
+      "estado": "SC",
+      "bairro": "pantanal",
+      "rua": "rua protenor vidal",
+      "ncasa": "402",
+      "id": 1
+    }
+  ],
+  "locaisColeta": []
 }

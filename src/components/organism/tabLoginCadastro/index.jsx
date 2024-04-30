@@ -45,6 +45,7 @@ export default function FormLoginTabs() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -68,7 +69,7 @@ export default function FormLoginTabs() {
         <FormCadastro />
       </TabPanel>
       <TabPanel value={value} index={1} dir={theme.direction}>
-        <FormLogin />
+        <FormLogin  />
       </TabPanel>
     </Box>
   );

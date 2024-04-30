@@ -8,38 +8,67 @@ import { useForm } from 'react-hook-form';
 import UsuariosContext from '../../../context/usuariosContext.jsx';
 
 function FormCadastro() {
-
-  const {login} = useContext(UsuariosContext)
-
   const {
-    register, handleSubmit, setValue, getValues, formState: { errors },
-  } = useForm({ defaultValues: { nome: '', email: '' } });
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    setError,
+    formState: { errors },
+  } = useForm({ defaultValues: { nomeusuario: '', email: ''} });
+
+  const { cadastrarUsuario } = useContext(UsuariosContext);
 
 
+  async function saveForm(formValue) {
+    const cadastroResult = await cadastrarUsuario(formValue);
 
-  
-
-  function saveForm(formValue) {
-    console.log(formValue)
-    // cadastrarUsuario(formValue)
+    if (cadastroResult.error) {
+      if (cadastroResult.error.message === 'cpf já existe') {
+        setError('cpf', {
+          type: 'custom',
+          message: 'Este CPF já está registrado',
+        });
+      } else if (cadastroResult.error.message === 'cpf falta/sobra numeros'){
+        setError('cpf', {
+          type: 'custom',
+          message: 'Seu CPF deve conter 11 digitos',
+        });
+      }
+      } else {
+        console.log(cadastroResult.error.message);
+        
+    }
   }
 
   const handleCep = async () => {
     const cep = getValues('cep');
 
-    if (!!cep) {
+    if (cep.length !== 8) {
+      setError('cep', {
+        type: 'custom',
+        message: 'O CEP deve conter 8 digitos',
+      });
+      return;
+    } else if (!!cep) {
       fetch(`https://viacep.com.br/ws/${cep}/json/`)
         .then((response) => response.json())
         .then((dados) => {
-          setValue('bairro', dados.bairro);
-          setValue('rua', dados.logradouro);
-          setValue('cidade', dados.localidade);
-          setValue('estado', dados.uf);
+          if (dados.erro) {
+            setError('cep', {
+              type: 'custom',
+              message: 'Digite um CEP valido',
+            })
+          } else {
+            setValue('bairro', dados.bairro);
+            setValue('rua', dados.logradouro);
+            setValue('cidade', dados.localidade);
+            setValue('estado', dados.uf);
+          }
         })
         .catch((error) => console.log(error));
     }
   };
-
 
   return (
     <div>
@@ -47,13 +76,13 @@ function FormCadastro() {
         <form className={styled.boxform} onSubmit={handleSubmit(saveForm)}>
           <div className={styled.inputsbetween}>
             <TextField
-            {...register('nomeusuario', {
-              required: 'Este campo é obrigatorio',
-              maxLength: {
-                value: 50,
-                message: 'Este campo aceita no máximo 50 carateres',
-              },
-            })}
+              {...register('nomeusuario', {
+                required: 'Este campo é obrigatorio',
+                maxLength: {
+                  value: 50,
+                  message: 'Este campo aceita no máximo 50 carateres',
+                },
+              })}
               helperText={errors.nomeusuario?.message}
               name="nomeusuario"
               label="Nome"
@@ -65,16 +94,16 @@ function FormCadastro() {
                 '& .MuiFormHelperText-root': {
                   color: 'red',
                 },
-              }} 
+              }}
             ></TextField>
             <TextField
-             {...register('sexo', {
-              required: false,
-              maxLength: {
-                value: 50,
-                message: 'Este campo aceita no máximo 8 carateres',
-              },
-            })}
+              {...register('sexo', {
+                required: false,
+                maxLength: {
+                  value: 50,
+                  message: 'Este campo aceita no máximo 8 carateres',
+                },
+              })}
               helperText={errors.sexo?.message}
               label="Sexo"
               name="sexo"
@@ -91,16 +120,16 @@ function FormCadastro() {
           </div>
           <div className={styled.inputsbetween}>
             <TextField
-             {...register('cpf', {
-              required: 'Este campo é obrigatorio',
-              maxLength: {
-                value: 11,
-                message: 'Quantiade de digitos incorreta',
-              },
-            })}
+              {...register('cpf', {
+                required: 'Este campo é obrigatorio',
+                maxLength: {
+                  value: 11,
+                  message: 'Quantiade de digitos incorreta',
+                },
+              })}
               helperText={errors.cpf?.message}
               name="cpf"
-              label="CPF"
+              label="CPF (somente numeros)"
               variant="outlined"
               size="small"
               type="number"
@@ -113,23 +142,28 @@ function FormCadastro() {
               {...register('cpf')}
             ></TextField>
             <TextField
-            {...register('ndata', {required: 'Este campo é obrigatorio',})}
-              helperText="Data de Nacsimento"
+              {...register('ndata', { required: 'Este campo é obrigatorio' })}
+              helperText={errors.ndata?.message || 'Data de Nascimento'}
               variant="outlined"
               name="ndata"
               size="small"
               type="date"
-              placeholder="Datada de nascimento"
+              placeholder="Data de nascimento"
+              sx={{
+                '& .MuiFormHelperText-root': {
+                  color: errors.ndata ? 'red' : 'initial',
+                },
+              }}
             ></TextField>
           </div>
           <TextField
-          {...register('email', {
-            required: 'Este campo é obrigatorio',
-            maxLength: {
-              value: 60,
-              message: 'Este campo só aceita maximo 60 carateres',
-            },
-          })}
+            {...register('email', {
+              required: 'Este campo é obrigatorio',
+              maxLength: {
+                value: 60,
+                message: 'Este campo só aceita maximo 60 carateres',
+              },
+            })}
             helperText={errors.email?.message}
             label="E-mail"
             variant="outlined"
@@ -144,13 +178,13 @@ function FormCadastro() {
             }}
           ></TextField>
           <TextField
-          {...register('senha', {
-            required: 'Este campo é obrigatorio',
-            maxLength: {
-              value: 11,
-              message: 'Quantiade de digitos incorreta',
-            },
-          })}
+            {...register('senha', {
+              required: 'Este campo é obrigatorio',
+              maxLength: {
+                value: 11,
+                message: 'Quantiade de digitos incorreta',
+              },
+            })}
             helperText={errors.senha?.message}
             label="Senha"
             name="senha"
@@ -257,8 +291,9 @@ function FormCadastro() {
               {...register('rua')}
             ></TextField>
             <TextField
-             {...register('ncasa', {
-              required: 'Este campo é obrigatorio' })}
+              {...register('ncasa', {
+                required: 'Este campo é obrigatorio',
+              })}
               helperText={errors.ncasa?.message}
               label="Numero"
               name="ncasa"
@@ -271,11 +306,10 @@ function FormCadastro() {
                 },
                 width: 100,
               }}
-             
             ></TextField>
           </div>
           <div className={styled.boxbuttons}>
-            <Cbutton type="submit">Cadastrar</Cbutton>
+            <Cbutton type="submit" >Cadastrar</Cbutton>
           </div>
         </form>
       </div>

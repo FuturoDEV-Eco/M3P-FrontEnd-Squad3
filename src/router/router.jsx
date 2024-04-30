@@ -1,9 +1,15 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import CadastroColetas from '../pages/CadastroColetas';
 import ListagemColetas from '../pages/ListagemColetas';
 import LoginSignup from '../pages/login-signup';
 import Dashboard from '../pages/Dashboard';
+
+let isAutenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false 
+
+const PrivateRouter = ({children}) => {
+ return isAutenticated ? children : <Navigate to="/login" />
+}
 
 const routes = createBrowserRouter([
   {
@@ -12,10 +18,14 @@ const routes = createBrowserRouter([
   },
   {
     path: '/',
-    element: <App />,
+    element: ( 
+      <PrivateRouter>
+        <App />
+      </PrivateRouter>
+    ),
     children: [
       {
-        path: '/',
+        path: '/dashboard',
         element: <Dashboard />,
       },
       {

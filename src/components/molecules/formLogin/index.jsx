@@ -9,13 +9,30 @@ function FormLogin() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm();
 
   const { login } = useContext(UsuariosContext);
 
   async function realizarLogin(formValue) {
-    await login(formValue.email, formValue.senha);
+    const loginResult = await login(formValue.email, formValue.senha);
+
+    if (loginResult.error) {
+      if (loginResult.error.message === 'Usuário não existe') {
+        setError("email", {
+          type: "custom",
+          message: loginResult.error.message, 
+        })
+      } else if  (loginResult.error.message === 'Senha incorreta') {
+        setError("senha", {
+          type: "custom",
+          message: loginResult.error.message, 
+        })
+      } else {
+        console.log(loginResult.error.message);
+      }
+    }
   }
 
   return (
@@ -44,13 +61,13 @@ function FormLogin() {
         ></TextField>
         <InputLabel htmlFor="senha">Senha</InputLabel>
         <TextField
-        {...register('senha', {
-          required: 'Este campo é obrigatorio',
-          maxLength: {
-            value: 50,
-            message: 'Este campo aceita no máximo 50 carateres',
-          },
-        })}
+          {...register('senha', {
+            required: 'Este campo é obrigatorio',
+            maxLength: {
+              value: 50,
+              message: 'Este campo aceita no máximo 50 carateres',
+            },
+          })}
           helperText={errors.senha?.message}
           name="senha"
           id="senha"
