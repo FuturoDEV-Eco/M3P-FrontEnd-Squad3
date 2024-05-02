@@ -1,0 +1,47 @@
+.cardnumber {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(212, 212, 212);
+  height: 100%;
+  width: 280px;
+}
+
+.cardnumber h1 {
+  font-size: 95px;
+  margin-left: 15px;
+}
+
+.cardnumber p {
+  font-size: 20px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+
+
+
+
+
+.cardtext {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(212, 212, 212);
+  height: 100%;
+  width: 350px;
+}
+
+.cardtext h1 {
+  font-size: 38px;
+  margin-left: 15px;
+  margin-top: 40px;
+  /* padding: 20px; */
+
+}
+
+.cardtext p {
+  font-size: 20px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}

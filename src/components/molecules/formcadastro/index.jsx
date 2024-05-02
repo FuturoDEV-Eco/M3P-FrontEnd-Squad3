@@ -37,9 +37,19 @@ function FormCadastro() {
       }
       } else {
         console.log(cadastroResult.error.message);
-        
     }
   }
+
+  const capitalizeWords = (str) => {
+    return str.replace(/\b\w/g, function (char) {
+      return char.toUpperCase();
+    });
+  };
+
+  const handleCapitalize = (e) => {
+    const newValue = capitalizeWords(e.target.value);
+    e.target.value = newValue;
+  };
 
   const handleCep = async () => {
     const cep = getValues('cep');
@@ -89,6 +99,7 @@ function FormCadastro() {
               variant="outlined"
               size="small"
               type="Text"
+              onBlur={handleCapitalize}
               placeholder="Digite o seu nome"
               sx={{
                 '& .MuiFormHelperText-root': {

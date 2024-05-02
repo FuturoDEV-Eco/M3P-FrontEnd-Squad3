@@ -1,0 +1,32 @@
+.headercontainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  background-color: yellow;
+  padding: 1rem 2rem;
+  background-color: var(--primary);
+  color: white;
+  height: 60px;
+}
+
+.title {
+  width: 80px;
+}
+
+.boxbutton {
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  width: 100px;
+}
+
+.boxback {
+  width: 80px;
+  background-color: aqua;
+}
+
+
+.headerprimari {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
