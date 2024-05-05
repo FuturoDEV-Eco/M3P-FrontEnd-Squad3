@@ -4,6 +4,8 @@ import CadastroColetas from '../pages/CadastroColetas';
 import ListagemColetas from '../pages/ListagemColetas';
 import LoginSignup from '../pages/login-signup';
 import Dashboard from '../pages/Dashboard';
+import ListagemUsuarios from '../pages/ListagemUsuarios'
+import CadastroUsuarios from '../pages/CadastroUsuarios'
 
 let isAutenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false 
 
@@ -32,10 +34,20 @@ const routes = createBrowserRouter([
         path: '/cadastro-coletas',
         element: <CadastroColetas />,
       },
+
       {
         path: '/listagem-coletas',
         element: <ListagemColetas />,
       },
+      {
+        path: '/cadastro-usuarios',
+        element: <CadastroUsuarios />,
+      },
+      {
+        path: '/listagem-usuarios',
+        element: <ListagemUsuarios />,
+      },
+     
     ],
   },
 
