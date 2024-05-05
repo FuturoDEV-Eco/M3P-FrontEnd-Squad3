@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import Cbutton from '../../atoms/Cbutton/Cbutton';
 
 
 
@@ -36,20 +37,21 @@ function Header() {
       <div className={Styles.headerprimari}>
       <div className={Styles.boxback}>
         <Link to="/dashboard" className={Styles.title}>
-          dashboard
+          Recicla365
         </Link>
       </div>
       <div className={Styles.boxbutton}>
-        <Button
+        <Cbutton
         className={Styles.custombutton}
           id="fade-button"
+          showIcon={true}
           aria-controls={open ? 'fade-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
         >
           Oi, <b>{currentUser}</b>
-        </Button>
+        </Cbutton>
         <Menu
           id="fade-menu"
           MenuListProps={{
@@ -60,8 +62,8 @@ function Header() {
           onClose={handleClose}
           TransitionComponent={Fade}
         >
-          <MenuItem onClick={handleClose}>Adicionar Usuarios</MenuItem>
-          <MenuItem onClick={handleClose}>Adicionar locais de coleta</MenuItem>
+          <MenuItem onClick={() =>window.location.href= '/cadastro-usuarios'}>Adicionar Usuarios</MenuItem>
+          <MenuItem onClick={() => window.location.href= '/cadastro-coletas'}>Adicionar locais de coleta</MenuItem>
           <MenuItem onClick={() => handleLogout()}>Sair</MenuItem>
         </Menu>
       </div>

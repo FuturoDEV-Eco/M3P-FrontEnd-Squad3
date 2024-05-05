@@ -14,7 +14,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "@mui/material": "^6.0.0-alpha.4",
+    "@mui/icons-material": "^6.0.0-alpha.5",
+    "@mui/material": "^6.0.0-alpha.5",
     "git-cz": "^4.9.0",
     "json-server": "^0.17.4",
     "leaflet": "^1.9.4",

@@ -8,9 +8,33 @@ export const UsuariosContextProvider = ({ children }) => {
   const [userNumbers, setUserNumbers] = useState()
   const [locaisColetasNumber, setlocaisColetasNumber ] = useState()
   const [usuarioMaxColetas, setUsuarioMaxColetas] = useState()
-  const [cidadeMaxColetas, setCidadeMaxColetas] = useState()
+  const [localTopResiduos, setLocalTopResiduos] = useState()
+  const [localGeoMap, setLocalGeoMap] = useState()
 
+
+
+  function getGeocoding(){
+    const apiKey = 'AIzaSyAtWB3HzwcnFGQcZ_6KOvk8aj7dNRpWNMU'
     
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=410+rua+protenorvidal,+florianopolis,+SC&key=${apiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      if(data.results.length > 0) {
+        const location = data.results[0].geometry.location;
+        const latitud = location.lat
+        const longitud = location.lng
+
+        console.log(`Latitud: ${latitud}, Longitud: ${longitud}`)
+      } else {
+        console.log('error del else map')
+      }
+    })
+    .catch(error => {
+      console.log('Error ao procurar endereço', error)
+    })
+  }
+
+
 
   function getUsuarios() {
     fetch('http://localhost:3000/usuarios')
@@ -31,6 +55,7 @@ export const UsuariosContextProvider = ({ children }) => {
   useEffect(() => {
     getUsuarios();
     getLocaisColeta() 
+    getGeocoding()
   }, []);
 
 
@@ -54,28 +79,26 @@ export const UsuariosContextProvider = ({ children }) => {
   
       setUsuarioMaxColetas(usuarioMaxColetasLocal); 
     }
-  }, [usuarios]);
-
-console.log(usuarioMaxColetas, ' usuario con mas coletas')
+  }, [locaisColetas]);
 
 
-// useEffect(() => {
 
-//    if (locaisColetas.length > 0) {
-//     let maxColetas = locaisColetas[0].ncoletas || 0;
-//     let cidadeMaxColetas = usuarios[0]; 
-
-//     usuarios.map(usuario => {
-//       if (usuario.ncoletas > maxColetas) {
-//         maxColetas = usuario.ncoletas;
-//         cidadeMaxColetas = usuario.nomeusuario; 
-//       }
-//     });
-
-//     setUsuarioMaxColetas(usuarioMaxColetasLocal); 
-//   }
-
-// }, [locaisColetas]);
+  useEffect(() => {
+    let topResiduos = 0;
+    let localTopResiduos = '';
+  
+    locaisColetas.forEach((local) => {
+      if (local.residuos_aceitos && local.residuos_aceitos.length > topResiduos) {
+        topResiduos = local.residuos_aceitos.length;
+        localTopResiduos = local.nomelocal;
+      }
+    });
+    
+    setLocalTopResiduos(localTopResiduos);
+  
+  }, [locaisColetas]);
+  
+console.log(localTopResiduos, "local top")
 
 
   async function cadastrarUsuario(usuario) {
@@ -138,7 +161,7 @@ console.log(usuarioMaxColetas, ' usuario con mas coletas')
 
   return (
     <UsuariosContext.Provider
-      value={{ usuarios, locaisColetas, locaisColetasNumber, userNumbers, usuarioMaxColetas, login, cadastrarUsuario, getUsuarios,  getLocaisColeta}}
+      value={{ usuarios, locaisColetas, locaisColetasNumber, userNumbers, usuarioMaxColetas, localTopResiduos, login, cadastrarUsuario, getUsuarios,  getLocaisColeta}}
     >
       {children}
     </UsuariosContext.Provider>

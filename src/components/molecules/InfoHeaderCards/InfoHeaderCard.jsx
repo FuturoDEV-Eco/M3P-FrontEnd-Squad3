@@ -1,15 +1,20 @@
-import { useContext } from "react";
 import styled from "./InfoHeaderCard.module.css";
-import UsuariosContext from "../../../context/usuariosContext";
+import Cbutton from "../../atoms/Cbutton/Cbutton"
 
 
 
-function InfoHeaderCard({numberData, infoData, typeClass}) {
+function InfoHeaderCard({numberData, infoData, typeClass, showButton, textButton, linkButton}) {
+
+    const handleButtonClick = () => {
+        window.location.href = linkButton;
+      };
+    
 
     return(
         <div className={`${styled[typeClass]}`}>
             <h1>{numberData}</h1>
-            <p>{infoData}</p>
+            <p><b>{infoData}</b></p>
+        {showButton && <Cbutton onClick={handleButtonClick}>{textButton}</Cbutton>}
         </div>
     )
 }

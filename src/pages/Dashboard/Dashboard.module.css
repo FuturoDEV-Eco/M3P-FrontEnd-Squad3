@@ -20,6 +20,7 @@
   /* background-color: aqua; */
   width: 250px;
   margin-left: 20px;
+  background-color: #8ecae6;
 }
 
 .boxright {
@@ -58,7 +59,7 @@
 .boxmapright {
   width: 30%;
   height: 100%;
-  background-color: rgb(212, 212, 212);
+  background-color: #8ecae6;
   /* background-color: blueviolet; */
 }
 
@@ -66,3 +67,4 @@
   background-color: rgb(252, 252, 252);
   height: 150px;
 }
+
