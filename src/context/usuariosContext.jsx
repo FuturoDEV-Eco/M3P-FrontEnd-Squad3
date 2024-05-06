@@ -71,7 +71,6 @@ export const UsuariosContextProvider = ({ children }) => {
     setLocalTopResiduos(localTopResiduos);
   }, [locaisColetas]);
 
-  console.log(localTopResiduos, 'local top');
 
   
   async function getGeocoding(coleta) {
@@ -93,7 +92,6 @@ export const UsuariosContextProvider = ({ children }) => {
         const latitud = location.lat;
         const longitud = location.lng;
   
-        console.log(`Latitud: ${latitud}, Longitud: ${longitud}`);
         return { latitud, longitud };
       } else {
         throw new Error('No se encontraron resultados');

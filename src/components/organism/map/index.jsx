@@ -8,7 +8,8 @@ export default function MapColetas() {
     const { locaisColetas } = useContext(UsuariosContext);
 
 
-    const locais = locaisColetas.map(coleta => ({
+    const locais = locaisColetas.map((coleta, index) => ({
+        id: index,
         geocode: coleta.geocode,
         popUp: coleta.nomelocal
     })) 
@@ -23,8 +24,8 @@ export default function MapColetas() {
             attribution= '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {locais.map(locais => 
-        <Marker position={locais.geocode}> 
+            {locais.map((locais, index)=> 
+        <Marker key={index} position={locais.geocode}> 
         <Popup><h3>{locais.popUp}</h3></Popup>
         </Marker>    
         )
