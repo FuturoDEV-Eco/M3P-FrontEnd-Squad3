@@ -1,4 +1,4 @@
-import styled from './dashboard.module.css';
+import styled from './Dashboard.module.css';
 import BasicCardColetas from '../../components/molecules/BasicCardColetas';
 import MapColetas from '../../components/organism/map/index';
 import { useContext, useState } from 'react';
