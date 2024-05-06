@@ -5,36 +5,13 @@ export const UsuariosContext = createContext();
 export const UsuariosContextProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [locaisColetas, setLocaisColeta] = useState([]);
-  const [userNumbers, setUserNumbers] = useState()
-  const [locaisColetasNumber, setlocaisColetasNumber ] = useState()
-  const [usuarioMaxColetas, setUsuarioMaxColetas] = useState()
-  const [localTopResiduos, setLocalTopResiduos] = useState()
-  const [localGeoMap, setLocalGeoMap] = useState()
+  const [userNumbers, setUserNumbers] = useState();
+  const [locaisColetasNumber, setlocaisColetasNumber] = useState();
+  const [usuarioMaxColetas, setUsuarioMaxColetas] = useState();
+  const [localTopResiduos, setLocalTopResiduos] = useState();
+  const [localGeoMap, setLocalGeoMap] = useState();
 
-
-
-  function getGeocoding(){
-    const apiKey = 'AIzaSyAtWB3HzwcnFGQcZ_6KOvk8aj7dNRpWNMU'
-    
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=410+rua+protenorvidal,+florianopolis,+SC&key=${apiKey}`)
-    .then(response => response.json())
-    .then(data => {
-      if(data.results.length > 0) {
-        const location = data.results[0].geometry.location;
-        const latitud = location.lat
-        const longitud = location.lng
-
-        console.log(`Latitud: ${latitud}, Longitud: ${longitud}`)
-      } else {
-        console.log('error del else map')
-      }
-    })
-    .catch(error => {
-      console.log('Error ao procurar endereço', error)
-    })
-  }
-
-
+ 
 
   function getUsuarios() {
     fetch('http://localhost:3000/usuarios')
@@ -42,22 +19,18 @@ export const UsuariosContextProvider = ({ children }) => {
       .then((data) => setUsuarios(data))
       .catch((error) => console.log(error));
   }
-  
+
   function getLocaisColeta() {
     fetch('http://localhost:3000/locaisColeta')
       .then((response) => response.json())
       .then((data) => setLocaisColeta(data))
-      .catch((error) => console.log(error))
+      .catch((error) => console.log(error));
   }
-
-
 
   useEffect(() => {
     getUsuarios();
-    getLocaisColeta() 
-    getGeocoding()
+    getLocaisColeta();
   }, []);
-
 
   useEffect(() => {
     setUserNumbers(usuarios.length);
@@ -65,41 +38,95 @@ export const UsuariosContextProvider = ({ children }) => {
 
   useEffect(() => {
     setlocaisColetasNumber(locaisColetas.length);
-  
+
     if (usuarios.length > 0) {
       let maxColetas = usuarios[0].ncoletas || 0;
-      let usuarioMaxColetasLocal = usuarios[0]; 
-  
-      usuarios.map(usuario => {
+      let usuarioMaxColetasLocal = usuarios[0];
+
+      usuarios.map((usuario) => {
         if (usuario.ncoletas > maxColetas) {
           maxColetas = usuario.ncoletas;
-          usuarioMaxColetasLocal = usuario.nomeusuario; 
+          usuarioMaxColetasLocal = usuario.nomeusuario;
         }
       });
-  
-      setUsuarioMaxColetas(usuarioMaxColetasLocal); 
+
+      setUsuarioMaxColetas(usuarioMaxColetasLocal);
     }
   }, [locaisColetas]);
-
-
 
   useEffect(() => {
     let topResiduos = 0;
     let localTopResiduos = '';
-  
+
     locaisColetas.forEach((local) => {
-      if (local.residuos_aceitos && local.residuos_aceitos.length > topResiduos) {
+      if (
+        local.residuos_aceitos &&
+        local.residuos_aceitos.length > topResiduos
+      ) {
         topResiduos = local.residuos_aceitos.length;
         localTopResiduos = local.nomelocal;
       }
     });
-    
-    setLocalTopResiduos(localTopResiduos);
-  
-  }, [locaisColetas]);
-  
-console.log(localTopResiduos, "local top")
 
+    setLocalTopResiduos(localTopResiduos);
+  }, [locaisColetas]);
+
+  console.log(localTopResiduos, 'local top');
+
+  
+  async function getGeocoding(coleta) {
+    const apiKey = 'AIzaSyAtWB3HzwcnFGQcZ_6KOvk8aj7dNRpWNMU';
+  
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${coleta.ncasa}+${coleta.rua},+${coleta.cidade},+SC&key=${apiKey}`
+      );
+  
+      if (!response.ok) {
+        throw new Error('Error al buscar la dirección');
+      }
+  
+      const data = await response.json();
+  
+      if (data.results.length > 0) {
+        const location = data.results[0].geometry.location;
+        const latitud = location.lat;
+        const longitud = location.lng;
+  
+        console.log(`Latitud: ${latitud}, Longitud: ${longitud}`);
+        return { latitud, longitud };
+      } else {
+        throw new Error('No se encontraron resultados');
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function cadastrarColeta(coleta) {
+    try {
+      const currentUser = localStorage.getItem('currentUser');
+      const { latitud, longitud } = await getGeocoding(coleta);
+
+
+      await fetch('http://localhost:3000/locaisColeta', {
+        method: 'POST',
+        body: JSON.stringify(coleta),
+        headers: {
+          'Content-Type': 'application/json',
+          'CurrentUser': currentUser,
+          'geocode': `${latitud}, ${longitud}`
+        },
+      });
+      alert('Local de coleta cadastrada com sucesso');
+      getLocaisColeta();
+      window.location.reload();
+      return {};
+    } catch (error) {
+      console.error(error);
+      return { error };
+    }
+  }
 
   async function cadastrarUsuario(usuario) {
     try {
@@ -123,7 +150,7 @@ console.log(localTopResiduos, "local top")
 
       alert('usuario cadastrado com sucesso');
       getUsuarios();
-      window.location.reload();
+      window.location.href = '/dashboard';
       return {};
     } catch (error) {
       console.error(error);
@@ -142,7 +169,7 @@ console.log(localTopResiduos, "local top")
           usuarioExist = true;
           if (usuarios.senha == senha) {
             localStorage.setItem('isAutenticated', true);
-            localStorage.setItem('currentUser', usuarios.nomeusuario)
+            localStorage.setItem('currentUser', usuarios.nomeusuario);
             window.location.href = '/dashboard';
             return;
           }
@@ -161,7 +188,19 @@ console.log(localTopResiduos, "local top")
 
   return (
     <UsuariosContext.Provider
-      value={{ usuarios, locaisColetas, locaisColetasNumber, userNumbers, usuarioMaxColetas, localTopResiduos, login, cadastrarUsuario, getUsuarios,  getLocaisColeta}}
+      value={{
+        usuarios,
+        locaisColetas,
+        locaisColetasNumber,
+        userNumbers,
+        usuarioMaxColetas,
+        localTopResiduos,
+        login,
+        cadastrarUsuario,
+        getUsuarios,
+        getLocaisColeta,
+        cadastrarColeta,
+      }}
     >
       {children}
     </UsuariosContext.Provider>

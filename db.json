@@ -205,7 +205,7 @@
       "ncasa": "789",
       "latitude": "27.5986° S",
       "longitude": "48.5200° W",
-      "residuosaceitos": [
+      "residuos_aceitos": [
         "Plástico",
         "Vidro",
         "Metal",
@@ -252,6 +252,67 @@
         "Vidro",
         "Orgânico"
       ]
+    },
+    {
+      "identiuser": "Administrador",
+      "nomelocal": "prova prova",
+      "descricao": "prova ",
+      "residuos_aceitos": [
+        "Vidro",
+        "Metal"
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "223",
+      "id": 7
+    },
+    {
+      "identiuser": "Administrador",
+      "nomelocal": "prova122",
+      "descricao": "prova",
+      "residuos_aceitos": [
+        "Móveis"
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "222",
+      "id": 8
+    },
+    {
+      "identiuser": "Administrador",
+      "nomelocal": "prova2",
+      "descricao": "prova2",
+      "residuos_aceitos": [
+        "Eletrônicos"
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "222",
+      "id": 9
+    },
+    {
+      "identiuser": "Administrador",
+      "nomelocal": "prova geo",
+      "descricao": "geocoding",
+      "residuos_aceitos": [
+        "Plástico"
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "22",
+      "id": 10
     }
   ]
 }
