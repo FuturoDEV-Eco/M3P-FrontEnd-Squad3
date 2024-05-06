@@ -141,8 +141,10 @@
       "bairro": "Saco dos Limões",
       "rua": "Servidão Jesus de Nazaré",
       "ncasa": "603",
-      "latitude": "27.5996° S",
-      "longitude": "48.5186° W",
+      "geocode": [
+        -27.5996,
+        -48.5186
+      ],
       "residuos_aceitos": [
         "Vidro",
         "Metal",
@@ -165,8 +167,10 @@
       "bairro": "Centro",
       "rua": "Rua das Palmeiras",
       "ncasa": "123",
-      "latitude": "27.5942° S",
-      "longitude": "48.5475° W",
+      "geocode": [
+        -27.5942,
+        -48.5475
+      ],
       "residuos_aceitos": [
         "Papel",
         "Plástico",
@@ -184,8 +188,10 @@
       "bairro": "Lagoa da Conceição",
       "rua": "Avenida das Rendeiras",
       "ncasa": "456",
-      "latitude": "27.5897° S",
-      "longitude": "48.4485° W",
+      "geocode": [
+        -27.5897,
+        -48.4485
+      ],
       "residuos_aceitos": [
         "Orgânico",
         "Vidro",
@@ -203,8 +209,10 @@
       "bairro": "Trindade",
       "rua": "Rua Lauro Linhares",
       "ncasa": "789",
-      "latitude": "27.5986° S",
-      "longitude": "48.5200° W",
+      "geocode": [
+        -27.5986,
+        -48.52
+      ],
       "residuos_aceitos": [
         "Plástico",
         "Vidro",
@@ -224,8 +232,10 @@
       "bairro": "Itacorubi",
       "rua": "Rodovia Amaro Antônio Vieira",
       "ncasa": "101",
-      "latitude": "27.5855° S",
-      "longitude": "48.5237° W",
+      "geocode": [
+        -27.5855,
+        -48.5237
+      ],
       "residuos_aceitos": [
         "Orgânico",
         "Papel",
@@ -243,8 +253,10 @@
       "bairro": "Jurerê Internacional",
       "rua": "Avenida dos Búzios",
       "ncasa": "210",
-      "latitude": "27.4309° S",
-      "longitude": "48.4695° W",
+      "geocode": [
+        -27.4309,
+        -48.4695
+      ],
       "residuos_aceitos": [
         "Papel",
         "Plástico",
@@ -252,67 +264,6 @@
         "Vidro",
         "Orgânico"
       ]
-    },
-    {
-      "identiuser": "Administrador",
-      "nomelocal": "prova prova",
-      "descricao": "prova ",
-      "residuos_aceitos": [
-        "Vidro",
-        "Metal"
-      ],
-      "cep": "88040320",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Pantanal",
-      "rua": "Rua Protenor Vidal",
-      "ncasa": "223",
-      "id": 7
-    },
-    {
-      "identiuser": "Administrador",
-      "nomelocal": "prova122",
-      "descricao": "prova",
-      "residuos_aceitos": [
-        "Móveis"
-      ],
-      "cep": "88040320",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Pantanal",
-      "rua": "Rua Protenor Vidal",
-      "ncasa": "222",
-      "id": 8
-    },
-    {
-      "identiuser": "Administrador",
-      "nomelocal": "prova2",
-      "descricao": "prova2",
-      "residuos_aceitos": [
-        "Eletrônicos"
-      ],
-      "cep": "88040320",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Pantanal",
-      "rua": "Rua Protenor Vidal",
-      "ncasa": "222",
-      "id": 9
-    },
-    {
-      "identiuser": "Administrador",
-      "nomelocal": "prova geo",
-      "descricao": "geocoding",
-      "residuos_aceitos": [
-        "Plástico"
-      ],
-      "cep": "88040320",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Pantanal",
-      "rua": "Rua Protenor Vidal",
-      "ncasa": "22",
-      "id": 10
     }
   ]
 }

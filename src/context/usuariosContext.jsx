@@ -83,7 +83,7 @@ export const UsuariosContextProvider = ({ children }) => {
       );
   
       if (!response.ok) {
-        throw new Error('Error al buscar la dirección');
+        throw new Error('Erro ao procurar o endereço');
       }
   
       const data = await response.json();
@@ -107,6 +107,8 @@ export const UsuariosContextProvider = ({ children }) => {
     try {
       const currentUser = localStorage.getItem('currentUser');
       const { latitud, longitud } = await getGeocoding(coleta);
+      coleta.geocode = [latitud, longitud]
+     
 
 
       await fetch('http://localhost:3000/locaisColeta', {
@@ -115,12 +117,12 @@ export const UsuariosContextProvider = ({ children }) => {
         headers: {
           'Content-Type': 'application/json',
           'CurrentUser': currentUser,
-          'geocode': `${latitud}, ${longitud}`
+
         },
       });
       alert('Local de coleta cadastrada com sucesso');
       getLocaisColeta();
-      window.location.reload();
+      window.location.href = '/dashboard';
       return {};
     } catch (error) {
       console.error(error);

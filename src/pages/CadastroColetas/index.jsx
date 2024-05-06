@@ -394,7 +394,7 @@ function CadastroColetas() {
             ></TextField>
           </div>
           <div className={styled.boxbuttons}>
-            <Cbutton type="submit">Cadastrar</Cbutton>
+            <Cbutton type="submit">Salvar</Cbutton>
           </div>
         </form>
       </div>
