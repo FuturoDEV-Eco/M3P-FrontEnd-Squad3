@@ -23,7 +23,7 @@ function ListagemColetas() {
                     dado4={{titulo: 'Endereço:', descricao: `${coletas.rua}, ${coletas.ncasa}`}}
                     dado5={{titulo: 'Por:', descricao: coletas.identiuser}}
                     dado6={{titulo: 'Cidade', descricao: coletas.cidade}}
-                    showUserIcon={true}
+                    showColetaIcon={true}
                     showResiduos={{titulo: 'Residuos Aceitos:', descricao: coletas.residuos_aceitos.join(', ')}}
                     key={index}
                     />

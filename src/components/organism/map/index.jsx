@@ -14,7 +14,6 @@ export default function MapColetas() {
         popUp: coleta.nomelocal
     })) 
 
-    console.log(locais)
     
 
     return (

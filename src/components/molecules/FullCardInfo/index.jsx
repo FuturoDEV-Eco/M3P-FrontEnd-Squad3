@@ -1,7 +1,7 @@
 import Styles from './FullCardInfo.module.css';
 import Divider from '@mui/material/Divider';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-// import RecyclingIcon from '@mui/icons-material/Recycling';
+import RecyclingIcon from '@mui/icons-material/Recycling';
 
 function FullCardInfo({
   dadoTitulo,
@@ -19,7 +19,7 @@ function FullCardInfo({
       <div className={Styles.titlebox}>
         <div className={Styles.titlename}>
           {showUserIcon && <AccountCircleIcon fontSize="large" />}
-          {/* {showColetaIcon && <RecyclingIcon  fontSize='large' /> } */}
+          {showColetaIcon && <RecyclingIcon  fontSize='large' /> }
           <div>
             <h3>{dadoTitulo}</h3>
             <p>{dadoSubtitulo}</p>

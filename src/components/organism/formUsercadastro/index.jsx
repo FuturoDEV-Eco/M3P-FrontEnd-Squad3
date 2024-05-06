@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import UsuariosContext from '../../../context/usuariosContext.jsx';
 
-function FormCadastro() {
+function FormUserCadastro() {
   const {
     register,
     handleSubmit,
@@ -328,4 +328,4 @@ function FormCadastro() {
   );
 }
 
-export default FormCadastro;
+export default FormUserCadastro;

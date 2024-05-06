@@ -5,8 +5,8 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import FormCadastro from "../../molecules/formLogin/index"
-import FormLogin from "../../molecules/formcadastro/index"
+import FormUserCadastro from "../../organism/formLogin/index"
+import FormLogin from "../../organism/formUsercadastro/index"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,7 +66,7 @@ export default function FormLoginTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0} dir={theme.direction}>
-        <FormCadastro />
+        <FormUserCadastro />
       </TabPanel>
       <TabPanel value={value} index={1} dir={theme.direction}>
         <FormLogin  />
