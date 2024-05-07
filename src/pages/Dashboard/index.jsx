@@ -1,5 +1,5 @@
 import styled from './Dashboard.module.css';
-import BasicCardColetas from '../../components/molecules/BasicCardColetas';
+import BasicCardInfo from '../../components/molecules/BasicCardInfo';
 import MapColetas from '../../components/organism/map/index';
 import { useContext, useState } from 'react';
 import UsuariosContext from '../../context/usuariosContext';
@@ -50,7 +50,7 @@ function Dashboard() {
             {usuarios
               .slice(startIndexUsuarios, endIndexUsuarios)
               .map((usuarios, index) => (
-                <BasicCardColetas
+                <BasicCardInfo
                   dadoTitulo={usuarios.nomeusuario}
                   dado2={usuarios.email}
                   dado3={usuarios.cidade}
@@ -71,6 +71,9 @@ function Dashboard() {
               numberData={userNumbers}
               infoData="Usuarios Cadastrados"
               typeClass="cardnumber"
+              showButton={true}
+              textButton="Ver todos os usuarios"
+              linkButton="/listagem-usuarios"
             />
             <InfoHeaderCard
               numberData={usuarioMaxColetas}
@@ -84,6 +87,9 @@ function Dashboard() {
               numberData={locaisColetasNumber}
               infoData="Locais de coletas"
               typeClass="cardnumber"
+              showButton={true}
+              textButton="Ver todos os locais"
+              linkButton="/listagem-coletas"
             />
             <InfoHeaderCard
               numberData={localTopResiduos}
@@ -106,7 +112,7 @@ function Dashboard() {
                 {locaisColetas
                   .slice(startIndex, endIndex)
                   .map((dadosColeta, index) => (
-                    <BasicCardColetas
+                    <BasicCardInfo
                       dadoTitulo={dadosColeta.nomelocal}
                       dado2={dadosColeta.descricao}
                       dado3={`${dadosColeta.rua}, ${dadosColeta.ncasa}, ${dadosColeta.bairro}, ${dadosColeta.cidade}`}
