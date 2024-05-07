@@ -131,32 +131,6 @@
   ],
   "locaisColeta": [
     {
-      "id": 1,
-      "nomelocal": "Reciclagem default Figueiredo",
-      "descricao": "Reciclagem familiar default",
-      "identiuser": "Caled Rivas",
-      "cep": "88045627",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Saco dos Limões",
-      "rua": "Servidão Jesus de Nazaré",
-      "ncasa": "603",
-      "geocode": [
-        -27.5996,
-        -48.5186
-      ],
-      "residuos_aceitos": [
-        "Vidro",
-        "Metal",
-        "Papel",
-        "Plástico",
-        "Orgânico",
-        "Baterias",
-        "Eletrônicos",
-        "Móveis"
-      ]
-    },
-    {
       "id": 2,
       "nomelocal": "ReciclaBem",
       "descricao": "Local de coleta comunitário",

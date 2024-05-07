@@ -2,6 +2,11 @@ import Styles from './FullCardInfo.module.css';
 import Divider from '@mui/material/Divider';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import RecyclingIcon from '@mui/icons-material/Recycling';
+import Cbutton from '../../atoms/Cbutton/Cbutton';
+import { useContext } from 'react';
+import UsuariosContext from '../../../context/usuariosContext';
+
+
 
 function FullCardInfo({
   dadoTitulo,
@@ -13,7 +18,16 @@ function FullCardInfo({
   showUserIcon,
   showColetaIcon,
   showResiduos,
-}) {
+  endpoint,
+  dataid
+})
+ {
+
+  const {
+    deleteData,
+  } = useContext(UsuariosContext);
+
+  
   return (
     <div className={Styles.cardbox}>
       <div className={Styles.titlebox}>
@@ -55,6 +69,10 @@ function FullCardInfo({
           </p>
         </div>
       )}
+          <div className={Styles.buttonbox}>
+          <Cbutton onClick={() => deleteData(endpoint, dataid)}>Apagar</Cbutton>
+          <Cbutton>Editar</Cbutton>
+          </div>
     </div>
   );
 }

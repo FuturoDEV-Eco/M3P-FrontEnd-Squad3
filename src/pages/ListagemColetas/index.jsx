@@ -26,6 +26,8 @@ function ListagemColetas() {
                     showColetaIcon={true}
                     showResiduos={{titulo: 'Residuos Aceitos:', descricao: coletas.residuos_aceitos.join(', ')}}
                     key={index}
+                    endpoint="locaisColeta"
+                    dataid={coletas.id}
                     />
                   ))}
             </div>
