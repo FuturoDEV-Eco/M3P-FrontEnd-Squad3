@@ -1,7 +1,12 @@
 import Styles from './FullCardInfo.module.css';
 import Divider from '@mui/material/Divider';
+import React from 'react';
+
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import RecyclingIcon from '@mui/icons-material/Recycling';
+import Cbutton from '../../atoms/Cbutton/Cbutton';
+import { useContext } from 'react';
+import UsuariosContext from '../../../context/usuariosContext';
 
 function FullCardInfo({
   dadoTitulo,
@@ -13,13 +18,22 @@ function FullCardInfo({
   showUserIcon,
   showColetaIcon,
   showResiduos,
+  endpoint,
+  dataid,
 }) {
+  const { deleteData } = useContext(UsuariosContext);
+
+
+  function editData(endpoint, dataid) {
+      window.location.href = `/editar/${endpoint}/${dataid}`;
+  }
+
   return (
     <div className={Styles.cardbox}>
       <div className={Styles.titlebox}>
         <div className={Styles.titlename}>
           {showUserIcon && <AccountCircleIcon fontSize="large" />}
-          {showColetaIcon && <RecyclingIcon  fontSize='large' /> }
+          {showColetaIcon && <RecyclingIcon fontSize="large" />}
           <div>
             <h3>{dadoTitulo}</h3>
             <p>{dadoSubtitulo}</p>
@@ -55,6 +69,10 @@ function FullCardInfo({
           </p>
         </div>
       )}
+      <div className={Styles.buttonbox}>
+        <Cbutton onClick={() => deleteData(endpoint, dataid)}>Apagar</Cbutton>
+        <Cbutton onClick={() => editData(endpoint, dataid)}>Editar</Cbutton>
+      </div>
     </div>
   );
 }

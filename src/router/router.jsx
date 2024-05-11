@@ -6,6 +6,7 @@ import LoginSignup from '../pages/login-signup';
 import Dashboard from '../pages/Dashboard';
 import ListagemUsuarios from '../pages/ListagemUsuarios'
 import CadastroUsuarios from '../pages/CadastroUsuarios'
+import EditarUsuariosEColetas from '../pages/EditarUsuariosEColetas';
 
 let isAutenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false 
 
@@ -47,7 +48,10 @@ const routes = createBrowserRouter([
         path: '/listagem-usuarios',
         element: <ListagemUsuarios />,
       },
-     
+      {
+        path: '/editar/:endpoint/:dataid/',
+        element: <EditarUsuariosEColetas />,
+      },
     ],
   },
 

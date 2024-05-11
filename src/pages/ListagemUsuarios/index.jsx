@@ -25,6 +25,8 @@ function ListagemUsuarios() {
                     dado6={{titulo: 'Data de nascimento', descricao: usuarios.ndata}}
                     key={index}
                     showUserIcon={true}
+                    endpoint="usuarios"
+                    dataid={usuarios.id}
                     />
                   ))}
             </div>

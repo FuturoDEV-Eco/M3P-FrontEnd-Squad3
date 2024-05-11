@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 
 export const UsuariosContext = createContext();
 
+
 export const UsuariosContextProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [locaisColetas, setLocaisColeta] = useState([]);
@@ -9,7 +10,6 @@ export const UsuariosContextProvider = ({ children }) => {
   const [locaisColetasNumber, setlocaisColetasNumber] = useState();
   const [usuarioMaxColetas, setUsuarioMaxColetas] = useState();
   const [localTopResiduos, setLocalTopResiduos] = useState();
-  const [localGeoMap, setLocalGeoMap] = useState();
 
  
 
@@ -106,16 +106,13 @@ export const UsuariosContextProvider = ({ children }) => {
       const currentUser = localStorage.getItem('currentUser');
       const { latitud, longitud } = await getGeocoding(coleta);
       coleta.geocode = [latitud, longitud]
-     
-
-
+  
       await fetch('http://localhost:3000/locaisColeta', {
         method: 'POST',
         body: JSON.stringify(coleta),
         headers: {
           'Content-Type': 'application/json',
           'CurrentUser': currentUser,
-
         },
       });
       alert('Local de coleta cadastrada com sucesso');
@@ -127,6 +124,61 @@ export const UsuariosContextProvider = ({ children }) => {
       return { error };
     }
   }
+
+
+
+  function deleteData(endpoint, id) {
+    fetch(`http://localhost:3000/${endpoint}/`+ id, {
+        method: 'DELETE'
+      })
+      .then(() => {
+       alert("Usuário apagado com sucesso") 
+       getUsuarios()
+       window.location.reload()
+      })
+      .catch(() => alert('Erro ao apagar usuário'))
+  }
+
+
+
+  
+
+  async function editData(data, endpoint, id) {
+    try {
+      const response = await fetch(`http://localhost:3000/${endpoint}/`+ id);
+      const dados = await response.json();
+      
+      if(endpoint === 'usuarios') {
+        if (data.cpf.length !== 11) {
+          throw new Error('El CPF debe tener exactamente 11 caracteres.');
+        }
+      }
+  
+      if(endpoint === 'locaisColeta') {
+        const { latitud, longitud } = await getGeocoding(data);
+        data.geocode = [latitud, longitud];
+      }
+  
+      await fetch(`http://localhost:3000/${endpoint}/`+ id, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      alert('Usuario editado con éxito');
+      getUsuarios();
+      window.location.href = '/dashboard';
+      console.log(data)
+      
+      return {};
+    } catch (error) {
+      console.error(error);
+      return { error };
+    }
+  }
+
 
   async function cadastrarUsuario(usuario) {
     try {
@@ -200,6 +252,8 @@ export const UsuariosContextProvider = ({ children }) => {
         getUsuarios,
         getLocaisColeta,
         cadastrarColeta,
+        deleteData,
+        editData
       }}
     >
       {children}
