@@ -1,36 +1,36 @@
 {
   "usuarios": [
     {
-      "id": 1,
-      "nomeusuario": "Administrador",
+      "bairro": "Sertão do Maruim",
+      "rua": "Rua Jorge José Zimmermann",
+      "cidade": "São José",
+      "estado": "SC",
+      "nomeusuario": "Administrador ",
       "sexo": "masculino",
-      "cpf": "12345",
-      "ndata": "03/11/1995",
+      "cpf": "83940237485",
+      "ndata": "1995-11-03",
       "email": "admin@admin.com",
       "senha": "1234",
-      "cep": "88040320",
-      "cidade": "florianopolis",
-      "estado": "SC",
-      "bairro": "pantanal",
-      "rua": "rua protenor vidal",
-      "ncasa": "402",
-      "ncoletas": 0
+      "ncoletas": 0,
+      "cep": "88122030",
+      "ncasa": "403",
+      "id": 1
     },
     {
-      "id": 2,
       "nomeusuario": "Andrea da Cruz",
       "sexo": "Feminino",
       "cpf": "06320554991",
-      "ndata": "12/04/1996",
-      "email": "andrea_regina_dacruz@unidademovel.com",
-      "senha": "MwLXfYFRoE",
+      "ndata": "1996-04-12",
+      "email": "andrea_regina@unidademovel.com",
+      "senha": "12345",
       "cep": "88047622",
       "cidade": "Florianópolis",
       "estado": "SC",
       "bairro": "Carianos",
+      "ncoletas": 0,
       "rua": "Rua Raimundo Starosky",
       "ncasa": "674",
-      "ncoletas": 0
+      "id": 2
     },
     {
       "id": 3,
@@ -131,25 +131,26 @@
   ],
   "locaisColeta": [
     {
-      "id": 2,
-      "nomelocal": "ReciclaBem",
-      "descricao": "Local de coleta comunitário",
-      "identiuser": "Caled Rivas",
-      "cep": "88040000",
-      "cidade": "Florianópolis",
+      "bairro": "Sertão do Maruim",
+      "rua": "Avenida Celso Joaquim da Silva",
+      "cidade": "São José",
       "estado": "SC",
-      "bairro": "Centro",
-      "rua": "Rua das Palmeiras",
-      "ncasa": "123",
-      "geocode": [
-        -27.5942,
-        -48.5475
-      ],
+      "identiuser": "Caled Rivas",
       "residuos_aceitos": [
+        "Metal",
         "Papel",
         "Plástico",
-        "Metal"
-      ]
+        "Orgânicos"
+      ],
+      "nomelocal": "ReciclaBem",
+      "descricao": "Local de coleta comunitário",
+      "cep": "88122040",
+      "ncasa": "100",
+      "geocode": [
+        -27.6011571,
+        -48.6699603
+      ],
+      "id": 2
     },
     {
       "id": 3,
@@ -173,27 +174,26 @@
       ]
     },
     {
-      "id": 4,
-      "nomelocal": "GreenRecycle",
-      "descricao": "Iniciativa sustentável",
-      "identiuser": "Caled Rivas",
-      "cep": "88030000",
-      "cidade": "Florianópolis",
-      "estado": "SC",
       "bairro": "Trindade",
       "rua": "Rua Lauro Linhares",
-      "ncasa": "789",
-      "geocode": [
-        -27.5986,
-        -48.52
-      ],
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "identiuser": "Administrador ",
       "residuos_aceitos": [
-        "Plástico",
         "Vidro",
         "Metal",
         "Papel",
-        "Baterias"
-      ]
+        "Plástico"
+      ],
+      "nomelocal": "GreenRecycle Floripa",
+      "descricao": "Iniciativa sustentável",
+      "cep": "88030000",
+      "ncasa": "789",
+      "geocode": [
+        -27.5862533,
+        -48.5247638
+      ],
+      "id": 4
     },
     {
       "id": 5,
@@ -238,6 +238,26 @@
         "Vidro",
         "Orgânico"
       ]
+    },
+    {
+      "identiuser": "Administrador",
+      "nomelocal": "EcoAmigos",
+      "descricao": "Associação de reciclagem",
+      "residuos_aceitos": [
+        "Papel",
+        "Plástico"
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "300",
+      "geocode": [
+        -27.6063067,
+        -48.5141186
+      ],
+      "id": 7
     }
   ]
 }

@@ -2,23 +2,52 @@ import { TextField } from '@mui/material';
 import styled from './formCadastro.module.css';
 import Cbutton from '../../atoms/Cbutton/Cbutton.jsx';
 import Divider from '@mui/material/Divider';
-import useFetch from '../../../hooks/useFetch.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import UsuariosContext from '../../../context/usuariosContext.jsx';
 
-function FormUserCadastro() {
+function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
   const {
     register,
     handleSubmit,
     setValue,
     getValues,
     setError,
+    reset,
     formState: { errors },
-  } = useForm({ defaultValues: { nomeusuario: '', email: ''} });
+  } = useForm({ 
+    vidro: false,
+    metal: false,
+    papel: false,
+    plastico: false,
+    organicos: false,
+    baterias: false,
+    eletronicos: false,
+    moveis: false,
+    ncoletas: 0 });
 
-  const { cadastrarUsuario } = useContext(UsuariosContext);
 
+  const { cadastrarUsuario, editData } = useContext(UsuariosContext);
+
+  useEffect(() => {
+    if (isEditing) {
+      reset({
+        bairro: userData.bairro,
+        rua: userData.rua,
+        cidade: userData.cidade,
+        estado: userData.estado,
+      });
+    }
+  }, [isEditing, reset, userData]);
+
+
+  async function submitForm(formValue) {
+    if (isEditing == false) {
+      await saveForm(formValue);
+    } else {
+      await editForm(formValue);
+    }
+  }
 
   async function saveForm(formValue) {
     const cadastroResult = await cadastrarUsuario(formValue);
@@ -29,14 +58,33 @@ function FormUserCadastro() {
           type: 'custom',
           message: 'Este CPF já está registrado',
         });
-      } else if (cadastroResult.error.message === 'cpf falta/sobra numeros'){
+      } else if (cadastroResult.error.message === 'cpf falta/sobra numeros') {
         setError('cpf', {
           type: 'custom',
           message: 'Seu CPF deve conter 11 digitos',
         });
       }
-      } else {
-        console.log(cadastroResult.error.message);
+    } else {
+      console.log(cadastroResult.error.message);
+    }
+  }
+
+  async function editForm(formValue) {
+    const cadastroResult = await editData(formValue, endpoint, dataid);
+    if (cadastroResult.error) {
+      if (cadastroResult.error.message === 'cpf já existe') {
+        setError('cpf', {
+          type: 'custom',
+          message: 'Este CPF já está registrado',
+        });
+      } else if (cadastroResult.error.message === 'cpf falta/sobra numeros') {
+        setError('cpf', {
+          type: 'custom',
+          message: 'Seu CPF deve conter 11 digitos',
+        });
+      }
+    } else {
+      console.log(cadastroResult.error.message);
     }
   }
 
@@ -60,30 +108,34 @@ function FormUserCadastro() {
         message: 'O CEP deve conter 8 digitos',
       });
       return;
-    } else if (!!cep) {
-      fetch(`https://viacep.com.br/ws/${cep}/json/`)
-        .then((response) => response.json())
-        .then((dados) => {
-          if (dados.erro) {
-            setError('cep', {
-              type: 'custom',
-              message: 'Digite um CEP valido',
-            })
-          } else {
-            setValue('bairro', dados.bairro);
-            setValue('rua', dados.logradouro);
-            setValue('cidade', dados.localidade);
-            setValue('estado', dados.uf);
-          }
-        })
-        .catch((error) => console.log(error));
+    }
+  
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const dados = await response.json();
+      
+      if (dados.erro) {
+        setError('cep', {
+          type: 'custom',
+          message: 'Digite um CEP valido',
+        });
+        return;
+      }
+      
+      setValue('bairro', dados.bairro);
+      setValue('rua', dados.logradouro);
+      setValue('cidade', dados.localidade);
+      setValue('estado', dados.uf);
+    } catch (error) {
+      console.log(error);
+      return;
     }
   };
 
   return (
     <div>
       <div className={styled.boxlogin}>
-        <form className={styled.boxform} onSubmit={handleSubmit(saveForm)}>
+        <form className={styled.boxform} onSubmit={handleSubmit(submitForm)}>
           <div className={styled.inputsbetween}>
             <TextField
               {...register('nomeusuario', {
@@ -98,6 +150,7 @@ function FormUserCadastro() {
               label="Nome"
               variant="outlined"
               size="small"
+              defaultValue={isEditing ? userData.nomeusuario : ''}
               type="Text"
               onBlur={handleCapitalize}
               placeholder="Digite o seu nome"
@@ -118,6 +171,7 @@ function FormUserCadastro() {
               helperText={errors.sexo?.message}
               label="Sexo"
               name="sexo"
+              defaultValue={isEditing ? userData.sexo : ''}
               variant="outlined"
               size="small"
               type="text"
@@ -143,6 +197,7 @@ function FormUserCadastro() {
               label="CPF (somente numeros)"
               variant="outlined"
               size="small"
+              defaultValue={ isEditing ? userData.cpf : ''}
               type="number"
               placeholder="Digite seu CPF"
               sx={{
@@ -157,6 +212,7 @@ function FormUserCadastro() {
               helperText={errors.ndata?.message || 'Data de Nascimento'}
               variant="outlined"
               name="ndata"
+              defaultValue={isEditing ? userData.ndata : ''}
               size="small"
               type="date"
               placeholder="Data de nascimento"
@@ -172,13 +228,14 @@ function FormUserCadastro() {
               required: 'Este campo é obrigatorio',
               maxLength: {
                 value: 60,
-                message: 'Este campo só aceita maximo 60 carateres',
+                message: 'Este campo só aceita maximo 60 caracteres',
               },
             })}
             helperText={errors.email?.message}
             label="E-mail"
             variant="outlined"
             size="small"
+            defaultValue={isEditing ? userData.email : ''}
             name="email"
             type="email"
             placeholder="Digite seu e-mail"
@@ -199,6 +256,7 @@ function FormUserCadastro() {
             helperText={errors.senha?.message}
             label="Senha"
             name="senha"
+            defaultValue={isEditing ? userData.senha : ''}
             variant="outlined"
             size="small"
             type="password"
@@ -225,6 +283,7 @@ function FormUserCadastro() {
               name="cep"
               variant="outlined"
               size="small"
+              defaultValue={isEditing ? userData.cep : ''}
               type="number"
               onBlur={() => handleCep()}
               placeholder="Digite seu CEP"
@@ -236,13 +295,12 @@ function FormUserCadastro() {
             ></TextField>
             <TextField
               disabled
-              label="Cidade"
               name="cidade"
-              defaultValue="Cidade"
               variant="outlined"
               size="small"
               type="text"
-              placeholder="Nome da rua"
+              value={isEditing ? userData.cidade : ''}
+              placeholder="Cidade"
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',
@@ -252,12 +310,11 @@ function FormUserCadastro() {
             ></TextField>
             <TextField
               disabled
-              label="UF"
               name="estado"
               variant="outlined"
               size="small"
-              defaultValue="UF"
               type="text"
+              value={ isEditing ? userData.estado : ''}
               placeholder="UF"
               sx={{
                 '& .MuiFormHelperText-root': {
@@ -270,12 +327,11 @@ function FormUserCadastro() {
           </div>
           <TextField
             disabled
-            label="Bairro"
             name="bairro"
             variant="outlined"
             size="small"
-            defaultValue="bairro"
             type="text"
+            value={ isEditing ? userData.bairro : ''}
             placeholder="Bairro"
             sx={{
               '& .MuiFormHelperText-root': {
@@ -286,13 +342,13 @@ function FormUserCadastro() {
           ></TextField>
           <div className={styled.inputsbetween}>
             <TextField
-              label="Rua"
               disabled
               name="rua"
               variant="outlined"
-              defaultValue="Nome da rua"
               size="small"
               type="text"
+              placeholder="Nome da rua"
+              value={ isEditing ? userData.rua : ''}
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',
@@ -310,6 +366,7 @@ function FormUserCadastro() {
               name="ncasa"
               variant="outlined"
               size="small"
+              defaultValue={ isEditing ? userData.ncasa : ''}
               type="text"
               sx={{
                 '& .MuiFormHelperText-root': {
@@ -320,7 +377,7 @@ function FormUserCadastro() {
             ></TextField>
           </div>
           <div className={styled.boxbuttons}>
-            <Cbutton type="submit" >Salvar</Cbutton>
+            <Cbutton type="submit">Salvar</Cbutton>
           </div>
         </form>
       </div>
