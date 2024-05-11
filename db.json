@@ -1,0 +1,263 @@
+{
+  "usuarios": [
+    {
+      "bairro": "Sertão do Maruim",
+      "rua": "Rua Jorge José Zimmermann",
+      "cidade": "São José",
+      "estado": "SC",
+      "nomeusuario": "Administrador ",
+      "sexo": "masculino",
+      "cpf": "83940237485",
+      "ndata": "1995-11-03",
+      "email": "admin@admin.com",
+      "senha": "1234",
+      "ncoletas": 0,
+      "cep": "88122030",
+      "ncasa": "403",
+      "id": 1
+    },
+    {
+      "nomeusuario": "Andrea da Cruz",
+      "sexo": "Feminino",
+      "cpf": "06320554991",
+      "ndata": "1996-04-12",
+      "email": "andrea_regina@unidademovel.com",
+      "senha": "12345",
+      "cep": "88047622",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Carianos",
+      "ncoletas": 0,
+      "rua": "Rua Raimundo Starosky",
+      "ncasa": "674",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "nomeusuario": "Alana Fernandes",
+      "sexo": "Feminino",
+      "cpf": "33401220918",
+      "ndata": "18/02/1996",
+      "email": "alana_fernandes@coeducar.com.br",
+      "senha": "BSRhtgOdoW",
+      "cep": "88047025",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Costeira do Pirajubaé",
+      "rua": "Travessa Amarildo Espírito Cavalcante",
+      "ncasa": "692",
+      "ncoletas": 0
+    },
+    {
+      "id": 4,
+      "nomeusuario": "Natália Teresinha Almada",
+      "sexo": "Feminino",
+      "cpf": "78098256901",
+      "ndata": "20/03/1996",
+      "email": "nataliateresinhaalmada@crbrandao.com.br",
+      "senha": "ZiQgnwyrpI",
+      "cep": "88061445",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Barra da Lagoa",
+      "rua": "Servidão Antônio Barranco",
+      "ncasa": "503",
+      "ncoletas": 0
+    },
+    {
+      "id": 5,
+      "nomeusuario": "Bryan Carvalho",
+      "sexo": "Masculino",
+      "cpf": "35683307929",
+      "ndata": "11/04/1996",
+      "email": "bryan-carvalho76@reconciliare.com.br",
+      "senha": "atU1H8aNwr",
+      "cep": "88062277",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Lagoa da Conceição",
+      "rua": "Servidão Dorvalina Maria da Silveira",
+      "ncasa": "759",
+      "ncoletas": 0
+    },
+    {
+      "id": 6,
+      "nomeusuario": "Lívia Rosa Pinto",
+      "sexo": "Feminino",
+      "cpf": "70253550971",
+      "ndata": "14/03/1996",
+      "email": "livia-pinto83@vcp.com.br",
+      "senha": "ce5ESL6Cr6",
+      "cep": "88058405",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Ingleses do Rio Vermelho",
+      "rua": "Servidão Mercedes Maria Luiza",
+      "ncasa": "488",
+      "ncoletas": 2
+    },
+    {
+      "id": 7,
+      "nomeusuario": "Catarina Figueiredo",
+      "sexo": "Feminino",
+      "cpf": "43845930900",
+      "ndata": "15/02/1996",
+      "email": "catarina-figueiredo86@thacconstrutora.com.br",
+      "senha": "MlxtxbKoXz",
+      "cep": "88045627",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Saco dos Limões",
+      "rua": "Servidão Jesus de Nazaré",
+      "ncasa": "603",
+      "ncoletas": 0
+    },
+    {
+      "nomeusuario": "Caled Rivas",
+      "email": "caled@email.com",
+      "sexo": "masculino",
+      "cpf": "12345678910",
+      "ndata": "2024-05-07",
+      "senha": "1234",
+      "cep": "88122030",
+      "cidade": "São José",
+      "estado": "SC",
+      "bairro": "Sertão do Maruim",
+      "rua": "Rua Jorge José Zimmermann",
+      "ncasa": "400",
+      "ncoletas": 4,
+      "id": 8
+    }
+  ],
+  "locaisColeta": [
+    {
+      "bairro": "Sertão do Maruim",
+      "rua": "Avenida Celso Joaquim da Silva",
+      "cidade": "São José",
+      "estado": "SC",
+      "identiuser": "Caled Rivas",
+      "residuos_aceitos": [
+        "Metal",
+        "Papel",
+        "Plástico",
+        "Orgânicos"
+      ],
+      "nomelocal": "ReciclaBem",
+      "descricao": "Local de coleta comunitário",
+      "cep": "88122040",
+      "ncasa": "100",
+      "geocode": [
+        -27.6011571,
+        -48.6699603
+      ],
+      "id": 2
+    },
+    {
+      "id": 3,
+      "nomelocal": "EcoVida",
+      "descricao": "Ponto de coleta ecológico",
+      "identiuser": "Caled Rivas",
+      "cep": "88050000",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Lagoa da Conceição",
+      "rua": "Avenida das Rendeiras",
+      "ncasa": "456",
+      "geocode": [
+        -27.5897,
+        -48.4485
+      ],
+      "residuos_aceitos": [
+        "Orgânico",
+        "Vidro",
+        "Papel"
+      ]
+    },
+    {
+      "bairro": "Trindade",
+      "rua": "Rua Lauro Linhares",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "identiuser": "Administrador ",
+      "residuos_aceitos": [
+        "Vidro",
+        "Metal",
+        "Papel",
+        "Plástico"
+      ],
+      "nomelocal": "GreenRecycle Floripa",
+      "descricao": "Iniciativa sustentável",
+      "cep": "88030000",
+      "ncasa": "789",
+      "geocode": [
+        -27.5862533,
+        -48.5247638
+      ],
+      "id": 4
+    },
+    {
+      "id": 5,
+      "nomelocal": "EcoAmigos",
+      "descricao": "Associação de reciclagem",
+      "identiuser": "Lívia Rosa Pinto",
+      "cep": "88020000",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Itacorubi",
+      "rua": "Rodovia Amaro Antônio Vieira",
+      "ncasa": "101",
+      "geocode": [
+        -27.5855,
+        -48.5237
+      ],
+      "residuos_aceitos": [
+        "Orgânico",
+        "Papel",
+        "Plástico"
+      ]
+    },
+    {
+      "id": 6,
+      "nomelocal": "ReciclaMais",
+      "descricao": "Coleta seletiva",
+      "identiuser": "Lívia Rosa Pinto",
+      "cep": "88010000",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Jurerê Internacional",
+      "rua": "Avenida dos Búzios",
+      "ncasa": "210",
+      "geocode": [
+        -27.4309,
+        -48.4695
+      ],
+      "residuos_aceitos": [
+        "Papel",
+        "Plástico",
+        "Metal",
+        "Vidro",
+        "Orgânico"
+      ]
+    },
+    {
+      "identiuser": "Administrador",
+      "nomelocal": "EcoAmigos",
+      "descricao": "Associação de reciclagem",
+      "residuos_aceitos": [
+        "Papel",
+        "Plástico"
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "300",
+      "geocode": [
+        -27.6063067,
+        -48.5141186
+      ],
+      "id": 7
+    }
+  ]
+}
