@@ -17,18 +17,17 @@
       "id": 1
     },
     {
-      "nomeusuario": "Andrea da Cruz",
+      "bairro": "Carianos",
+      "rua": "Rua Raimundo Starosky",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "nomeusuario": "Andrea",
       "sexo": "Feminino",
       "cpf": "06320554991",
       "ndata": "1996-04-12",
       "email": "andrea_regina@unidademovel.com",
       "senha": "12345",
       "cep": "88047622",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Carianos",
-      "ncoletas": 0,
-      "rua": "Rua Raimundo Starosky",
       "ncasa": "674",
       "id": 2
     },
@@ -97,20 +96,19 @@
       "ncoletas": 2
     },
     {
-      "id": 7,
-      "nomeusuario": "Catarina Figueiredo",
+      "bairro": "Saco dos Limões",
+      "rua": "Servidão Jesus de Nazaré",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "nomeusuario": "Catarina da silva",
       "sexo": "Feminino",
       "cpf": "43845930900",
-      "ndata": "15/02/1996",
+      "ndata": "1996-02-15",
       "email": "catarina-figueiredo86@thacconstrutora.com.br",
       "senha": "MlxtxbKoXz",
       "cep": "88045627",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Saco dos Limões",
-      "rua": "Servidão Jesus de Nazaré",
       "ncasa": "603",
-      "ncoletas": 0
+      "id": 7
     },
     {
       "nomeusuario": "Caled Rivas",
@@ -130,92 +128,6 @@
     }
   ],
   "locaisColeta": [
-    {
-      "bairro": "Sertão do Maruim",
-      "rua": "Avenida Celso Joaquim da Silva",
-      "cidade": "São José",
-      "estado": "SC",
-      "identiuser": "Caled Rivas",
-      "residuos_aceitos": [
-        "Metal",
-        "Papel",
-        "Plástico",
-        "Orgânicos"
-      ],
-      "nomelocal": "ReciclaBem",
-      "descricao": "Local de coleta comunitário",
-      "cep": "88122040",
-      "ncasa": "100",
-      "geocode": [
-        -27.6011571,
-        -48.6699603
-      ],
-      "id": 2
-    },
-    {
-      "id": 3,
-      "nomelocal": "EcoVida",
-      "descricao": "Ponto de coleta ecológico",
-      "identiuser": "Caled Rivas",
-      "cep": "88050000",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Lagoa da Conceição",
-      "rua": "Avenida das Rendeiras",
-      "ncasa": "456",
-      "geocode": [
-        -27.5897,
-        -48.4485
-      ],
-      "residuos_aceitos": [
-        "Orgânico",
-        "Vidro",
-        "Papel"
-      ]
-    },
-    {
-      "bairro": "Trindade",
-      "rua": "Rua Lauro Linhares",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "identiuser": "Administrador ",
-      "residuos_aceitos": [
-        "Vidro",
-        "Metal",
-        "Papel",
-        "Plástico"
-      ],
-      "nomelocal": "GreenRecycle Floripa",
-      "descricao": "Iniciativa sustentável",
-      "cep": "88030000",
-      "ncasa": "789",
-      "geocode": [
-        -27.5862533,
-        -48.5247638
-      ],
-      "id": 4
-    },
-    {
-      "id": 5,
-      "nomelocal": "EcoAmigos",
-      "descricao": "Associação de reciclagem",
-      "identiuser": "Lívia Rosa Pinto",
-      "cep": "88020000",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Itacorubi",
-      "rua": "Rodovia Amaro Antônio Vieira",
-      "ncasa": "101",
-      "geocode": [
-        -27.5855,
-        -48.5237
-      ],
-      "residuos_aceitos": [
-        "Orgânico",
-        "Papel",
-        "Plástico"
-      ]
-    },
     {
       "id": 6,
       "nomelocal": "ReciclaMais",

@@ -74,7 +74,7 @@ export const UsuariosContextProvider = ({ children }) => {
 
   
   async function getGeocoding(coleta) {
-    const apiKey = 'AIzaSyAtWB3HzwcnFGQcZ_6KOvk8aj7dNRpWNMU';
+    const apiKey = 'GOOGLE_API_KEY';
   
     try {
       const response = await fetch(
