@@ -49,3 +49,13 @@
   margin-left: 15px;
   margin-bottom: 10px;
 }
+
+.tooltip {
+  z-index: 1000; 
+}
+
+
+button:disabled {
+  background-color: gray; /* Cambia el color de fondo */
+  cursor: not-allowed; /* Cambia el cursor */
+}

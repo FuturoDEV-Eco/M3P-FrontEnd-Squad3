@@ -8,16 +8,31 @@ import ListagemUsuarios from '../pages/ListagemUsuarios'
 import CadastroUsuarios from '../pages/CadastroUsuarios'
 import EditarUsuariosEColetas from '../pages/EditarUsuariosEColetas';
 
-let isAutenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false 
+
+let isAuthenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false;
 
 const PrivateRouter = ({children}) => {
- return isAutenticated ? children : <Navigate to="/login" />
-}
+  return isAuthenticated ? children : <Navigate to="/" />;
+};
 
 const routes = createBrowserRouter([
   {
-    path: '/login',
-    element: <LoginSignup />,
+    path: '/',  
+    element: <App />, 
+    children: [
+      {
+        path: '/',
+        element: <Dashboard />,
+      },
+      {
+        path: '/cadastro-usuarios',
+        element: <CadastroUsuarios />,
+      },
+      {
+        path: '/loginSignup',
+        element: <LoginSignup />,
+      },
+    ],
   },
   {
     path: '/',
@@ -28,21 +43,12 @@ const routes = createBrowserRouter([
     ),
     children: [
       {
-        path: '/dashboard',
-        element: <Dashboard />,
-      },
-      {
         path: '/cadastro-coletas',
-        element: <CadastroColetas />,
+        element: <CadastroColetas />, 
       },
-
       {
         path: '/listagem-coletas',
         element: <ListagemColetas />,
-      },
-      {
-        path: '/cadastro-usuarios',
-        element: <CadastroUsuarios />,
       },
       {
         path: '/listagem-usuarios',
@@ -54,8 +60,50 @@ const routes = createBrowserRouter([
       },
     ],
   },
-
-  ,
 ]);
+
+// const routes = createBrowserRouter([
+//   {
+//     path: '/login',
+//     element: <LoginSignup />,
+//   },
+//   {
+//     path: '/',
+//     element: ( 
+//       <PrivateRouter>
+//         <App />
+//       </PrivateRouter>
+//     ),
+//     children: [
+//       {
+//         path: '/dashboard',
+//         element: <Dashboard />,
+//       },
+//       {
+//         path: '/cadastro-coletas',
+//         element: <CadastroColetas />,
+//       },
+
+//       {
+//         path: '/listagem-coletas',
+//         element: <ListagemColetas />,
+//       },
+//       {
+//         path: '/cadastro-usuarios',
+//         element: <CadastroUsuarios />,
+//       },
+//       {
+//         path: '/listagem-usuarios',
+//         element: <ListagemUsuarios />,
+//       },
+//       {
+//         path: '/editar/:endpoint/:dataid/',
+//         element: <EditarUsuariosEColetas />,
+//       },
+//     ],
+//   },
+
+//   ,
+// ]);
 
 export default routes;

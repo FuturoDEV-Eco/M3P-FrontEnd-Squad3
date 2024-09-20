@@ -222,7 +222,7 @@ export const UsuariosContextProvider = ({ children }) => {
           if (usuarios.senha == senha) {
             localStorage.setItem('isAutenticated', true);
             localStorage.setItem('currentUser', usuarios.nomeusuario);
-            window.location.href = '/dashboard';
+            window.location.href = '/';
             return;
           }
           throw new Error('Senha incorreta');

@@ -26,6 +26,9 @@ function Dashboard() {
   const [page, setPage] = useState(1);
   const [pageUsuarios, setPageUsuarios] = useState(1);
 
+  let isAutenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false;
+
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -74,6 +77,7 @@ function Dashboard() {
               showButton={true}
               textButton="Ver todos os usuarios"
               linkButton="/listagem-usuarios"
+              buttonDisable={!isAutenticated}
             />
             <InfoHeaderCard
               numberData={usuarioMaxColetas}
@@ -90,7 +94,8 @@ function Dashboard() {
               showButton={true}
               textButton="Ver todos os locais"
               linkButton="/listagem-coletas"
-            />
+              buttonDisable={!isAutenticated}
+              />
             <InfoHeaderCard
               numberData={localTopResiduos}
               infoData="Local com mais residuos aceitos"
@@ -98,6 +103,7 @@ function Dashboard() {
               showButton={true}
               textButton="Cadastrar mais locais"
               linkButton="/cadastro-coletas"
+              buttonDisable={!isAutenticated}
             />
           </div>
           <div className={styled.mapinfo}>
