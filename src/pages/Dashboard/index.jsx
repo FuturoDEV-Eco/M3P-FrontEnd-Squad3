@@ -48,7 +48,6 @@ function Dashboard() {
       <div className={styled.containerBox}>
         <div className={styled.sidebar}>
         <h3>Lista de Usuarios</h3>
-        <Divider variant="middle"  />
           <Stack spacing={2}>
             {usuarios
               .slice(startIndexUsuarios, endIndexUsuarios)
@@ -112,8 +111,6 @@ function Dashboard() {
             </div>
             <div className={styled.boxmapright}>
               <h2>Locais de coletas</h2>
-              <Divider variant="middle"  />
-
               <Stack spacing={2}>
                 {locaisColetas
                   .slice(startIndex, endIndex)

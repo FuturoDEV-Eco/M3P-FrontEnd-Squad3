@@ -5,6 +5,7 @@
   background-color: #8ecae6;
   height: 100%;
   width: 280px;
+  border-radius: 5px;
 }
 
 .cardnumber h1 {
@@ -35,6 +36,8 @@
   height: 100%;
   width: 350px;
   gap: 10px;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .cardtext h1 {
@@ -54,7 +57,9 @@
   z-index: 1000; 
 }
 
-
+button{
+  margin-left: 5%;
+}
 button:disabled {
   background-color: gray; /* Cambia el color de fondo */
   cursor: not-allowed; /* Cambia el cursor */

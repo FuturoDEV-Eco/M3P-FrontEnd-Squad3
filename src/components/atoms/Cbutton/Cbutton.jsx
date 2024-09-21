@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button';
+import styled from './Cbutton.module.css';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -14,7 +15,7 @@ function Cbutton({
   return (
     <div>
       <Tooltip title={tooltip} arrow>
-        <span>
+        <span className={styled.buttoncard}>
           <Button
             onClick={onClick}
             type={type}
