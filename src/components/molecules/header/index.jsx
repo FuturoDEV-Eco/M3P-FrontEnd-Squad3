@@ -20,7 +20,7 @@ function Header() {
       <div className={Styles.headerprimari}>
         <div className={Styles.boxback}>
           <Link to="/" className={Styles.title}>
-            Recicla365
+            RecycleMap
           </Link>
           <div></div>
         </div>
