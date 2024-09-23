@@ -125,6 +125,66 @@
       "ncasa": "400",
       "ncoletas": 4,
       "id": 8
+    },
+    {
+      "nomeusuario": "Augusto",
+      "sexo": "M",
+      "cpf": "23456790483",
+      "ndata": "2024-09-11",
+      "email": "a@a.com",
+      "senha": "a",
+      "cep": "88015640",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Centro",
+      "rua": "Rua Duarte Schutel",
+      "ncasa": "345",
+      "id": 9
+    },
+    {
+      "nomeusuario": "Bernardo",
+      "sexo": "",
+      "cpf": "28930489374",
+      "ndata": "2024-09-04",
+      "email": "b@b.com",
+      "senha": "b",
+      "cep": "88015640",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Centro",
+      "rua": "Rua Duarte Schutel",
+      "ncasa": "344",
+      "id": 10
+    },
+    {
+      "nomeusuario": "Carina",
+      "sexo": "F",
+      "cpf": "28930489371",
+      "ndata": "2024-09-03",
+      "email": "c@c.com",
+      "senha": "c",
+      "cep": "88036001",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Trindade",
+      "rua": "Rua Lauro Linhares",
+      "ncasa": "222",
+      "id": 11
+    },
+    {
+      "nomeusuario": "Denis",
+      "sexo": "M",
+      "cpf": "11111111198",
+      "ndata": "2024-09-21",
+      "email": "d@d.com",
+      "senha": "d",
+      "cep": "88036001",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Trindade",
+      "rua": "Rua Lauro Linhares",
+      "ncasa": "22",
+      "id": 12
     }
   ],
   "locaisColeta": [
@@ -139,36 +199,21 @@
       "bairro": "Jurerê Internacional",
       "rua": "Avenida dos Búzios",
       "ncasa": "210",
-      "geocode": [
-        -27.4309,
-        -48.4695
-      ],
-      "residuos_aceitos": [
-        "Papel",
-        "Plástico",
-        "Metal",
-        "Vidro",
-        "Orgânico"
-      ]
+      "geocode": [-27.4309, -48.4695],
+      "residuos_aceitos": ["Papel", "Plástico", "Metal", "Vidro", "Orgânico"]
     },
     {
       "identiuser": "Administrador",
       "nomelocal": "EcoAmigos",
       "descricao": "Associação de reciclagem",
-      "residuos_aceitos": [
-        "Papel",
-        "Plástico"
-      ],
+      "residuos_aceitos": ["Papel", "Plástico"],
       "cep": "88040320",
       "cidade": "Florianópolis",
       "estado": "SC",
       "bairro": "Pantanal",
       "rua": "Rua Protenor Vidal",
       "ncasa": "300",
-      "geocode": [
-        -27.6063067,
-        -48.5141186
-      ],
+      "geocode": [-27.6063067, -48.5141186],
       "id": 7
     }
   ]

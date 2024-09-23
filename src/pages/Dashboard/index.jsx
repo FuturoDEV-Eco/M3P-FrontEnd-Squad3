@@ -10,7 +10,6 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 
-
 function Dashboard() {
   const {
     usuarios,
@@ -26,8 +25,8 @@ function Dashboard() {
   const [page, setPage] = useState(1);
   const [pageUsuarios, setPageUsuarios] = useState(1);
 
-  let isAutenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false;
-
+  let isAutenticated =
+    JSON.parse(localStorage.getItem('isAutenticated')) || false;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -47,7 +46,7 @@ function Dashboard() {
     <div className={styled.bodygeral}>
       <div className={styled.containerBox}>
         <div className={styled.sidebar}>
-        <h3>Lista de Usuarios</h3>
+          <h3>Lista de Usuarios</h3>
           <Stack spacing={2}>
             {usuarios
               .slice(startIndexUsuarios, endIndexUsuarios)
@@ -94,7 +93,7 @@ function Dashboard() {
               textButton="Ver todos os locais"
               linkButton="/listagem-coletas"
               buttonDisable={!isAutenticated}
-              />
+            />
             <InfoHeaderCard
               numberData={localTopResiduos}
               infoData="Local com mais residuos aceitos"

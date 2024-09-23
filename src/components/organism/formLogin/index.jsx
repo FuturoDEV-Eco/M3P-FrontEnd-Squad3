@@ -20,15 +20,15 @@ function FormLogin() {
 
     if (loginResult.error) {
       if (loginResult.error.message === 'Usuário não existe') {
-        setError("email", {
-          type: "custom",
-          message: loginResult.error.message, 
-        })
-      } else if  (loginResult.error.message === 'Senha incorreta') {
-        setError("senha", {
-          type: "custom",
-          message: loginResult.error.message, 
-        })
+        setError('email', {
+          type: 'custom',
+          message: loginResult.error.message,
+        });
+      } else if (loginResult.error.message === 'Senha incorreta') {
+        setError('senha', {
+          type: 'custom',
+          message: loginResult.error.message,
+        });
       } else {
         console.log(loginResult.error.message);
       }

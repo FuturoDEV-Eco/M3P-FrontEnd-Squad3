@@ -23,9 +23,8 @@ function FullCardInfo({
 }) {
   const { deleteData } = useContext(UsuariosContext);
 
-
   function editData(endpoint, dataid) {
-      window.location.href = `/editar/${endpoint}/${dataid}`;
+    window.location.href = `/editar/${endpoint}/${dataid}`;
   }
 
   return (

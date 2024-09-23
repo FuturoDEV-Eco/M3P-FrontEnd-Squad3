@@ -13,7 +13,6 @@ function EditarUsuariosEColetas() {
     async function fetchData() {
       const response = await fetch(
         `http://localhost:3000/${endpoint}/${dataid}`
-        
       );
       const userData = await response.json();
       if (userData && userData.ndata) {
@@ -27,29 +26,33 @@ function EditarUsuariosEColetas() {
   return (
     <div className={Styles.container}>
       {userData ? (
-      <>
-        <h1>{endpoint === 'usuarios' ? 'Editar usuarios' : 'Editar local de coletas'}</h1>
-        {endpoint === 'usuarios' ? (
-          <FormUserCadastro
-            className={Styles.boxform}
-            endpoint={endpoint}
-            dataid={dataid}
-            userData={userData}
-            isEditing={true}
-          />
-        ) : (
-          <FormLocaisCadastro
-            className={Styles.boxform}
-            endpoint={endpoint}
-            dataid={dataid}
-            userData={userData}
-            isEditing={true}
-          />
-        )}
-      </>
-    ) : (
-      <p>Carregando informações...</p>
-    )}
+        <>
+          <h1>
+            {endpoint === 'usuarios'
+              ? 'Editar usuarios'
+              : 'Editar local de coletas'}
+          </h1>
+          {endpoint === 'usuarios' ? (
+            <FormUserCadastro
+              className={Styles.boxform}
+              endpoint={endpoint}
+              dataid={dataid}
+              userData={userData}
+              isEditing={true}
+            />
+          ) : (
+            <FormLocaisCadastro
+              className={Styles.boxform}
+              endpoint={endpoint}
+              dataid={dataid}
+              userData={userData}
+              isEditing={true}
+            />
+          )}
+        </>
+      ) : (
+        <p>Carregando informações...</p>
+      )}
     </div>
   );
 }

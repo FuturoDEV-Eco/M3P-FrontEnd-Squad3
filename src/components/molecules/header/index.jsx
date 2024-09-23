@@ -8,8 +8,8 @@ import Cbutton from '../../atoms/Cbutton/Cbutton';
 import ButtonLoginRegister from '../../atoms/ButtonLoginRegister';
 
 function Header() {
-
-  let isAutenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false;
+  let isAutenticated =
+    JSON.parse(localStorage.getItem('isAutenticated')) || false;
 
   return (
     <AppBar
@@ -24,13 +24,9 @@ function Header() {
           </Link>
           <div></div>
         </div>
-          <div>
-          {isAutenticated ? (
-            <ProfileDropdown />
-          ) : (
-            <ButtonLoginRegister />
-          )}
-          </div>
+        <div>
+          {isAutenticated ? <ProfileDropdown /> : <ButtonLoginRegister />}
+        </div>
       </div>
     </AppBar>
   );

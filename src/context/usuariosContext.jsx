@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from 'react';
 
 export const UsuariosContext = createContext();
 
-
 export const UsuariosContextProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [locaisColetas, setLocaisColeta] = useState([]);
@@ -10,8 +9,6 @@ export const UsuariosContextProvider = ({ children }) => {
   const [locaisColetasNumber, setlocaisColetasNumber] = useState();
   const [usuarioMaxColetas, setUsuarioMaxColetas] = useState();
   const [localTopResiduos, setLocalTopResiduos] = useState();
-
- 
 
   function getUsuarios() {
     fetch('http://localhost:3000/usuarios')
@@ -71,27 +68,25 @@ export const UsuariosContextProvider = ({ children }) => {
     setLocalTopResiduos(localTopResiduos);
   }, [locaisColetas]);
 
-
-  
   async function getGeocoding(coleta) {
     const apiKey = 'GOOGLE_API_KEY';
-  
+
     try {
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${coleta.ncasa}+${coleta.rua},+${coleta.cidade},+SC&key=${apiKey}`
       );
-  
+
       if (!response.ok) {
         throw new Error('Erro ao procurar o endereço');
       }
-  
+
       const data = await response.json();
-  
+
       if (data.results.length > 0) {
         const location = data.results[0].geometry.location;
         const latitud = location.lat;
         const longitud = location.lng;
-  
+
         return { latitud, longitud };
       } else {
         throw new Error('No se encontraron resultados');
@@ -105,14 +100,14 @@ export const UsuariosContextProvider = ({ children }) => {
     try {
       const currentUser = localStorage.getItem('currentUser');
       const { latitud, longitud } = await getGeocoding(coleta);
-      coleta.geocode = [latitud, longitud]
-  
+      coleta.geocode = [latitud, longitud];
+
       await fetch('http://localhost:3000/locaisColeta', {
         method: 'POST',
         body: JSON.stringify(coleta),
         headers: {
           'Content-Type': 'application/json',
-          'CurrentUser': currentUser,
+          CurrentUser: currentUser,
         },
       });
       alert('Local de coleta cadastrada com sucesso');
@@ -125,60 +120,53 @@ export const UsuariosContextProvider = ({ children }) => {
     }
   }
 
-
-
   function deleteData(endpoint, id) {
-    fetch(`http://localhost:3000/${endpoint}/`+ id, {
-        method: 'DELETE'
-      })
+    fetch(`http://localhost:3000/${endpoint}/` + id, {
+      method: 'DELETE',
+    })
       .then(() => {
-       alert("Usuário apagado com sucesso") 
-       getUsuarios()
-       window.location.reload()
+        alert('Usuário apagado com sucesso');
+        getUsuarios();
+        window.location.reload();
       })
-      .catch(() => alert('Erro ao apagar usuário'))
+      .catch(() => alert('Erro ao apagar usuário'));
   }
-
-
-
-  
 
   async function editData(data, endpoint, id) {
     try {
-      const response = await fetch(`http://localhost:3000/${endpoint}/`+ id);
+      const response = await fetch(`http://localhost:3000/${endpoint}/` + id);
       const dados = await response.json();
-      
-      if(endpoint === 'usuarios') {
+
+      if (endpoint === 'usuarios') {
         if (data.cpf.length !== 11) {
           throw new Error('El CPF debe tener exactamente 11 caracteres.');
         }
       }
-  
-      if(endpoint === 'locaisColeta') {
+
+      if (endpoint === 'locaisColeta') {
         const { latitud, longitud } = await getGeocoding(data);
         data.geocode = [latitud, longitud];
       }
-  
-      await fetch(`http://localhost:3000/${endpoint}/`+ id, {
+
+      await fetch(`http://localhost:3000/${endpoint}/` + id, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-  
+
       alert('Usuario editado con éxito');
       getUsuarios();
       window.location.href = '/dashboard';
-      console.log(data)
-      
+      console.log(data);
+
       return {};
     } catch (error) {
       console.error(error);
       return { error };
     }
   }
-
 
   async function cadastrarUsuario(usuario) {
     try {
@@ -202,7 +190,7 @@ export const UsuariosContextProvider = ({ children }) => {
 
       alert('usuario cadastrado com sucesso');
       getUsuarios();
-      window.location.href = '/dashboard';
+      window.location.href = '/';
       return {};
     } catch (error) {
       console.error(error);
@@ -253,7 +241,7 @@ export const UsuariosContextProvider = ({ children }) => {
         getLocaisColeta,
         cadastrarColeta,
         deleteData,
-        editData
+        editData,
       }}
     >
       {children}

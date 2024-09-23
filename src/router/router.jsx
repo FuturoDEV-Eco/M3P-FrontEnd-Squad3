@@ -4,21 +4,21 @@ import CadastroColetas from '../pages/CadastroColetas';
 import ListagemColetas from '../pages/ListagemColetas';
 import LoginSignup from '../pages/login-signup';
 import Dashboard from '../pages/Dashboard';
-import ListagemUsuarios from '../pages/ListagemUsuarios'
-import CadastroUsuarios from '../pages/CadastroUsuarios'
+import ListagemUsuarios from '../pages/ListagemUsuarios';
+import CadastroUsuarios from '../pages/CadastroUsuarios';
 import EditarUsuariosEColetas from '../pages/EditarUsuariosEColetas';
 
+let isAuthenticated =
+  JSON.parse(localStorage.getItem('isAutenticated')) || false;
 
-let isAuthenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false;
-
-const PrivateRouter = ({children}) => {
+const PrivateRouter = ({ children }) => {
   return isAuthenticated ? children : <Navigate to="/" />;
 };
 
 const routes = createBrowserRouter([
   {
-    path: '/',  
-    element: <App />, 
+    path: '/',
+    element: <App />,
     children: [
       {
         path: '/',
@@ -36,7 +36,7 @@ const routes = createBrowserRouter([
   },
   {
     path: '/',
-    element: ( 
+    element: (
       <PrivateRouter>
         <App />
       </PrivateRouter>
@@ -44,7 +44,7 @@ const routes = createBrowserRouter([
     children: [
       {
         path: '/cadastro-coletas',
-        element: <CadastroColetas />, 
+        element: <CadastroColetas />,
       },
       {
         path: '/listagem-coletas',
@@ -69,7 +69,7 @@ const routes = createBrowserRouter([
 //   },
 //   {
 //     path: '/',
-//     element: ( 
+//     element: (
 //       <PrivateRouter>
 //         <App />
 //       </PrivateRouter>

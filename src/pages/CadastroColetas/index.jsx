@@ -6,8 +6,7 @@ import * as React from 'react';
 function CadastroColetas() {
   return (
     <div className={styled.container}>
-      <FormLocaisCadastro 
-      isEditing={false} />
+      <FormLocaisCadastro isEditing={false} />
     </div>
   );
 }

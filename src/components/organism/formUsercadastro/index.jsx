@@ -15,7 +15,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
     setError,
     reset,
     formState: { errors },
-  } = useForm({ 
+  } = useForm({
     vidro: false,
     metal: false,
     papel: false,
@@ -24,8 +24,8 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
     baterias: false,
     eletronicos: false,
     moveis: false,
-    ncoletas: 0 });
-
+    ncoletas: 0,
+  });
 
   const { cadastrarUsuario, editData } = useContext(UsuariosContext);
 
@@ -39,7 +39,6 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
       });
     }
   }, [isEditing, reset, userData]);
-
 
   async function submitForm(formValue) {
     if (isEditing == false) {
@@ -109,11 +108,11 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
       });
       return;
     }
-  
+
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const dados = await response.json();
-      
+
       if (dados.erro) {
         setError('cep', {
           type: 'custom',
@@ -121,7 +120,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
         });
         return;
       }
-      
+
       setValue('bairro', dados.bairro);
       setValue('rua', dados.logradouro);
       setValue('cidade', dados.localidade);
@@ -197,7 +196,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               label="CPF (somente numeros)"
               variant="outlined"
               size="small"
-              defaultValue={ isEditing ? userData.cpf : ''}
+              defaultValue={isEditing ? userData.cpf : ''}
               type="number"
               placeholder="Digite seu CPF"
               sx={{
@@ -314,7 +313,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               variant="outlined"
               size="small"
               type="text"
-              value={ isEditing ? userData.estado : ''}
+              value={isEditing ? userData.estado : ''}
               placeholder="UF"
               sx={{
                 '& .MuiFormHelperText-root': {
@@ -331,7 +330,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
             variant="outlined"
             size="small"
             type="text"
-            value={ isEditing ? userData.bairro : ''}
+            value={isEditing ? userData.bairro : ''}
             placeholder="Bairro"
             sx={{
               '& .MuiFormHelperText-root': {
@@ -348,7 +347,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               size="small"
               type="text"
               placeholder="Nome da rua"
-              value={ isEditing ? userData.rua : ''}
+              value={isEditing ? userData.rua : ''}
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',
@@ -366,7 +365,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               name="ncasa"
               variant="outlined"
               size="small"
-              defaultValue={ isEditing ? userData.ncasa : ''}
+              defaultValue={isEditing ? userData.ncasa : ''}
               type="text"
               sx={{
                 '& .MuiFormHelperText-root': {

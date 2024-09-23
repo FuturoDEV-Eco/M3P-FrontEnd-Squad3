@@ -1,11 +1,11 @@
-.boxForms{
-    width: 40em;
+.boxForms {
+  width: 40em;
 }
 
-.container{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }

@@ -4,7 +4,6 @@ import Divider from '@mui/material/Divider';
 import { useForm } from 'react-hook-form';
 import UsuariosContext from '../../../context/usuariosContext.jsx';
 
-
 import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
@@ -32,7 +31,6 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     identiuser: '',
   });
 
-
   const { cadastrarColeta, editData } = useContext(UsuariosContext);
 
   useEffect(() => {
@@ -42,16 +40,15 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
         rua: userData.rua,
         cidade: userData.cidade,
         estado: userData.estado,
-        identiuser: userData.identiuser
+        identiuser: userData.identiuser,
       });
-    }else {
+    } else {
       reset({
-        identiuser: currentUser
+        identiuser: currentUser,
       });
     }
   }, [isEditing, reset, userData]);
 
-  
   async function submitForm(formValue) {
     if (isEditing == false) {
       await saveForm(formValue);
@@ -60,14 +57,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     }
   }
 
-
   useEffect(() => {
     register('residuos_aceitos', {
       required: 'Precisa seleccionar min 1 tipo de residuo',
     });
   }, [register]);
-
-
 
   async function saveForm(formColetaValue) {
     console.log(formColetaValue);
@@ -77,8 +71,6 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   async function editForm(formValue) {
     const cadastroResult = await editData(formValue, endpoint, dataid);
   }
-
-
 
   const capitalizeWords = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -99,11 +91,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
       });
       return;
     }
-  
+
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const dados = await response.json();
-      
+
       if (dados.erro) {
         setError('cep', {
           type: 'custom',
@@ -111,7 +103,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
         });
         return;
       }
-      
+
       setValue('bairro', dados.bairro);
       setValue('rua', dados.logradouro);
       setValue('cidade', dados.localidade);
@@ -212,7 +204,10 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                             value="Vidro"
                             type="checkbox"
                             {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Vidro') || false}
+                            defaultChecked={
+                              userData?.residuos_aceitos?.includes('Vidro') ||
+                              false
+                            }
                           />
                         }
                         label="Vidro"
@@ -224,7 +219,10 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                             value="Metal"
                             type="checkbox"
                             {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Metal') || false}
+                            defaultChecked={
+                              userData?.residuos_aceitos?.includes('Metal') ||
+                              false
+                            }
                           />
                         }
                         label="Metal"
@@ -236,7 +234,10 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                             value="Papel"
                             type="checkbox"
                             {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Papel') || false}
+                            defaultChecked={
+                              userData?.residuos_aceitos?.includes('Papel') ||
+                              false
+                            }
                           />
                         }
                         label="Papel"
@@ -248,8 +249,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                             type="checkbox"
                             value="Plástico"
                             {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Plástico') || false}
-
+                            defaultChecked={
+                              userData?.residuos_aceitos?.includes(
+                                'Plástico'
+                              ) || false
+                            }
                           />
                         }
                         label="Plástico"
@@ -261,7 +265,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                             type="checkbox"
                             value="Orgânicos"
                             {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Orgânicos') || false}
+                            defaultChecked={
+                              userData?.residuos_aceitos?.includes(
+                                'Orgânicos'
+                              ) || false
+                            }
                           />
                         }
                         label="Orgânicos"
@@ -275,7 +283,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                             type="checkbox"
                             value="Baterias"
                             {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Baterias') || false}
+                            defaultChecked={
+                              userData?.residuos_aceitos?.includes(
+                                'Baterias'
+                              ) || false
+                            }
                           />
                         }
                         label="Baterias"
@@ -287,7 +299,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                             type="checkbox"
                             value="Eletrônicos"
                             {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Eletrônicos') || false}
+                            defaultChecked={
+                              userData?.residuos_aceitos?.includes(
+                                'Eletrônicos'
+                              ) || false
+                            }
                           />
                         }
                         label="eletrônicos"
@@ -300,8 +316,10 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                             type="checkbox"
                             value="Móveis"
                             {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Móveis') || false}
-
+                            defaultChecked={
+                              userData?.residuos_aceitos?.includes('Móveis') ||
+                              false
+                            }
                           />
                         }
                         label="Móveis"
@@ -436,5 +454,4 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   );
 }
 
-
-export default FormLocaisCadastro
+export default FormLocaisCadastro;
