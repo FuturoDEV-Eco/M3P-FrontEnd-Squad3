@@ -3,7 +3,7 @@ import Styles from './cadastroUsuarios.module.css';
 
 function CadastroUsuarios() {
   return (
-    <div>
+    <div className={Styles.section}>
       <div className={Styles.container}>
         <h1>Cadastrar um novo usuário</h1>
         <div className={Styles.boxForms}>

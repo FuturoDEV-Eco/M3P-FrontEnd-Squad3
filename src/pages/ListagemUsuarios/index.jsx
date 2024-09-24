@@ -7,7 +7,7 @@ function ListagemUsuarios() {
   const { usuarios } = useContext(UsuariosContext);
 
   return (
-    <div>
+    <div className={Styles.section}>
       <div className={Styles.cardbox}>
         <h1>Lista de Usuários Cadastrados</h1>
         {usuarios.map((usuarios, index) => (

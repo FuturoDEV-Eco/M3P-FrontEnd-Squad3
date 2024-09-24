@@ -38,51 +38,56 @@ function FormLogin() {
   return (
     <div className={styled.boxlogin}>
       <form className={styled.boxform} onSubmit={handleSubmit(realizarLogin)}>
-        <InputLabel htmlFor="name">Email</InputLabel>
-        <TextField
-          {...register('email', {
-            required: 'Este campo é obrigatorio',
-            maxLength: {
-              value: 50,
-              message: 'Este campo aceita no máximo 50 carateres',
-            },
-          })}
-          helperText={errors.email?.message}
-          name="email"
-          variant="outlined"
-          size="small"
-          type="email"
-          placeholder="Digite o seu email"
-          sx={{
-            '& .MuiFormHelperText-root': {
-              color: 'red',
-            },
-          }}
-        ></TextField>
-        <InputLabel htmlFor="senha">Senha</InputLabel>
-        <TextField
-          {...register('senha', {
-            required: 'Este campo é obrigatorio',
-            maxLength: {
-              value: 50,
-              message: 'Este campo aceita no máximo 50 carateres',
-            },
-          })}
-          helperText={errors.senha?.message}
-          name="senha"
-          id="senha"
-          variant="outlined"
-          size="small"
-          type="password"
-          placeholder="Digite sua senha"
-          sx={{
-            '& .MuiFormHelperText-root': {
-              color: 'red',
-            },
-          }}
-        ></TextField>
+        <div className={styled.inputWrapper}>
+          <InputLabel htmlFor="name">Email</InputLabel>
+          <TextField
+            {...register('email', {
+              required: 'Este campo é obrigatorio',
+              maxLength: {
+                value: 50,
+                message: 'Este campo aceita no máximo 50 carateres',
+              },
+            })}
+            helperText={errors.email?.message}
+            name="email"
+            variant="outlined"
+            size="small"
+            type="email"
+            placeholder="Digite o seu email"
+            fullWidth
+            sx={{
+              '& .MuiFormHelperText-root': {
+                color: 'red',
+              },
+            }}
+          ></TextField>
+        </div>
+        <div className={styled.inputWrapper}>
+          <InputLabel htmlFor="senha">Senha</InputLabel>
+          <TextField
+            {...register('senha', {
+              required: 'Este campo é obrigatorio',
+              maxLength: {
+                value: 50,
+                message: 'Este campo aceita no máximo 50 carateres',
+              },
+            })}
+            helperText={errors.senha?.message}
+            name="senha"
+            id="senha"
+            variant="outlined"
+            size="small"
+            type="password"
+            placeholder="Digite sua senha"
+            fullWidth
+            sx={{
+              '& .MuiFormHelperText-root': {
+                color: 'red',
+              },
+            }}
+          ></TextField>
+        </div>
         <div className={styled.boxbuttons}>
-          <Cbutton variant="outlined">Esqueceu a senha?</Cbutton>
           <Cbutton type="submit">Entrar</Cbutton>
         </div>
       </form>

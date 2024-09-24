@@ -14,7 +14,7 @@ function Header() {
   return (
     <AppBar
       component="nav"
-      position="static"
+      position="absolute"
       className={Styles.headercontainer}
     >
       <div className={Styles.headerprimari}>

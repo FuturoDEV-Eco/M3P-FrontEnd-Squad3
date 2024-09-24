@@ -63,7 +63,6 @@ export default function FormLoginTabs() {
           aria-label="full width tabs example"
         >
           <Tab label="Login" {...a11yProps(0)} />
-          <Tab label="Cadastre-se" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0} dir={theme.direction}>

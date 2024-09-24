@@ -7,7 +7,7 @@ function ListagemColetas() {
   const { locaisColetas } = useContext(UsuariosContext);
 
   return (
-    <div>
+    <div className={Styles.section}>
       <div className={Styles.cardbox}>
         <h1>Lista de locais de coleta Cadastrados</h1>
         {locaisColetas.map((coletas, index) => (

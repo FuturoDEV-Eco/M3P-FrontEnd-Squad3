@@ -9,7 +9,7 @@ function ButtonLoginRegister() {
 
   return (
     <div>
-      <Cbutton onClick={() => ToLoginRegister()}>Login/Cadastrar</Cbutton>
+      <Cbutton onClick={() => ToLoginRegister()}>Login</Cbutton>
     </div>
   );
 }
