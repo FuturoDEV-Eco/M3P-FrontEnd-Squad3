@@ -4,14 +4,13 @@
 
 .container {
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 20px;
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 .section {
-  min-height: 100;
-  margin-top: 60px;
+  min-height: 100%;
 }
