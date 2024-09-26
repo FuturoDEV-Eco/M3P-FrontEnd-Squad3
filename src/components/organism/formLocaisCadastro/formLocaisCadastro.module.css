@@ -27,3 +27,15 @@
   flex-direction: row;
   gap: 15px;
 }
+
+.checkResiduos {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0px;
+}
+
+.outerBox {
+  width: 100%;
+  margin: 0;
+}
