@@ -59,7 +59,7 @@ function FullCardInfo({
           {dado4.descricao}
         </p>
       </div>
-      <Divider variant="middle" />
+      
       {showResiduos && (
         <div>
           <p>

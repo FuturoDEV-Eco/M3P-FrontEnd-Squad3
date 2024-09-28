@@ -2,7 +2,7 @@
   "usuarios": [
     {
       "bairro": "Sertão do Maruim",
-      "rua": "Rua Jorge José Zimmermann",
+      "rua": "Avenida Dalva da Silva Wiese",
       "cidade": "São José",
       "estado": "SC",
       "nomeusuario": "Administrador ",
@@ -11,9 +11,8 @@
       "ndata": "1995-11-03",
       "email": "admin@admin.com",
       "senha": "1234",
-      "ncoletas": 0,
-      "cep": "88122030",
-      "ncasa": "403",
+      "cep": "88122034",
+      "ncasa": "404",
       "id": 1
     },
     {
@@ -185,6 +184,36 @@
       "rua": "Rua Lauro Linhares",
       "ncasa": "22",
       "id": 12
+    },
+    {
+      "nomeusuario": "Angel Acosta",
+      "sexo": "Masculino",
+      "cpf": "70885685607",
+      "ndata": "1989-09-08",
+      "email": "gab@gmail.com",
+      "senha": "1234561",
+      "cep": "88063230",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Campeche",
+      "rua": "Rua Bosque das Aroeiras",
+      "ncasa": "404",
+      "id": 13
+    },
+    {
+      "nomeusuario": "Maria los Angeles Acosta Salvatierra",
+      "sexo": "femenino",
+      "cpf": "70818417522",
+      "ndata": "1988-09-30",
+      "email": "mari7@gmail.com",
+      "senha": "123456'",
+      "cep": "88063230",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Campeche",
+      "rua": "Rua Bosque das Aroeiras",
+      "ncasa": "22",
+      "id": 14
     }
   ],
   "locaisColeta": [
@@ -199,21 +228,36 @@
       "bairro": "Jurerê Internacional",
       "rua": "Avenida dos Búzios",
       "ncasa": "210",
-      "geocode": [-27.4309, -48.4695],
-      "residuos_aceitos": ["Papel", "Plástico", "Metal", "Vidro", "Orgânico"]
+      "geocode": [
+        -27.4309,
+        -48.4695
+      ],
+      "residuos_aceitos": [
+        "Papel",
+        "Plástico",
+        "Metal",
+        "Vidro",
+        "Orgânico"
+      ]
     },
     {
       "identiuser": "Administrador",
       "nomelocal": "EcoAmigos",
       "descricao": "Associação de reciclagem",
-      "residuos_aceitos": ["Papel", "Plástico"],
+      "residuos_aceitos": [
+        "Papel",
+        "Plástico"
+      ],
       "cep": "88040320",
       "cidade": "Florianópolis",
       "estado": "SC",
       "bairro": "Pantanal",
       "rua": "Rua Protenor Vidal",
       "ncasa": "300",
-      "geocode": [-27.6063067, -48.5141186],
+      "geocode": [
+        -27.6063067,
+        -48.5141186
+      ],
       "id": 7
     }
   ]
