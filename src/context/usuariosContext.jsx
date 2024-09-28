@@ -69,7 +69,7 @@ export const UsuariosContextProvider = ({ children }) => {
   }, [locaisColetas]);
 
   async function getGeocoding(coleta) {
-    const apiKey = 'GOOGLE_API_KEY';
+    const apiKey = 'AIzaSyAtWB3HzwcnFGQcZ_6KOvk8aj7dNRpWNMU';
 
     try {
       const response = await fetch(
@@ -112,7 +112,7 @@ export const UsuariosContextProvider = ({ children }) => {
       });
       alert('Local de coleta cadastrada com sucesso');
       getLocaisColeta();
-      window.location.href = '/dashboard';
+      window.location.href = '/';
       return {};
     } catch (error) {
       console.error(error);
@@ -158,7 +158,7 @@ export const UsuariosContextProvider = ({ children }) => {
 
       alert('Usuario editado con éxito');
       getUsuarios();
-      window.location.href = '/dashboard';
+      window.location.href = '/';
       console.log(data);
 
       return {};

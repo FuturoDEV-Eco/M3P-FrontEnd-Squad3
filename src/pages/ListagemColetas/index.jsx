@@ -21,7 +21,7 @@ function ListagemColetas() {
             }}
             dado5={{ titulo: 'Por:', descricao: coletas.identiuser }}
             dado6={{ titulo: 'Cidade', descricao: coletas.cidade }}
-            dado7={{ titulo: "Link de Google Maps:", descricao: coletas.geocode}}
+            dado7={{ titulo: "Link de Google Maps:"}}
             showColetaIcon={true}
             showResiduos={{
               titulo: 'Residuos Aceitos:',

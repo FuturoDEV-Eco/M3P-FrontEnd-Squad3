@@ -27,3 +27,8 @@
   flex-direction: row;
   gap: 15px;
 }
+
+span .divider{
+  margin-top: 10%;
+  margin-bottom: 10%;
+}

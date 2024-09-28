@@ -11,7 +11,7 @@
       "ndata": "1995-11-03",
       "email": "admin@admin.com",
       "senha": "1234",
-      "cep": "88122034",
+      "cep": "88122039",
       "ncasa": "404",
       "id": 1
     },
@@ -259,6 +259,25 @@
         -48.5141186
       ],
       "id": 7
+    },
+    {
+      "identiuser": "Administrador ",
+      "residuos_aceitos": [
+        "Papel"
+      ],
+      "nomelocal": "campeche leste",
+      "descricao": "lodfj~sdofjs",
+      "cep": "88063230",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Campeche",
+      "rua": "Rua Bosque das Aroeiras",
+      "ncasa": "22",
+      "geocode": [
+        -27.6834387,
+        -48.4939084
+      ],
+      "id": 8
     }
   ]
 }

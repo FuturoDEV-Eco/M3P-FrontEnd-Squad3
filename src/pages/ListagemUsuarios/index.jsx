@@ -24,6 +24,7 @@ function ListagemUsuarios() {
                 descricao: usuarios.ncoletas,
               }}
               dado6={{ titulo: 'Data de nascimento', descricao: usuarios.ndata }}
+              dado7={false}
               key={index}
               showUserIcon={true}
               endpoint="usuarios"
