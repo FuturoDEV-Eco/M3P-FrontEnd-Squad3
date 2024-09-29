@@ -215,6 +215,44 @@
       "ncasa": "300",
       "geocode": [-27.6063067, -48.5141186],
       "id": 7
+    },
+    {
+      "bairro": "Centro",
+      "rua": "Praça Alberto Sampaio",
+      "cidade": "Campos dos Goytacazes",
+      "estado": "RJ",
+      "identiuser": "Denis",
+      "residuos_aceitos": [
+        "Vidro",
+        "Metal",
+        "Orgânicos",
+        "Baterias",
+        "Eletrônicos"
+      ],
+      "nomelocal": "Praça bonita",
+      "descricao": "fefgggggggg",
+      "latitude": "1111111111",
+      "longitude": "090000000000000",
+      "cep": "28010500",
+      "ncasa": "44",
+      "geocode": [-26.928572, -49.36531489999999],
+      "id": 8
+    },
+    {
+      "identiuser": "Denis",
+      "residuos_aceitos": ["Metal"],
+      "nomelocal": "Regiao girafa",
+      "descricao": "gira girafas",
+      "latitude": "111111111111",
+      "longitude": "444444444",
+      "cep": "28010400",
+      "cidade": "Campos dos Goytacazes",
+      "estado": "RJ",
+      "bairro": "Centro",
+      "rua": "Rua Gilberto Siqueira",
+      "ncasa": "3333",
+      "geocode": [-26.928572, -49.36531489999999],
+      "id": 9
     }
   ]
 }

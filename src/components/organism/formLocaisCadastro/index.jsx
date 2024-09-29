@@ -50,6 +50,9 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   }, [isEditing, reset, userData]);
 
   async function submitForm(formValue) {
+    console.log('FORM value IS:');
+    console.log(formValue);
+
     if (isEditing == false) {
       await saveForm(formValue);
     } else {
@@ -118,7 +121,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     <div className={styled.container}>
       <div className={styled.boxcontainer}>
         <form className={styled.boxform} onSubmit={handleSubmit(submitForm)}>
-          <InputLabel>Nome do Local de coleta</InputLabel>
+          <InputLabel>Nome do local de coleta</InputLabel>
           <TextField
             {...register('nomelocal', {
               required: 'Este campo é obrigatorio',
@@ -139,6 +142,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               '& .MuiFormHelperText-root': {
                 color: 'red',
               },
+              marginBottom: '24px',
             }}
           ></TextField>
           <InputLabel>Descrição do local</InputLabel>
@@ -161,9 +165,10 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               '& .MuiFormHelperText-root': {
                 color: 'red',
               },
+              marginBottom: '24px',
             }}
           ></TextField>
-          <InputLabel>Seu Nome</InputLabel>
+          <InputLabel>Responsável pelo cadastro</InputLabel>
           <TextField
             {...register('identiuser')}
             disabled
@@ -178,6 +183,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               '& .MuiFormHelperText-root': {
                 color: 'red',
               },
+              marginBottom: '24px',
             }}
           ></TextField>
           <div className={styled.outerBox}>
@@ -293,7 +299,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                         }
                       />
                     }
-                    label="eletrônicos"
+                    label="Eletrônicos"
                     sx={{ width: '123px', margin: '0', display: 'flex' }}
                   />
 
@@ -323,7 +329,45 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               )}{' '}
             </div>
 
-            <Divider>Endereço do local de coleta</Divider>
+            <Divider sx={{ marginY: '30px' }}>
+              Endereço do local de coleta
+            </Divider>
+
+            <Box
+              sx={{
+                display: 'flex',
+                gap: '16px', // Espaço entre os campos
+                marginBottom: '24px', // Margem inferior do form
+              }}
+            >
+              {/* Campo Latitude */}
+              <TextField
+                {...register('latitude')}
+                helperText={errors.latitude?.message}
+                name="latitude"
+                defaultValue={isEditing ? userData.latitude : ''}
+                variant="outlined"
+                size="small"
+                type="number"
+                placeholder="Digite a latitude (Opcional)"
+                fullWidth
+                sx={{ flex: 1 }} // Ocupa 50% do container
+              />
+
+              {/* Campo Longitude */}
+              <TextField
+                {...register('longitude')}
+                helperText={errors.longitude?.message}
+                name="longitude"
+                defaultValue={isEditing ? userData.longitude : ''}
+                variant="outlined"
+                size="small"
+                type="number"
+                placeholder="Digite a longitude(Opcional)"
+                fullWidth
+                sx={{ flex: 1 }} // Ocupa 50% do container
+              />
+            </Box>
             <TextField
               {...register('cep', {
                 required: 'Este campo é obrigatorio',
@@ -349,13 +393,13 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             ></TextField>
             <TextField
               disabled
-              label="Cidade"
+              label=""
               name="cidade"
               defaultValue={isEditing ? userData.cidade : ''}
               variant="outlined"
               size="small"
               type="text"
-              placeholder="Nome da rua"
+              placeholder="Cidade"
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',
@@ -365,7 +409,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             ></TextField>
             <TextField
               disabled
-              label="UF"
+              label=""
               name="estado"
               variant="outlined"
               defaultValue={isEditing ? userData.estado : ''}
@@ -383,7 +427,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
           </div>
           <TextField
             disabled
-            label="Bairro"
+            label=""
             name="bairro"
             variant="outlined"
             defaultValue={isEditing ? userData.bairro : ''}
@@ -399,7 +443,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
           ></TextField>
           <div className={styled.inputsbetween}>
             <TextField
-              label="Rua"
+              label=""
               disabled
               name="rua"
               variant="outlined"
