@@ -33,3 +33,7 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.loginRegister{
+  display: flex;
+}

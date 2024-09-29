@@ -81,9 +81,6 @@ function Dashboard() {
               numberData={usuarioMaxColetas}
               infoData="Usuário com mais cad. locais"
               typeClass="cardtext"
-              showButton={true}
-              textButton="Cadastrar mais usuários"
-              linkButton="/cadastro-usuarios"
             />
             <InfoHeaderCard
               numberData={locaisColetasNumber}
