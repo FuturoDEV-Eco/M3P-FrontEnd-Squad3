@@ -463,7 +463,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                 required: 'Este campo é obrigatorio',
               })}
               helperText={errors.ncasa?.message}
-              label="Numero"
+              label="Número"
               name="ncasa"
               variant="outlined"
               size="small"
