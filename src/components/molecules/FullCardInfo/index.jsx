@@ -60,8 +60,7 @@ function FullCardInfo({
           {dado4.descricao}
         </p>
         <p>
-          <b>{dado7.titulo} </b>
-         
+          <b>{dado7.titulo} </b> 
         </p>
       </div>
       
