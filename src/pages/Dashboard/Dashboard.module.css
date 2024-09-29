@@ -59,7 +59,7 @@
 
 .boxmapright {
   width: 40%;
-  height: 100%;
+  min-height: 532px;
   background-color: #8ecae6;
   border-radius: 5px;
   padding: 10px;

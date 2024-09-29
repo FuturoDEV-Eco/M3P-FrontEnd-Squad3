@@ -69,30 +69,26 @@ export const UsuariosContextProvider = ({ children }) => {
   }, [locaisColetas]);
 
   async function getGeocoding(coleta) {
-    const apiKey = 'GOOGLE_API_KEY';
+    const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
 
-    try {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${coleta.ncasa}+${coleta.rua},+${coleta.cidade},+SC&key=${apiKey}`
-      );
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${coleta.ncasa}+${coleta.rua},+${coleta.cidade},+SC&key=${apiKey}`
+    );
 
-      if (!response.ok) {
-        throw new Error('Erro ao procurar o endereço');
-      }
+    if (!response.ok) {
+      throw new Error('Erro ao procurar endereço');
+    }
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (data.results.length > 0) {
-        const location = data.results[0].geometry.location;
-        const latitud = location.lat;
-        const longitud = location.lng;
+    if (data.results.length > 0) {
+      const location = data.results[0].geometry.location;
+      const latitud = location.lat;
+      const longitud = location.lng;
 
-        return { latitud, longitud };
-      } else {
-        throw new Error('No se encontraron resultados');
-      }
-    } catch (error) {
-      throw error;
+      return { latitud, longitud };
+    } else {
+      throw new Error('Resultados não encontrados');
     }
   }
 
@@ -112,7 +108,7 @@ export const UsuariosContextProvider = ({ children }) => {
       });
       alert('Local de coleta cadastrada com sucesso');
       getLocaisColeta();
-      window.location.href = '/dashboard';
+      window.location.href = '/';
       return {};
     } catch (error) {
       console.error(error);
@@ -156,9 +152,9 @@ export const UsuariosContextProvider = ({ children }) => {
         },
       });
 
-      alert('Usuario editado con éxito');
+      alert('Edição realizada com sucesso!');
       getUsuarios();
-      window.location.href = '/dashboard';
+      window.location.href = '/';
       console.log(data);
 
       return {};

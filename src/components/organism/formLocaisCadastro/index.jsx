@@ -50,6 +50,9 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   }, [isEditing, reset, userData]);
 
   async function submitForm(formValue) {
+    console.log('FORM value IS:');
+    console.log(formValue);
+
     if (isEditing == false) {
       await saveForm(formValue);
     } else {
@@ -118,7 +121,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     <div className={styled.container}>
       <div className={styled.boxcontainer}>
         <form className={styled.boxform} onSubmit={handleSubmit(submitForm)}>
-          <InputLabel>Nome do Local de coleta</InputLabel>
+          <InputLabel>Nome do local de coleta</InputLabel>
           <TextField
             {...register('nomelocal', {
               required: 'Este campo é obrigatorio',
@@ -139,6 +142,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               '& .MuiFormHelperText-root': {
                 color: 'red',
               },
+              marginBottom: '24px',
             }}
           ></TextField>
           <InputLabel>Descrição do local</InputLabel>
@@ -161,9 +165,10 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               '& .MuiFormHelperText-root': {
                 color: 'red',
               },
+              marginBottom: '24px',
             }}
           ></TextField>
-          <InputLabel>Seu Nome</InputLabel>
+          <InputLabel>Responsável pelo cadastro</InputLabel>
           <TextField
             {...register('identiuser')}
             disabled
@@ -178,164 +183,191 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               '& .MuiFormHelperText-root': {
                 color: 'red',
               },
+              marginBottom: '24px',
             }}
           ></TextField>
-          <div>
+          <div className={styled.outerBox}>
+            <div>
+              <FormLabel component="legend">
+                Tipos de residuos aceitos
+              </FormLabel>
+              <FormGroup sx={{ display: 'flex' }}>
+                <section className={styled.checkResiduos}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Vidro"
+                        value="Vidro"
+                        type="checkbox"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Vidro') || false
+                        }
+                      />
+                    }
+                    label="Vidro"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Metal"
+                        value="Metal"
+                        type="checkbox"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Metal') || false
+                        }
+                      />
+                    }
+                    label="Metal"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Papel"
+                        value="Papel"
+                        type="checkbox"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Papel') || false
+                        }
+                      />
+                    }
+                    label="Papel"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Plástico"
+                        type="checkbox"
+                        value="Plástico"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Plástico') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Plástico"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Orgânicos"
+                        type="checkbox"
+                        value="Orgânicos"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Orgânicos') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Orgânicos"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Baterias"
+                        type="checkbox"
+                        value="Baterias"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Baterias') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Baterias"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Eletrônicos"
+                        type="checkbox"
+                        value="Eletrônicos"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Eletrônicos') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Eletrônicos"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Móveis"
+                        type="checkbox"
+                        value="Móveis"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Móveis') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Móveis"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                </section>
+                <div></div>
+              </FormGroup>
+              {errors.residuos_aceitos && (
+                <FormHelperText errors style={{ color: 'red' }}>
+                  {errors.residuos_aceitos?.message}
+                </FormHelperText>
+              )}{' '}
+            </div>
+
+            <Divider sx={{ marginY: '30px' }}>
+              Endereço do local de coleta
+            </Divider>
+
             <Box
-              className={styled.checkResiduos}
-              sx={{ display: 'flex', flexDirection: 'row' }}
+              sx={{
+                display: 'flex',
+                gap: '16px', // Espaço entre os campos
+                marginBottom: '24px', // Margem inferior do form
+              }}
             >
-              <div></div>
-              <div className={styled.checkResiduos}>
-                <FormControl
-                  sx={{ m: 1 }}
-                  component="fieldset"
-                  variant="standard"
-                >
-                  <FormLabel component="legend">
-                    Tipos de residuos aceitos
-                  </FormLabel>
-                  <FormGroup>
-                    <div>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Vidro"
-                            value="Vidro"
-                            type="checkbox"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={
-                              userData?.residuos_aceitos?.includes('Vidro') ||
-                              false
-                            }
-                          />
-                        }
-                        label="Vidro"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Metal"
-                            value="Metal"
-                            type="checkbox"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={
-                              userData?.residuos_aceitos?.includes('Metal') ||
-                              false
-                            }
-                          />
-                        }
-                        label="Metal"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Papel"
-                            value="Papel"
-                            type="checkbox"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={
-                              userData?.residuos_aceitos?.includes('Papel') ||
-                              false
-                            }
-                          />
-                        }
-                        label="Papel"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Plástico"
-                            type="checkbox"
-                            value="Plástico"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={
-                              userData?.residuos_aceitos?.includes(
-                                'Plástico'
-                              ) || false
-                            }
-                          />
-                        }
-                        label="Plástico"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Orgânicos"
-                            type="checkbox"
-                            value="Orgânicos"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={
-                              userData?.residuos_aceitos?.includes(
-                                'Orgânicos'
-                              ) || false
-                            }
-                          />
-                        }
-                        label="Orgânicos"
-                      />
-                    </div>
-                    <div>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Baterias"
-                            type="checkbox"
-                            value="Baterias"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={
-                              userData?.residuos_aceitos?.includes(
-                                'Baterias'
-                              ) || false
-                            }
-                          />
-                        }
-                        label="Baterias"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Eletrônicos"
-                            type="checkbox"
-                            value="Eletrônicos"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={
-                              userData?.residuos_aceitos?.includes(
-                                'Eletrônicos'
-                              ) || false
-                            }
-                          />
-                        }
-                        label="eletrônicos"
-                      />
+              {/* Campo Latitude */}
+              <TextField
+                {...register('latitude')}
+                helperText={errors.latitude?.message}
+                name="latitude"
+                defaultValue={isEditing ? userData.latitude : ''}
+                variant="outlined"
+                size="small"
+                type="number"
+                placeholder="Digite a latitude (Opcional)"
+                fullWidth
+                sx={{ flex: 1 }} // Ocupa 50% do container
+              />
 
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Móveis"
-                            type="checkbox"
-                            value="Móveis"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={
-                              userData?.residuos_aceitos?.includes('Móveis') ||
-                              false
-                            }
-                          />
-                        }
-                        label="Móveis"
-                      />
-                    </div>
-                  </FormGroup>
-                  {errors.residuos_aceitos && (
-                    <FormHelperText errors style={{ color: 'red' }}>
-                      {errors.residuos_aceitos?.message}
-                    </FormHelperText>
-                  )}{' '}
-                </FormControl>
-              </div>
+              {/* Campo Longitude */}
+              <TextField
+                {...register('longitude')}
+                helperText={errors.longitude?.message}
+                name="longitude"
+                defaultValue={isEditing ? userData.longitude : ''}
+                variant="outlined"
+                size="small"
+                type="number"
+                placeholder="Digite a longitude(Opcional)"
+                fullWidth
+                sx={{ flex: 1 }} // Ocupa 50% do container
+              />
             </Box>
-
-            <Divider>Endereço do local de coleta</Divider>
             <TextField
               {...register('cep', {
                 required: 'Este campo é obrigatorio',
@@ -361,13 +393,13 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             ></TextField>
             <TextField
               disabled
-              label="Cidade"
+              label=""
               name="cidade"
               defaultValue={isEditing ? userData.cidade : ''}
               variant="outlined"
               size="small"
               type="text"
-              placeholder="Nome da rua"
+              placeholder="Cidade"
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',
@@ -377,7 +409,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             ></TextField>
             <TextField
               disabled
-              label="UF"
+              label=""
               name="estado"
               variant="outlined"
               defaultValue={isEditing ? userData.estado : ''}
@@ -395,7 +427,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
           </div>
           <TextField
             disabled
-            label="Bairro"
+            label=""
             name="bairro"
             variant="outlined"
             defaultValue={isEditing ? userData.bairro : ''}
@@ -411,7 +443,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
           ></TextField>
           <div className={styled.inputsbetween}>
             <TextField
-              label="Rua"
+              label=""
               disabled
               name="rua"
               variant="outlined"
@@ -431,7 +463,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                 required: 'Este campo é obrigatorio',
               })}
               helperText={errors.ncasa?.message}
-              label="Numero"
+              label="Número"
               name="ncasa"
               variant="outlined"
               size="small"
