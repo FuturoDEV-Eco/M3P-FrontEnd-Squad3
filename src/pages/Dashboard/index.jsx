@@ -46,7 +46,7 @@ function Dashboard() {
     <div className={styled.bodygeral}>
       <div className={styled.containerBox}>
         <div className={styled.sidebar}>
-          <h3>Lista de Usuarios</h3>
+          <h3>Lista de Usuários</h3>
           <Stack spacing={2}>
             {usuarios
               .slice(startIndexUsuarios, endIndexUsuarios)
@@ -70,16 +70,16 @@ function Dashboard() {
           <div className={styled.headerinfo}>
             <InfoHeaderCard
               numberData={userNumbers}
-              infoData="Usuarios Cadastrados"
+              infoData="Usuários Cadastrados"
               typeClass="cardnumber"
               showButton={true}
-              textButton="Ver todos os usuarios"
+              textButton="Ver usuários"
               linkButton="/listagem-usuarios"
               buttonDisable={!isAutenticated}
             />
             <InfoHeaderCard
               numberData={usuarioMaxColetas}
-              infoData="Usuário com mais cad. locais"
+              infoData="Usuário com mais registros"
               typeClass="cardtext"
               showButton={true}
               textButton="Cadastrar mais usuários"
@@ -90,7 +90,7 @@ function Dashboard() {
               infoData="Locais de coletas"
               typeClass="cardnumber"
               showButton={true}
-              textButton="Ver todos os locais"
+              textButton="Ver locais de coleta"
               linkButton="/listagem-coletas"
               buttonDisable={!isAutenticated}
             />
@@ -99,7 +99,7 @@ function Dashboard() {
               infoData="Local com mais residuos aceitos"
               typeClass="cardtext"
               showButton={true}
-              textButton="Cadastrar mais locais"
+              textButton="Cadastrar local de coleta"
               linkButton="/cadastro-coletas"
               buttonDisable={!isAutenticated}
             />
