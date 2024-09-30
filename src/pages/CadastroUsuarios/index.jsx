@@ -5,7 +5,7 @@ function CadastroUsuarios() {
   return (
     <div className={Styles.section}>
       <div className={Styles.container}>
-        <h1>Cadastrar um novo usuário</h1>
+        <h1>Cadastrar novo usuário</h1>
         <div className={Styles.boxForms}>
           <FormUserCadastro isEditing={false} />
         </div>

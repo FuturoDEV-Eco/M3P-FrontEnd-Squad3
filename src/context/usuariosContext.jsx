@@ -106,7 +106,7 @@ export const UsuariosContextProvider = ({ children }) => {
           CurrentUser: currentUser,
         },
       });
-      alert('Local de coleta cadastrada com sucesso');
+      alert('Local de coleta cadastrado com sucesso');
       getLocaisColeta();
       window.location.href = '/';
       return {};
@@ -135,7 +135,7 @@ export const UsuariosContextProvider = ({ children }) => {
 
       if (endpoint === 'usuarios') {
         if (data.cpf.length !== 11) {
-          throw new Error('El CPF debe tener exactamente 11 caracteres.');
+          throw new Error('O CPF deve ter exatamente 11 caracteres.');
         }
       }
 
@@ -184,7 +184,7 @@ export const UsuariosContextProvider = ({ children }) => {
         },
       });
 
-      alert('usuario cadastrado com sucesso');
+      alert('Usuário cadastrado com sucesso');
       getUsuarios();
       window.location.href = '/';
       return {};

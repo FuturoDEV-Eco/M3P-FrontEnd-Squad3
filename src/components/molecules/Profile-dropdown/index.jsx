@@ -36,7 +36,8 @@ function ProfileDropdown() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Oi, <b>{currentUser}</b>
+        <span>Olá,</span>
+        <b>{currentUser}!</b>
       </Cbutton>
       <Menu
         id="fade-menu"
