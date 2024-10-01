@@ -34,7 +34,6 @@
   gap: 15px;
 }
 
-<<<<<<< HEAD
 .checkResiduos {
   display: flex;
   flex-wrap: wrap;
@@ -46,9 +45,3 @@
   width: 100%;
   margin: 0;
 }
-=======
-span .divider{
-  margin-top: 10%;
-  margin-bottom: 10%;
-}
->>>>>>> feature/modification-lists
