@@ -69,7 +69,11 @@ export const UsuariosContextProvider = ({ children }) => {
   }, [locaisColetas]);
 
   async function getGeocoding(coleta) {
+<<<<<<< HEAD
     const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
+=======
+    const apiKey = 'AIzaSyAtWB3HzwcnFGQcZ_6KOvk8aj7dNRpWNMU';
+>>>>>>> feature/modification-lists
 
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${coleta.ncasa}+${coleta.rua},+${coleta.cidade},+SC&key=${apiKey}`

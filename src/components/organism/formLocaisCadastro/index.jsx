@@ -386,6 +386,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               onBlur={() => handleCep()}
               placeholder="Digite seu CEP"
               sx={{
+                marginTop:'5%',
                 '& .MuiFormHelperText-root': {
                   color: 'red',
                 },
@@ -401,6 +402,8 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               type="text"
               placeholder="Cidade"
               sx={{
+                marginTop:'5%',
+                marginLeft: '1%',
                 '& .MuiFormHelperText-root': {
                   color: 'red',
                 },
@@ -417,6 +420,8 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               type="text"
               placeholder="UF"
               sx={{
+                marginTop:'5%',
+                marginLeft: '1%',
                 '& .MuiFormHelperText-root': {
                   color: 'red',
                 },

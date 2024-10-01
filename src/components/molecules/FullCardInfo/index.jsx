@@ -15,6 +15,7 @@ function FullCardInfo({
   dado4,
   dado5,
   dado6,
+  dado7,
   showUserIcon,
   showColetaIcon,
   showResiduos,
@@ -58,8 +59,11 @@ function FullCardInfo({
           <b>{dado4.titulo} </b>
           {dado4.descricao}
         </p>
+        <p>
+          <b>{dado7.titulo} </b> 
+        </p>
       </div>
-      <Divider variant="middle" />
+      
       {showResiduos && (
         <div>
           <p>
