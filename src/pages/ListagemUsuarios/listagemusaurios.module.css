@@ -4,8 +4,13 @@
   justify-content: center;
   align-items: center;
   gap: 15px;
+    
 }
 
-.section {
-  margin-top: 60px;
+.sectionUserList{
+  margin-top: 10%;
 }
+
+.cardboxlist{ 
+  margin-bottom: 2%
+} 
