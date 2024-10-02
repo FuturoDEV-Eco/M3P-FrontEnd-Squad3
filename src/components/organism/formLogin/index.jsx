@@ -4,6 +4,8 @@ import Cbutton from '../../atoms/Cbutton/Cbutton.jsx';
 import { useContext, useEffect, useState } from 'react';
 import UsuariosContext from '../../../context/usuariosContext.jsx';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+
 
 function FormLogin() {
   const {
@@ -34,7 +36,7 @@ function FormLogin() {
       }
     }
   }
-
+  
   return (
     <div className={styled.boxlogin}>
       <form className={styled.boxform} onSubmit={handleSubmit(realizarLogin)}>
@@ -86,11 +88,14 @@ function FormLogin() {
               },
             }}
           ></TextField>
-        </div>
+        </div> 
         <div className={styled.boxbuttons}>
           <Cbutton type="submit">Entrar</Cbutton>
         </div>
       </form>
+      <div className={styled.linkRegister}>
+        <p>Ainda não tem cadastro?</p><Link to="/cadastro-usuarios">Cadastrar</Link>
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { AppBar, Button, Toolbar } from '@mui/material';
 import ProfileDropdown from '../Profile-dropdown';
 import Cbutton from '../../atoms/Cbutton/Cbutton';
 import ButtonLoginRegister from '../../atoms/ButtonLoginRegister';
+import ButtonRegister from '../../atoms/ButtonRegister';
 
 function Header() {
   let isAutenticated =
@@ -24,8 +25,11 @@ function Header() {
           </Link>
           <div></div>
         </div>
-        <div>
-          {isAutenticated ? <ProfileDropdown /> : <ButtonLoginRegister />}
+        <div className={Styles.loginRegister}>
+          {isAutenticated ? <ProfileDropdown /> :  <>
+            <ButtonLoginRegister />
+            <ButtonRegister />
+          </>}          
         </div>
       </div>
     </AppBar>

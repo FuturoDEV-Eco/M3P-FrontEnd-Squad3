@@ -401,6 +401,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               type="text"
               placeholder="Cidade"
               sx={{
+                marginLeft: '1%',
                 '& .MuiFormHelperText-root': {
                   color: 'red',
                 },
@@ -417,6 +418,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               type="text"
               placeholder="UF"
               sx={{
+                marginLeft: '1%',
                 '& .MuiFormHelperText-root': {
                   color: 'red',
                 },

@@ -32,7 +32,11 @@ input {
   width: 1000px;
   inset: 0;
 }
-
+.linkRegister{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .buttonCustom {
   width: 150px;
   height: 50px;

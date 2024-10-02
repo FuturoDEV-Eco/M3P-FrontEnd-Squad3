@@ -49,9 +49,6 @@ function ProfileDropdown() {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={() => (window.location.href = '/cadastro-usuarios')}>
-          Adicionar Usuarios
-        </MenuItem>
         <MenuItem onClick={() => (window.location.href = '/cadastro-coletas')}>
           Adicionar locais de coleta
         </MenuItem>
