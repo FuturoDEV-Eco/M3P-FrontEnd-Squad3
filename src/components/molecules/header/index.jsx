@@ -6,7 +6,7 @@ import { AppBar, Button, Toolbar } from '@mui/material';
 import ProfileDropdown from '../Profile-dropdown';
 import Cbutton from '../../atoms/Cbutton/Cbutton';
 import ButtonLoginRegister from '../../atoms/ButtonLoginRegister';
-import ButtonRegister from '../../atoms/ButtonRegister ';
+import ButtonRegister from '../../atoms/ButtonRegister';
 
 function Header() {
   let isAutenticated =
