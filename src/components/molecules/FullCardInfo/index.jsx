@@ -59,8 +59,9 @@ function FullCardInfo({
           <b>{dado4.titulo} </b>
           {dado4.descricao}
         </p>
-        <p>
-          <b>{dado7.titulo} </b> 
+        <p className={Styles.linkMaps}>
+          <b>{dado7.titulo} </b>
+          {dado7.descricao} 
         </p>
       </div>
       

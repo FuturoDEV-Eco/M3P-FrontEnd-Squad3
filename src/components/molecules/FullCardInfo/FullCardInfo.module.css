@@ -1,8 +1,8 @@
 .cardbox {
   padding: 20px;
   background-color: #8ecae6;
-  width: 40em;
-  height: 15em;
+  width: 60em;
+  height: 20em;
   border-radius: 10px;
   margin-top: 0.5em;
 }
@@ -37,3 +37,9 @@
   margin-top: 1%;
   gap: 15px;
 }
+
+/* .linkMaps{
+  white-space: nowrap;      
+  overflow: hidden;          
+  text-overflow: ellipsis;
+} */
