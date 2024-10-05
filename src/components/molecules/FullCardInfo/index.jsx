@@ -28,6 +28,11 @@ function FullCardInfo({
     window.location.href = `/editar/${endpoint}/${dataid}`;
   }
 
+  const currentUser = localStorage.getItem('currentUser');
+
+
+  const isOwner = currentUser === dado5.descricao;
+
   return (
     <div className={Styles.cardbox}>
       <div className={Styles.titlebox}>
@@ -73,8 +78,18 @@ function FullCardInfo({
         </div>
       )}
       <div className={Styles.buttonbox}>
-        <Cbutton onClick={() => deleteData(endpoint, dataid)}>Apagar</Cbutton>
-        <Cbutton onClick={() => editData(endpoint, dataid)}>Editar</Cbutton>
+        <Cbutton 
+        disabled = {!isOwner} 
+        onClick={() => deleteData(endpoint, dataid)}
+        tooltip={isOwner ? '' : 'Não tem permissão para apagar este local de coleta'}>
+
+          Apagar</Cbutton>
+        <Cbutton 
+          disabled = {!isOwner} 
+          onClick={() => editData(endpoint, dataid)}
+          tooltip={isOwner ? '' : 'Não tem permissão para editar este local de coleta'}>
+             Editar
+            </Cbutton>
       </div>
     </div>
   );

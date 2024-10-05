@@ -3,9 +3,15 @@ import { useContext } from 'react';
 import UsuariosContext from '../../context/usuariosContext';
 import Styles from './ListagemColetas.module.css';
 
+
+
+
 function ListagemColetas() {
   const { locaisColetas } = useContext(UsuariosContext);
   console.log(locaisColetas)
+
+  
+
   return (
     <div className={Styles.section}>
       <div className={Styles.cardbox}>
