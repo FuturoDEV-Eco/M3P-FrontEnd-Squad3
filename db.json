@@ -278,24 +278,22 @@
       "id": 9
     },
     {
+      "bairro": "Centro",
+      "rua": "Rua Gilberto Siqueira",
+      "cidade": "Campos dos Goytacazes",
+      "estado": "RJ",
       "identiuser": "Denis",
       "residuos_aceitos": [
         "Metal"
       ],
       "nomelocal": "dfd",
       "descricao": "sssss",
-      "latitude": "33333333",
-      "longitude": "22222222222",
-      "cep": "28010400",
-      "cidade": "Campos dos Goytacazes",
-      "estado": "RJ",
-      "bairro": "Centro",
-      "rua": "Rua Gilberto Siqueira",
-      "ncasa": "3334",
       "geocode": [
         -26.928572,
         -49.36531489999999
       ],
+      "cep": "88040320",
+      "ncasa": "234",
       "id": 10
     },
     {

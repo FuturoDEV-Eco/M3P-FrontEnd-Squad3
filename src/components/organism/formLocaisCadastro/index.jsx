@@ -18,6 +18,7 @@ import { TextField, InputLabel } from '@mui/material';
 
 function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   const currentUser = localStorage.getItem('currentUser');
+  const [googleMapsLink, setGoogleMapsLink] = useState('');
 
   const {
     register,
@@ -128,11 +129,51 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   
       setValue('geocode[1]', latitud);
       setValue('geocode[0]', longitud);
+      const googleMapsLink = await getGoogleMapsLink()
+      console.log(googleMapsLink)
     } catch (error) {
       console.log('Erro em obter latitude y longitude:', error);
     }
   };
 
+
+  const getGoogleMapsLink = async () => {
+    try {
+      const latitude = getValues('geocode[1]');
+      const longitude = getValues('geocode[0]');
+  
+      if (!latitude || !longitude) {
+        const error = new Error("Incomplete location data");
+        error.statusCode = 400;
+        throw error;
+      }
+  
+      const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
+      setGoogleMapsLink(link)
+      return link;
+    } catch (error) {
+      console.error("Error in getGoogleMapsLink:", error.message);
+      error.statusCode = error.statusCode || 500;
+      throw error;
+    }
+  }
+
+  const verifyLinkButton = async () => {
+    try {
+      const googleMapsLink = getValues('googleMapsLink'); 
+      if (googleMapsLink) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error verifying Google Maps link:", error);
+      return false;
+    }
+  };
+  
+
+  
   return (
     <div className={styled.container}>
       <div className={styled.boxcontainer}>
@@ -497,6 +538,14 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
           </div>
           <div className={styled.boxbuttons}>
             <Cbutton type="submit">Salvar</Cbutton>
+            <div className={styled.linkBoxButtons}>
+              <div className={styled.boxbuttons}>
+                <Cbutton type="button" disabled={!googleMapsLink} onClick={() => navigator.clipboard.writeText(googleMapsLink).then(() => alert('Link copiado para a área de transferência!'))}>Copiar Link</Cbutton>
+              </div>
+              <div className={styled.boxbuttons}>
+                <Cbutton type="button" disabled={!googleMapsLink} onClick={() => window.open(googleMapsLink, '_blank')}>Abrir no Google Maps</Cbutton>
+              </div>
+            </div>
           </div>
         </form>
       </div>
