@@ -4,7 +4,7 @@ import Cbutton from '../../atoms/Cbutton/Cbutton';
 
 function ButtonLoginRegister() {
   function ToLoginRegister() {
-    window.location.href = `/loginSignup`;
+    window.location.href = `/login`;
   }
 
   return (

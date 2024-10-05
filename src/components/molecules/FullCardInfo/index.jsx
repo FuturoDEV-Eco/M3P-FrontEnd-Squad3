@@ -100,6 +100,7 @@ function FullCardInfo({
         </p>
         <p>
           <b>{dado7.titulo} </b> 
+          <a href={dado7.descricao} target="_blank">https://www.google.com/maps...</a>
         </p>
       </div>
       

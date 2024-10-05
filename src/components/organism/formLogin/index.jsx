@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 function FormLogin() {
+  const [signInOk, setsignInOk] = useState(false);
   const {
     register,
     handleSubmit,
@@ -17,9 +18,16 @@ function FormLogin() {
 
   const { login } = useContext(UsuariosContext);
 
+
+  useEffect(() => {
+    if (localStorage.getItem('signInOk')) {
+      setsignInOk(true);
+      localStorage.removeItem('signInOk');
+    }
+  }, []);
+
   async function realizarLogin(formValue) {
     const loginResult = await login(formValue.email, formValue.senha);
-
     if (loginResult.error) {
       if (loginResult.error.message === 'Usuário não existe') {
         setError('email', {
@@ -41,6 +49,11 @@ function FormLogin() {
     <div className={styled.boxlogin}>
       <form className={styled.boxform} onSubmit={handleSubmit(realizarLogin)}>
         <div className={styled.inputWrapper}>
+      {signInOk && (
+        <div className={styled.registroOk}>
+          <b>Registro feito com sucesso, agora você já pode fazer login...</b>
+        </div>
+      )}
           <InputLabel htmlFor="name">Email</InputLabel>
           <TextField
             {...register('email', {

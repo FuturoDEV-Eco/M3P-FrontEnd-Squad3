@@ -5,13 +5,12 @@
       "rua": "Rua Jorge José Zimmermann",
       "cidade": "São José",
       "estado": "SC",
-      "nomeusuario": "Administrador ",
+      "nomeusuario": "Administrador 1",
       "sexo": "masculino",
       "cpf": "83940237485",
       "ndata": "1995-11-03",
       "email": "admin@admin.com",
       "senha": "1234",
-      "ncoletas": 0,
       "cep": "88122030",
       "ncasa": "403",
       "id": 1
@@ -64,20 +63,19 @@
       "ncoletas": 0
     },
     {
-      "id": 5,
-      "nomeusuario": "Bryan Carvalho",
+      "bairro": "Lagoa da Conceição",
+      "rua": "Servidão Dorvalina Maria da Silveira",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "nomeusuario": "Bryan Carvalho1",
       "sexo": "Masculino",
       "cpf": "35683307929",
-      "ndata": "11/04/1996",
+      "ndata": "1996-04-11",
       "email": "bryan-carvalho76@reconciliare.com.br",
       "senha": "atU1H8aNwr",
       "cep": "88062277",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Lagoa da Conceição",
-      "rua": "Servidão Dorvalina Maria da Silveira",
       "ncasa": "759",
-      "ncoletas": 0
+      "id": 5
     },
     {
       "id": 6,
@@ -185,6 +183,118 @@
       "rua": "Rua Lauro Linhares",
       "ncasa": "22",
       "id": 12
+    },
+    {
+      "nomeusuario": "led",
+      "sexo": "masculino",
+      "cpf": "78954123654",
+      "ndata": "1995-11-12",
+      "email": "admin2@admin2.com",
+      "senha": "1234",
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "12",
+      "ncoletas": 0,
+      "id": 14
+    },
+    {
+      "nomeusuario": "teste2",
+      "sexo": "masculino",
+      "cpf": "74521147851",
+      "ndata": "1995-03-12",
+      "email": "teste@teste.com",
+      "senha": "1234",
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "232",
+      "ncoletas": 0,
+      "id": 15
+    },
+    {
+      "nomeusuario": "teste",
+      "sexo": "masculino",
+      "cpf": "12345678946",
+      "ndata": "1991-10-10",
+      "email": "admin23@adm3in.com",
+      "senha": "e123",
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "102",
+      "ncoletas": 0,
+      "id": 16
+    },
+    {
+      "nomeusuario": "dwad",
+      "sexo": "dwad",
+      "cpf": "12345672632",
+      "ndata": "1993-12-11",
+      "email": "b@b.com",
+      "senha": "1234",
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "123",
+      "ncoletas": 0,
+      "id": 18
+    },
+    {
+      "nomeusuario": "Dwad",
+      "sexo": "masculino",
+      "cpf": "78945645678",
+      "ndata": "0332-02-23",
+      "email": "c@c.com",
+      "senha": "1234",
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "23",
+      "ncoletas": 0,
+      "id": 19
+    },
+    {
+      "nomeusuario": "Admin1",
+      "sexo": "masculino",
+      "cpf": "12345678978",
+      "ndata": "1998-02-13",
+      "email": "l@l.com",
+      "senha": "l",
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "23",
+      "ncoletas": 0,
+      "id": 20
+    },
+    {
+      "nomeusuario": "Admin1",
+      "sexo": "masculino",
+      "cpf": "14789547896",
+      "ndata": "1998-02-10",
+      "email": "d@d1.com",
+      "senha": "1",
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "1",
+      "ncoletas": 0,
+      "id": 21
     }
   ],
   "locaisColeta": [
@@ -316,6 +426,114 @@
       "cep": "88045030",
       "ncasa": "200",
       "id": 11
+    },
+    {
+      "identiuser": "Denis",
+      "residuos_aceitos": [
+        "Metal",
+        "Papel",
+        "Plástico"
+      ],
+      "nomelocal": "Teste com link1",
+      "descricao": "testq1 com link1",
+      "geocode": [
+        -27.6051558,
+        -48.6683118
+      ],
+      "cep": "88122030",
+      "cidade": "São José",
+      "estado": "SC",
+      "bairro": "Sertão do Maruim",
+      "rua": "Rua Jorge José Zimmermann",
+      "ncasa": "230",
+      "googleMapsLink": "https://www.google.com/maps?q=-27.6051558,-48.6683118",
+      "id": 12
+    },
+    {
+      "identiuser": "Denis",
+      "residuos_aceitos": [
+        "Plástico",
+        "Orgânicos",
+        "Baterias"
+      ],
+      "nomelocal": "Prova coleta nova",
+      "descricao": "noca",
+      "geocode": [
+        -27.6056765,
+        -48.5143658
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "233",
+      "googleMapsLink": "https://www.google.com/maps?q=-27.6056765,-48.5143658",
+      "id": 13
+    },
+    {
+      "identiuser": "Denis",
+      "residuos_aceitos": [
+        "Plástico",
+        "Orgânicos",
+        "Baterias"
+      ],
+      "nomelocal": "ReciclaMais2 teste number",
+      "descricao": "dawdadawxca",
+      "geocode": [
+        -27.6062948,
+        -48.5140077
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "2332",
+      "googleMapsLink": "https://www.google.com/maps?q=-27.6062948,-48.5140077",
+      "id": 14
+    },
+    {
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "identiuser": "Administrador ",
+      "residuos_aceitos": [
+        "Plástico",
+        "Orgânicos",
+        "Eletrônicos"
+      ],
+      "nomelocal": "cadastro de administrador1",
+      "descricao": "1234",
+      "geocode": [
+        -27.6049584,
+        -48.5150264
+      ],
+      "cep": "88040320",
+      "ncasa": "123",
+      "id": 15
+    },
+    {
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "identiuser": "Admin1",
+      "residuos_aceitos": [
+        "Vidro",
+        "Metal",
+        "Orgânicos"
+      ],
+      "nomelocal": "Recicladora lagoa editado",
+      "descricao": "teste",
+      "geocode": [
+        -27.604181,
+        -48.51589389999999
+      ],
+      "cep": "88040320",
+      "ncasa": "13",
+      "id": 16
     }
   ]
 }

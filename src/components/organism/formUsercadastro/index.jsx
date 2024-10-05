@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import UsuariosContext from '../../../context/usuariosContext.jsx';
 
+
 function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
   const {
     register,
@@ -366,7 +367,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               variant="outlined"
               size="small"
               defaultValue={isEditing ? userData.ncasa : ''}
-              type="text"
+              type="number"
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',

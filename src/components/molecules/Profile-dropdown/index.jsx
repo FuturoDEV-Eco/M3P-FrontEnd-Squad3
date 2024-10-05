@@ -49,8 +49,17 @@ function ProfileDropdown() {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
+         <MenuItem onClick={() => (window.location.href = '/')}>
+          Dashboard
+        </MenuItem>
         <MenuItem onClick={() => (window.location.href = '/cadastro-coletas')}>
-          Adicionar locais de coleta
+          Cadastrar local de coleta
+        </MenuItem>
+        <MenuItem onClick={() => (window.location.href = '/listagem-coletas')}>
+          Ver lista de locais de coleta
+        </MenuItem>
+        <MenuItem onClick={() => (window.location.href = '/listagem-usuarios')}>
+          Ver lista de usuários ativos
         </MenuItem>
         <MenuItem onClick={() => handleLogout()}>Sair</MenuItem>
       </Menu>

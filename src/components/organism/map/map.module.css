@@ -1,0 +1,28 @@
+.popupcontent {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .popupheader {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .popupbody {
+    padding: 10px;
+  }
+  
+  .popupbody h3 {
+    margin: 0;
+  }
+  
+  .popupbody ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .popupbody li {
+    margin-bottom: 5px;
+  }

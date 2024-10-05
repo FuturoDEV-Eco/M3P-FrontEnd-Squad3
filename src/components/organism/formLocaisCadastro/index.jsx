@@ -20,6 +20,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   const currentUser = localStorage.getItem('currentUser');
   const [googleMapsLink, setGoogleMapsLink] = useState('');
 
+
   const {
     register,
     handleSubmit,
@@ -50,6 +51,8 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     }
   }, [isEditing, reset, userData]);
 
+
+
   async function submitForm(formValue) {
     console.log('FORM value IS:');
     console.log(formValue);
@@ -67,9 +70,22 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     });
   }, [register]);
 
+
+
   async function saveForm(formColetaValue) {
-    console.log(formColetaValue);
-    const cadastroResult = await cadastrarColeta(formColetaValue);
+    try {
+      const latitude = getValues('geocode[1]');
+      const longitude = getValues('geocode[0]');
+      
+      const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+  
+      formColetaValue.googleMapsLink = googleMapsLink;
+  
+      console.log(formColetaValue);
+      const cadastroResult = await cadastrarColeta(formColetaValue);
+    } catch (error) {
+      console.log('Error saving form:', error);
+    }
   }
 
   async function editForm(formValue) {
@@ -526,7 +542,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               variant="outlined"
               size="small"
               defaultValue={isEditing ? userData.ncasa : ''}
-              type="text"
+              type="number"
               onBlur={() => handleLatitudeLongitude()}
               sx={{
                 '& .MuiFormHelperText-root': {

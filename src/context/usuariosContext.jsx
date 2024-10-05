@@ -98,17 +98,21 @@ export const UsuariosContextProvider = ({ children }) => {
       const { latitud, longitud } = await getGeocoding(coleta);
       coleta.geocode = [latitud, longitud];
 
+      const googleMapsLink = `https://www.google.com/maps?q=${latitud},${longitud}`;
+
+
       await fetch('http://localhost:3000/locaisColeta', {
         method: 'POST',
         body: JSON.stringify(coleta),
         headers: {
           'Content-Type': 'application/json',
           CurrentUser: currentUser,
+          googleMapsLink: googleMapsLink,
         },
       });
-      alert('Local de coleta cadastrado com sucesso');
+      localStorage.setItem('cadastroColetaOk', 'true');
       getLocaisColeta();
-      window.location.href = '/';
+      window.location.href = '/listagem-coletas';
       return {};
     } catch (error) {
       console.error(error);
@@ -121,10 +125,13 @@ export const UsuariosContextProvider = ({ children }) => {
       method: 'DELETE',
     })
       .then(() => {
-        alert('Usuário apagado com sucesso');
+        localStorage.setItem('deleteOk', 'true');
         getUsuarios();
-        window.location.reload();
-      })
+        if (endpoint === 'usuarios') {
+          window.location.href = '/listagem-usuarios';
+        } else if (endpoint === 'locaisColeta') {
+          window.location.href = '/listagem-coletas';
+        }      })
       .catch(() => alert('Erro ao apagar usuário'));
   }
 
@@ -152,9 +159,13 @@ export const UsuariosContextProvider = ({ children }) => {
         },
       });
 
-      alert('Edição realizada com sucesso!');
+      localStorage.setItem('editOk', 'true');
       getUsuarios();
-      window.location.href = '/';
+      if (endpoint === 'usuarios') {
+        window.location.href = '/listagem-usuarios';
+      } else if (endpoint === 'locaisColeta') {
+        window.location.href = '/listagem-coletas';
+      }
       console.log(data);
 
       return {};
@@ -176,6 +187,9 @@ export const UsuariosContextProvider = ({ children }) => {
           throw new Error('cpf já existe');
         }
       });
+
+      usuario.ncoletas = 0;
+
       await fetch('http://localhost:3000/usuarios', {
         method: 'POST',
         body: JSON.stringify(usuario),
@@ -184,9 +198,9 @@ export const UsuariosContextProvider = ({ children }) => {
         },
       });
 
-      alert('Usuário cadastrado com sucesso');
+      localStorage.setItem('signInOk', 'true');
       getUsuarios();
-      window.location.href = '/';
+      window.location.href = '/login';
       return {};
     } catch (error) {
       console.error(error);

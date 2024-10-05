@@ -29,7 +29,7 @@ const routes = createBrowserRouter([
         element: <CadastroUsuarios />,
       },
       {
-        path: '/loginSignup',
+        path: '/login',
         element: <LoginSignup />,
       },
     ],
@@ -61,49 +61,5 @@ const routes = createBrowserRouter([
     ],
   },
 ]);
-
-// const routes = createBrowserRouter([
-//   {
-//     path: '/login',
-//     element: <LoginSignup />,
-//   },
-//   {
-//     path: '/',
-//     element: (
-//       <PrivateRouter>
-//         <App />
-//       </PrivateRouter>
-//     ),
-//     children: [
-//       {
-//         path: '/dashboard',
-//         element: <Dashboard />,
-//       },
-//       {
-//         path: '/cadastro-coletas',
-//         element: <CadastroColetas />,
-//       },
-
-//       {
-//         path: '/listagem-coletas',
-//         element: <ListagemColetas />,
-//       },
-//       {
-//         path: '/cadastro-usuarios',
-//         element: <CadastroUsuarios />,
-//       },
-//       {
-//         path: '/listagem-usuarios',
-//         element: <ListagemUsuarios />,
-//       },
-//       {
-//         path: '/editar/:endpoint/:dataid/',
-//         element: <EditarUsuariosEColetas />,
-//       },
-//     ],
-//   },
-
-//   ,
-// ]);
 
 export default routes;
