@@ -28,6 +28,8 @@ function Dashboard() {
   let isAutenticated =
     JSON.parse(localStorage.getItem('isAutenticated')) || false;
 
+
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

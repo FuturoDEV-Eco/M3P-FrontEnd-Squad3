@@ -31,7 +31,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     identiuser: '',
   });
 
-  const { cadastrarColeta, editData } = useContext(UsuariosContext);
+  const { cadastrarColeta, editData, getGeocoding } = useContext(UsuariosContext);
 
   useEffect(() => {
     if (isEditing) {
@@ -94,11 +94,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
       });
       return;
     }
-
+  
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const dados = await response.json();
-
+      
       if (dados.erro) {
         setError('cep', {
           type: 'custom',
@@ -106,7 +106,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
         });
         return;
       }
-
+      
       setValue('bairro', dados.bairro);
       setValue('rua', dados.logradouro);
       setValue('cidade', dados.localidade);
@@ -114,6 +114,22 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     } catch (error) {
       console.log(error);
       return;
+    }
+  };
+
+  const handleLatitudeLongitude = async () => {
+    try {
+      const ncasa = getValues('ncasa');
+      const rua = getValues('rua');
+      const cidade = getValues('cidade');
+    
+      const coleta = { ncasa, rua, cidade };
+      const { latitud, longitud } = await getGeocoding(coleta);
+  
+      setValue('geocode[1]', latitud);
+      setValue('geocode[0]', longitud);
+    } catch (error) {
+      console.log('Erro em obter latitude y longitude:', error);
     }
   };
 
@@ -336,36 +352,35 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             <Box
               sx={{
                 display: 'flex',
-                gap: '16px', // Espaço entre os campos
-                marginBottom: '24px', // Margem inferior do form
+                gap: '16px',
+                marginBottom: '24px', 
               }}
             >
               {/* Campo Latitude */}
               <TextField
-                {...register('latitude')}
-                helperText={errors.latitude?.message}
-                name="latitude"
-                defaultValue={isEditing ? userData.latitude : ''}
+                {...register('geocode[0]')}
+                name="longitude"
+                disabled={true}
+                defaultValue={isEditing ? userData.geocode[0] : ''}
                 variant="outlined"
                 size="small"
                 type="number"
-                placeholder="Digite a latitude (Opcional)"
+                placeholder="longitude"
                 fullWidth
-                sx={{ flex: 1 }} // Ocupa 50% do container
+                sx={{ flex: 1 }}
               />
-
               {/* Campo Longitude */}
               <TextField
-                {...register('longitude')}
-                helperText={errors.longitude?.message}
-                name="longitude"
-                defaultValue={isEditing ? userData.longitude : ''}
+                {...register('geocode[1]')}
+                name="latitude"
+                disabled={true}
+                defaultValue={isEditing ? userData.geocode[1] : ''}
                 variant="outlined"
                 size="small"
                 type="number"
-                placeholder="Digite a longitude(Opcional)"
+                placeholder="latitude"
                 fullWidth
-                sx={{ flex: 1 }} // Ocupa 50% do container
+                sx={{ flex: 1 }} 
               />
             </Box>
             <TextField
@@ -471,6 +486,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               size="small"
               defaultValue={isEditing ? userData.ncasa : ''}
               type="text"
+              onBlur={() => handleLatitudeLongitude()}
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',

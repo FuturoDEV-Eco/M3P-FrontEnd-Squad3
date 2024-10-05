@@ -199,21 +199,36 @@
       "bairro": "Jurerê Internacional",
       "rua": "Avenida dos Búzios",
       "ncasa": "210",
-      "geocode": [-27.4309, -48.4695],
-      "residuos_aceitos": ["Papel", "Plástico", "Metal", "Vidro", "Orgânico"]
+      "geocode": [
+        -27.4309,
+        -48.4695
+      ],
+      "residuos_aceitos": [
+        "Papel",
+        "Plástico",
+        "Metal",
+        "Vidro",
+        "Orgânico"
+      ]
     },
     {
       "identiuser": "Administrador",
       "nomelocal": "EcoAmigos",
       "descricao": "Associação de reciclagem",
-      "residuos_aceitos": ["Papel", "Plástico"],
+      "residuos_aceitos": [
+        "Papel",
+        "Plástico"
+      ],
       "cep": "88040320",
       "cidade": "Florianópolis",
       "estado": "SC",
       "bairro": "Pantanal",
       "rua": "Rua Protenor Vidal",
       "ncasa": "300",
-      "geocode": [-27.6063067, -48.5141186],
+      "geocode": [
+        -27.6063067,
+        -48.5141186
+      ],
       "id": 7
     },
     {
@@ -235,12 +250,17 @@
       "longitude": "090000000000000",
       "cep": "28010500",
       "ncasa": "44",
-      "geocode": [-26.928572, -49.36531489999999],
+      "geocode": [
+        -26.928572,
+        -49.36531489999999
+      ],
       "id": 8
     },
     {
       "identiuser": "Denis",
-      "residuos_aceitos": ["Metal"],
+      "residuos_aceitos": [
+        "Metal"
+      ],
       "nomelocal": "Regiao girafa",
       "descricao": "gira girafas",
       "latitude": "111111111111",
@@ -251,12 +271,17 @@
       "bairro": "Centro",
       "rua": "Rua Gilberto Siqueira",
       "ncasa": "3333",
-      "geocode": [-26.928572, -49.36531489999999],
+      "geocode": [
+        -26.928572,
+        -49.36531489999999
+      ],
       "id": 9
     },
     {
       "identiuser": "Denis",
-      "residuos_aceitos": ["Metal"],
+      "residuos_aceitos": [
+        "Metal"
+      ],
       "nomelocal": "dfd",
       "descricao": "sssss",
       "latitude": "33333333",
@@ -267,8 +292,32 @@
       "bairro": "Centro",
       "rua": "Rua Gilberto Siqueira",
       "ncasa": "3334",
-      "geocode": [-26.928572, -49.36531489999999],
+      "geocode": [
+        -26.928572,
+        -49.36531489999999
+      ],
       "id": 10
+    },
+    {
+      "bairro": "José Mendes",
+      "rua": "Rua Professor Aníbal Nunes Pires",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "identiuser": "Denis",
+      "residuos_aceitos": [
+        "Metal",
+        "Papel",
+        "Plástico"
+      ],
+      "nomelocal": "teste",
+      "descricao": "teste",
+      "geocode": [
+        -27.611756,
+        -48.5445972
+      ],
+      "cep": "88045030",
+      "ncasa": "200",
+      "id": 11
     }
   ]
 }
