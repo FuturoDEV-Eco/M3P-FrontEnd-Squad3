@@ -238,6 +238,7 @@ export const UsuariosContextProvider = ({ children }) => {
         cadastrarColeta,
         deleteData,
         editData,
+        getGeocoding
       }}
     >
       {children}
