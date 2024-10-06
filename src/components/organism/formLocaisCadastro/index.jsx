@@ -196,7 +196,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
         <form className={styled.boxform} onSubmit={handleSubmit(submitForm)}>
           <InputLabel>Nome do local de coleta</InputLabel>
           <TextField
-            {...register('nomelocal', {
+            {...register('nome', {
               required: 'Este campo é obrigatorio',
               maxLength: {
                 value: 50,
@@ -204,7 +204,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               },
             })}
             helperText={errors.nomelocal?.message}
-            name="nomelocal"
+            name="nome"
             defaultValue={isEditing ? userData.nomelocal : ''}
             variant="outlined"
             size="small"
@@ -243,10 +243,10 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
           ></TextField>
           <InputLabel>Responsável pelo cadastro</InputLabel>
           <TextField
-            {...register('identiuser')}
+            {...register('userId')}
             disabled
             helperText={errors.identiuser?.message}
-            name="identiuser"
+            name="userId"
             variant="outlined"
             defaultValue={isEditing ? userData.identiuser : ''}
             size="small"
