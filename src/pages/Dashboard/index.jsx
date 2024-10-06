@@ -18,6 +18,7 @@ function Dashboard() {
     userNumbers,
     usuarioMaxColetas,
     localTopResiduos,
+    dashboardData,
   } = useContext(UsuariosContext);
 
   const itemsPerPage = 4;
@@ -86,12 +87,12 @@ function Dashboard() {
               buttonDisable={!isAutenticated}
             />
             <InfoHeaderCard
-              numberData={usuarioMaxColetas}
+              numberData={dashboardData.usuarioComMaisLocaisCadastrados}
               infoData="Usuário com mais registros"
               typeClass="cardtext"
             />
             <InfoHeaderCard
-              numberData={locaisColetasNumber}
+              numberData={dashboardData.totalLocais}
               infoData="Locais de coletas"
               typeClass="cardnumber"
               showButton={true}
@@ -100,7 +101,7 @@ function Dashboard() {
               buttonDisable={!isAutenticated}
             />
             <InfoHeaderCard
-              numberData={localTopResiduos}
+              numberData={dashboardData.localComMaisResiduosAceitos}
               infoData="Local com mais residuos aceitos"
               typeClass="cardtext"
               showButton={true}

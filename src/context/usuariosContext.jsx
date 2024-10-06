@@ -10,6 +10,10 @@ export const UsuariosContextProvider = ({ children }) => {
   const [usuarioMaxColetas, setUsuarioMaxColetas] = useState();
   const [localTopResiduos, setLocalTopResiduos] = useState();
 
+  const [dashboardData, setDashboardData] = useState(null);
+  const [dashboardError, setDashboardError] = useState(null);
+  const [dashboardLoading, setDashboardLoading] = useState(true); 
+
   function getUsuarios() {
     fetch('http://localhost:4000/usuarios')
       .then((response) => response.json())
@@ -23,6 +27,27 @@ export const UsuariosContextProvider = ({ children }) => {
       .then((data) => setLocaisColeta(data))
       .catch((error) => console.log(error));
   }
+
+  const getDashboardData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/dashboard/');
+      
+      if (!response.ok) {
+        throw new Error('Erro');
+      } 
+      const data = await response.json();
+      
+      setDashboardData(data);
+    } catch (error) {
+      setDashboardError(error.message);
+    } finally {
+      setDashboardLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getDashboardData();
+  }, []);
 
   useEffect(() => {
     getUsuarios();
@@ -283,6 +308,7 @@ export const UsuariosContextProvider = ({ children }) => {
         userNumbers,
         usuarioMaxColetas,
         localTopResiduos,
+        dashboardData,
         login,
         cadastrarUsuario,
         getUsuarios,
@@ -290,7 +316,8 @@ export const UsuariosContextProvider = ({ children }) => {
         cadastrarColeta,
         deleteData,
         editData,
-        getGeocoding
+        getGeocoding,
+        getDashboardData
       }}
     >
       {children}
