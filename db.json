@@ -531,6 +531,48 @@
       "ncasa": "33",
       "googleMapsLink": "https://www.google.com/maps?q=-27.6043807,-48.5155343",
       "id": 20
+    },
+    {
+      "identiuser": "Administrador 1",
+      "residuos_aceitos": [
+        "Vidro",
+        "Metal",
+        "Papel"
+      ],
+      "nomelocal": "Recicladora lagoa",
+      "descricao": "123",
+      "geocode": [
+        -27.6065382,
+        -48.5139159
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "344",
+      "googleMapsLink": "https://www.google.com/maps?q=-27.6065382,-48.5139159",
+      "id": 21
+    },
+    {
+      "identiuser": "Administrador 1",
+      "residuos_aceitos": [
+        "Papelão"
+      ],
+      "nomelocal": "teste papelão",
+      "descricao": "teste papelão",
+      "geocode": [
+        -27.6056765,
+        -48.5143658
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "233",
+      "googleMapsLink": "https://www.google.com/maps?q=-27.6056765,-48.5143658",
+      "id": 22
     }
   ]
 }

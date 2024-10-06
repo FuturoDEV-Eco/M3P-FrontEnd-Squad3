@@ -311,6 +311,21 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                     label="Papel"
                     sx={{ width: '123px', margin: '0', display: 'flex' }}
                   />
+                   <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Papelão"
+                        value="Papelão"
+                        type="checkbox"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Papelão') || false
+                        }
+                      />
+                    }
+                    label="Papelão"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
                   <FormControlLabel
                     control={
                       <Checkbox
