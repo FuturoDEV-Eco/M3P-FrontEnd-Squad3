@@ -42,7 +42,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
   }, [isEditing, reset, userData]);
 
   async function submitForm(formValue) {
-    console.log(formValue)
+    console.log('formulario: ', formValue)
     if (isEditing == false) {
       await saveForm(formValue);
     } else {
@@ -147,7 +147,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
                 },
               })}
               helperText={errors.nomeusuario?.message}
-              name="nomeusuario"
+              name="nome"
               label="Nome"
               variant="outlined"
               size="small"
@@ -258,7 +258,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
             })}
             helperText={errors.senha?.message}
             label="Senha"
-            name="senha"
+            name="password"
             defaultValue={isEditing ? userData.senha : ''}
             variant="outlined"
             size="small"

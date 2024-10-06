@@ -245,6 +245,22 @@
       "ncasa": "1",
       "ncoletas": 0,
       "id": 21
+    },
+    {
+      "nome": "admin",
+      "sexo": "1234",
+      "cpf": "12345678974",
+      "dataNascimento": "1991-05-15",
+      "email": "admin@admin.com",
+      "password": "1234",
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "233",
+      "ncoletas": 0,
+      "id": 22
     }
   ],
   "locaisColeta": [
