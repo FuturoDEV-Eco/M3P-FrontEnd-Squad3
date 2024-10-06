@@ -9,7 +9,7 @@ import CadastroUsuarios from '../pages/CadastroUsuarios';
 import EditarUsuariosEColetas from '../pages/EditarUsuariosEColetas';
 
 let isAuthenticated =
-  JSON.parse(localStorage.getItem('isAutenticated')) || false;
+  JSON.parse(localStorage.getItem('isAuthenticated')) || false;
 
 const PrivateRouter = ({ children }) => {
   return isAuthenticated ? children : <Navigate to="/" />;

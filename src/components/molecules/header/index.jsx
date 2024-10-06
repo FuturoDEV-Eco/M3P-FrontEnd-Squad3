@@ -9,8 +9,8 @@ import ButtonLoginRegister from '../../atoms/ButtonLoginRegister';
 import ButtonRegister from '../../atoms/ButtonRegister';
 
 function Header() {
-  let isAutenticated =
-    JSON.parse(localStorage.getItem('isAutenticated')) || false;
+  let isAuthenticated =
+    JSON.parse(localStorage.getItem('isAuthenticated')) || false;
 
   return (
     <AppBar
@@ -26,7 +26,7 @@ function Header() {
           <div></div>
         </div>
         <div className={Styles.loginRegister}>
-          {isAutenticated ? <ProfileDropdown /> :  <>
+          {isAuthenticated ? <ProfileDropdown /> :  <>
             <ButtonLoginRegister />
             <ButtonRegister />
           </>}          

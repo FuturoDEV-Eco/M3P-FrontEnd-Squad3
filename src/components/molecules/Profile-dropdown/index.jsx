@@ -20,8 +20,9 @@ function ProfileDropdown() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isAutenticated');
+    localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
     window.location.href = '/';
   };
 

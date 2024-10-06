@@ -11,14 +11,14 @@ export const UsuariosContextProvider = ({ children }) => {
   const [localTopResiduos, setLocalTopResiduos] = useState();
 
   function getUsuarios() {
-    fetch('http://localhost:3000/usuario')
+    fetch('http://localhost:4000/usuarios')
       .then((response) => response.json())
       .then((data) => setUsuarios(data))
       .catch((error) => console.log(error));
   }
 
   function getLocaisColeta() {
-    fetch('http://localhost:3000/locaisColeta')
+    fetch('http://localhost:4000/locaisColeta')
       .then((response) => response.json())
       .then((data) => setLocaisColeta(data))
       .catch((error) => console.log(error));
@@ -101,7 +101,7 @@ export const UsuariosContextProvider = ({ children }) => {
       const googleMapsLink = `https://www.google.com/maps?q=${latitud},${longitud}`;
 
 
-      await fetch('http://localhost:3000/locaisColeta', {
+      await fetch('http://localhost:4000/locaisColeta', {
         method: 'POST',
         body: JSON.stringify(coleta),
         headers: {
@@ -121,7 +121,7 @@ export const UsuariosContextProvider = ({ children }) => {
   }
 
   function deleteData(endpoint, id) {
-    fetch(`http://localhost:3000/${endpoint}/` + id, {
+    fetch(`http://localhost:4000/${endpoint}/` + id, {
       method: 'DELETE',
     })
       .then(() => {
@@ -137,7 +137,7 @@ export const UsuariosContextProvider = ({ children }) => {
 
   async function editData(data, endpoint, id) {
     try {
-      const response = await fetch(`http://localhost:3000/${endpoint}/` + id);
+      const response = await fetch(`http://localhost:4000/${endpoint}/` + id);
       const dados = await response.json();
 
       if (endpoint === 'usuarios') {
@@ -151,7 +151,7 @@ export const UsuariosContextProvider = ({ children }) => {
         data.geocode = [latitud, longitud];
       }
 
-      await fetch(`http://localhost:3000/${endpoint}/` + id, {
+      await fetch(`http://localhost:4000/${endpoint}/` + id, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
@@ -198,7 +198,7 @@ export const UsuariosContextProvider = ({ children }) => {
 
       usuario.ncoletas = 0;
 
-      await fetch('http://localhost:3000/usuario', {
+      await fetch('http://localhost:4000/usuario', {
         method: 'POST',
         body: JSON.stringify(usuario),
         headers: {
@@ -218,31 +218,61 @@ export const UsuariosContextProvider = ({ children }) => {
 
   async function login(email, senha) {
     try {
-      const response = await fetch('http://localhost:3000/usuarios');
-      const dados = await response.json();
-      let usuarioExist = false;
+      // const response = await fetch('http://localhost:3000/usuarios');
+      // const dados = await response.json();
+      // let usuarioExist = false;
+      
+      const data = {email, senha}
 
-      dados.map((usuarios) => {
-        if (usuarios.email == email) {
-          usuarioExist = true;
-          if (usuarios.senha == senha) {
-            localStorage.setItem('isAutenticated', true);
-            localStorage.setItem('currentUser', usuarios.nomeusuario);
-            window.location.href = '/';
-            return;
-          }
-          throw new Error('Senha incorreta');
-        }
-      });
+      const response = await fetch('http://localhost:3000/login', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-      if (!usuarioExist) {
-        throw new Error('Usuário não existe');
+      const result = await response.json();
+
+
+      if (!response.ok) {
+        throw new Error('Falha no login. Verifique suas credenciais.');
       }
-    } catch (error) {
-      console.error(error);
-      return { error };
-    }
+
+      if (result.token) {
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('isAuthenticated', true);
+        localStorage.setItem('currentUser', "led"); 
+        window.location.href = '/';
+      } else {
+        throw new Error('Token não recebido. Verifique o servidor.');
+      }
+
+      
+
+      // antiga validação de usuario do front
+      // dados.map((usuarios) => {
+      //   if (usuarios.email == email) {
+      //     usuarioExist = true;
+      //     if (usuarios.senha == senha) {
+      //       localStorage.setItem('isAutenticated', true);
+      //       localStorage.setItem('currentUser', usuarios.nomeusuario);
+      //       window.location.href = '/';
+      //       return;
+      //     }
+      //     throw new Error('Senha incorreta');
+      //   }
+      // });
+
+      // if (!usuarioExist) {
+      //   throw new Error('Usuário não existe');
+      // }
+      return result;
+  } catch (error) {
+    console.error(error);
+    return { error };
   }
+}
 
   return (
     <UsuariosContext.Provider

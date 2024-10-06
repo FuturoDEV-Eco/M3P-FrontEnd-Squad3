@@ -26,7 +26,7 @@ function Dashboard() {
   const [pageUsuarios, setPageUsuarios] = useState(1);
 
   let isAutenticated =
-    JSON.parse(localStorage.getItem('isAutenticated')) || false;
+    JSON.parse(localStorage.getItem('isAuthenticated')) || false;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -70,7 +70,7 @@ function Dashboard() {
                 />
               </>
             ) : (
-              <p>Precisa Fazer Login para visualizar</p>
+              <p>Precisa Fazer Login para</p>
             )}
           </Stack>
         </div>

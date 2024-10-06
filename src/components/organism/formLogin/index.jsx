@@ -27,7 +27,7 @@ function FormLogin() {
   }, []);
 
   async function realizarLogin(formValue) {
-    const loginResult = await login(formValue.email, formValue.senha);
+    const loginResult = await login(formValue.email, formValue.password);
     if (loginResult.error) {
       if (loginResult.error.message === 'Usuário não existe') {
         setError('email', {
@@ -35,7 +35,7 @@ function FormLogin() {
           message: loginResult.error.message,
         });
       } else if (loginResult.error.message === 'Senha incorreta') {
-        setError('senha', {
+        setError('password', {
           type: 'custom',
           message: loginResult.error.message,
         });
@@ -80,7 +80,7 @@ function FormLogin() {
         <div className={styled.inputWrapper}>
           <InputLabel htmlFor="senha">Senha</InputLabel>
           <TextField
-            {...register('senha', {
+            {...register('password', {
               required: 'Este campo é obrigatorio',
               maxLength: {
                 value: 50,
@@ -88,7 +88,7 @@ function FormLogin() {
               },
             })}
             helperText={errors.senha?.message}
-            name="senha"
+            name="password"
             id="senha"
             variant="outlined"
             size="small"
