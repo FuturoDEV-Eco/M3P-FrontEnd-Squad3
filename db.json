@@ -31,36 +31,34 @@
       "id": 2
     },
     {
-      "id": 3,
+      "bairro": "Costeira do Pirajubaé",
+      "rua": "Travessa Amarildo Espírito Cavalcante",
+      "cidade": "Florianópolis",
+      "estado": "SC",
       "nomeusuario": "Alana Fernandes",
       "sexo": "Feminino",
       "cpf": "33401220918",
-      "ndata": "18/02/1996",
+      "ndata": "1996-02-18",
       "email": "alana_fernandes@coeducar.com.br",
       "senha": "BSRhtgOdoW",
       "cep": "88047025",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Costeira do Pirajubaé",
-      "rua": "Travessa Amarildo Espírito Cavalcante",
       "ncasa": "692",
-      "ncoletas": 0
+      "id": 3
     },
     {
-      "id": 4,
+      "bairro": "Barra da Lagoa",
+      "rua": "Servidão Antônio Barranco",
+      "cidade": "Florianópolis",
+      "estado": "SC",
       "nomeusuario": "Natália Teresinha Almada",
       "sexo": "Feminino",
-      "cpf": "78098256901",
-      "ndata": "20/03/1996",
+      "cpf": "78098256904",
+      "ndata": "1996-03-20",
       "email": "nataliateresinhaalmada@crbrandao.com.br",
       "senha": "ZiQgnwyrpI",
       "cep": "88061445",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Barra da Lagoa",
-      "rua": "Servidão Antônio Barranco",
       "ncasa": "503",
-      "ncoletas": 0
+      "id": 4
     },
     {
       "bairro": "Lagoa da Conceição",
@@ -185,22 +183,6 @@
       "id": 12
     },
     {
-      "nomeusuario": "led",
-      "sexo": "masculino",
-      "cpf": "78954123654",
-      "ndata": "1995-11-12",
-      "email": "admin2@admin2.com",
-      "senha": "1234",
-      "cep": "88040320",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Pantanal",
-      "rua": "Rua Protenor Vidal",
-      "ncasa": "12",
-      "ncoletas": 0,
-      "id": 14
-    },
-    {
       "nomeusuario": "teste2",
       "sexo": "masculino",
       "cpf": "74521147851",
@@ -231,38 +213,6 @@
       "ncasa": "102",
       "ncoletas": 0,
       "id": 16
-    },
-    {
-      "nomeusuario": "dwad",
-      "sexo": "dwad",
-      "cpf": "12345672632",
-      "ndata": "1993-12-11",
-      "email": "b@b.com",
-      "senha": "1234",
-      "cep": "88040320",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Pantanal",
-      "rua": "Rua Protenor Vidal",
-      "ncasa": "123",
-      "ncoletas": 0,
-      "id": 18
-    },
-    {
-      "nomeusuario": "Dwad",
-      "sexo": "masculino",
-      "cpf": "78945645678",
-      "ndata": "0332-02-23",
-      "email": "c@c.com",
-      "senha": "1234",
-      "cep": "88040320",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Pantanal",
-      "rua": "Rua Protenor Vidal",
-      "ncasa": "23",
-      "ncoletas": 0,
-      "id": 19
     },
     {
       "nomeusuario": "Admin1",
@@ -430,28 +380,6 @@
     {
       "identiuser": "Denis",
       "residuos_aceitos": [
-        "Metal",
-        "Papel",
-        "Plástico"
-      ],
-      "nomelocal": "Teste com link1",
-      "descricao": "testq1 com link1",
-      "geocode": [
-        -27.6051558,
-        -48.6683118
-      ],
-      "cep": "88122030",
-      "cidade": "São José",
-      "estado": "SC",
-      "bairro": "Sertão do Maruim",
-      "rua": "Rua Jorge José Zimmermann",
-      "ncasa": "230",
-      "googleMapsLink": "https://www.google.com/maps?q=-27.6051558,-48.6683118",
-      "id": 12
-    },
-    {
-      "identiuser": "Denis",
-      "residuos_aceitos": [
         "Plástico",
         "Orgânicos",
         "Baterias"
@@ -470,28 +398,6 @@
       "ncasa": "233",
       "googleMapsLink": "https://www.google.com/maps?q=-27.6056765,-48.5143658",
       "id": 13
-    },
-    {
-      "identiuser": "Denis",
-      "residuos_aceitos": [
-        "Plástico",
-        "Orgânicos",
-        "Baterias"
-      ],
-      "nomelocal": "ReciclaMais2 teste number",
-      "descricao": "dawdadawxca",
-      "geocode": [
-        -27.6062948,
-        -48.5140077
-      ],
-      "cep": "88040320",
-      "cidade": "Florianópolis",
-      "estado": "SC",
-      "bairro": "Pantanal",
-      "rua": "Rua Protenor Vidal",
-      "ncasa": "2332",
-      "googleMapsLink": "https://www.google.com/maps?q=-27.6062948,-48.5140077",
-      "id": 14
     },
     {
       "bairro": "Pantanal",
@@ -534,6 +440,97 @@
       "cep": "88040320",
       "ncasa": "13",
       "id": 16
+    },
+    {
+      "identiuser": "Administrador 1",
+      "residuos_aceitos": [
+        "Metal",
+        "Papel",
+        "Plástico",
+        "Baterias",
+        "Eletrônicos"
+      ],
+      "nomelocal": "teste3",
+      "descricao": "teste",
+      "geocode": [
+        -27.5968578,
+        -48.5468118
+      ],
+      "cep": "88099899",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Área Rural de Florianópolis",
+      "rua": "Área Rural",
+      "ncasa": "233",
+      "googleMapsLink": "https://www.google.com/maps?q=-27.5968578,-48.5468118",
+      "id": 17
+    },
+    {
+      "identiuser": "Administrador 1",
+      "residuos_aceitos": [
+        "Vidro",
+        "Metal",
+        "Papel"
+      ],
+      "nomelocal": "Recicladora lagoa",
+      "descricao": "323",
+      "geocode": [
+        -27.6049074,
+        -48.5153533
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "100",
+      "googleMapsLink": "https://www.google.com/maps?q=undefined,undefined",
+      "id": 18
+    },
+    {
+      "identiuser": "Denis",
+      "residuos_aceitos": [
+        "Metal",
+        "Papel",
+        "Plástico"
+      ],
+      "nomelocal": "teste local",
+      "descricao": "loca5",
+      "geocode": [
+        -27.6056765,
+        -48.5143658
+      ],
+      "cep": "88040320",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "233",
+      "googleMapsLink": "https://www.google.com/maps?q=-27.6056765,-48.5143658",
+      "id": 19
+    },
+    {
+      "identiuser": "Denis",
+      "residuos_aceitos": [
+        "Vidro",
+        "Metal",
+        "Papel",
+        "Plástico"
+      ],
+      "nomelocal": "Recicladora lagoa",
+      "descricao": "teste",
+      "geocode": [
+        -27.6043807,
+        -48.5155343
+      ],
+      "cep": "88040321",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Pantanal",
+      "rua": "Rua Protenor Vidal",
+      "ncasa": "33",
+      "googleMapsLink": "https://www.google.com/maps?q=-27.6043807,-48.5155343",
+      "id": 20
     }
   ]
 }

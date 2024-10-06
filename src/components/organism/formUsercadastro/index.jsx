@@ -197,6 +197,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               label="CPF (somente numeros)"
               variant="outlined"
               size="small"
+              disabled={isEditing}
               defaultValue={isEditing ? userData.cpf : ''}
               type="number"
               placeholder="Digite seu CPF"
@@ -212,6 +213,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               helperText={errors.ndata?.message || 'Data de Nascimento'}
               variant="outlined"
               name="ndata"
+              disabled={!isEditing}
               defaultValue={isEditing ? userData.ndata : ''}
               size="small"
               type="date"

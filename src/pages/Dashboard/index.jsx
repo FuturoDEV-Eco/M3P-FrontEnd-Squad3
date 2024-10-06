@@ -28,8 +28,6 @@ function Dashboard() {
   let isAutenticated =
     JSON.parse(localStorage.getItem('isAutenticated')) || false;
 
-
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -50,23 +48,31 @@ function Dashboard() {
         <div className={styled.sidebar}>
           <h3>Lista de Usuários</h3>
           <Stack spacing={2}>
-            {usuarios
-              .slice(startIndexUsuarios, endIndexUsuarios)
-              .map((usuarios, index) => (
-                <BasicCardInfo
-                  dadoTitulo={usuarios.nomeusuario}
-                  dado2={usuarios.email}
-                  dado3={usuarios.cidade}
-                  key={index}
+            {isAutenticated ? (
+              <>
+                <Stack spacing={2}>
+                  {usuarios
+                    .slice(startIndexUsuarios, endIndexUsuarios)
+                    .map((usuario, index) => (
+                      <BasicCardInfo
+                        dadoTitulo={usuario.nomeusuario}
+                        dado2={usuario.email}
+                        dado3={usuario.cidade}
+                        key={index}
+                      />
+                    ))}
+                </Stack>
+                <Pagination
+                  count={Math.ceil(usuarios.length / itemsPerPageUsuarios)}
+                  page={pageUsuarios}
+                  onChange={handleChangePageUsuarios}
+                  shape="rounded"
                 />
-              ))}
+              </>
+            ) : (
+              <p>Precisa Fazer Login para visualizar</p>
+            )}
           </Stack>
-          <Pagination
-            count={Math.ceil(usuarios.length / itemsPerPageUsuarios)}
-            page={pageUsuarios}
-            onChange={handleChangePageUsuarios}
-            shape="rounded"
-          />
         </div>
         <div className={styled.boxright}>
           <div className={styled.headerinfo}>
@@ -126,8 +132,6 @@ function Dashboard() {
                 page={page}
                 onChange={handleChangePage}
                 shape="rounded"
-                // sx={{position:'absolute',
-                // top:'5px'}}
               />
             </div>
           </div>
