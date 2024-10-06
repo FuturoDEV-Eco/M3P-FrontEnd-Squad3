@@ -21,6 +21,7 @@ function FullCardInfo({
   showResiduos,
   endpoint,
   dataid,
+  showDado7 = true,
 }) {
   const { deleteData } = useContext(UsuariosContext);
 
@@ -98,10 +99,12 @@ function FullCardInfo({
           <b>{dado4.titulo} </b>
           {dado4.descricao}
         </p>
-        <p>
-          <b>{dado7.titulo} </b> 
-          <a href={dado7.descricao} target="_blank">https://www.google.com/maps...</a>
-        </p>
+        {showDado7 && dado7.titulo && dado7.descricao && (
+          <p>
+            <b>{dado7.titulo} </b>
+            <a href={dado7.descricao} target="_blank">{dado7.descricao}</a>
+          </p>
+        )}
       </div>
       
       {showResiduos && (

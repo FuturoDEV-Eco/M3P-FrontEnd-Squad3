@@ -534,6 +534,26 @@
       "cep": "88040320",
       "ncasa": "13",
       "id": 16
+    },
+    {
+      "identiuser": "Administrador 1",
+      "residuos_aceitos": [
+        "Plástico"
+      ],
+      "nomelocal": "centro",
+      "descricao": "pwoefj~weop",
+      "geocode": [
+        -27.709706,
+        -48.5024706
+      ],
+      "cep": "88066220",
+      "cidade": "Florianópolis",
+      "estado": "SC",
+      "bairro": "Morro das Pedras",
+      "rua": "Servidão Morro das Pedras",
+      "ncasa": "23",
+      "googleMapsLink": "https://www.google.com/maps?q=-27.709706,-48.5024706",
+      "id": 17
     }
   ]
 }

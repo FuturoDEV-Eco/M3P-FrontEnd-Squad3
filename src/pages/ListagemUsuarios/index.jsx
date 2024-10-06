@@ -54,6 +54,7 @@ function ListagemUsuarios() {
               showUserIcon={true}
               endpoint="usuarios"
               dataid={usuarios.id}
+              showDado7={false}
             />
           ))}
        </div> 
