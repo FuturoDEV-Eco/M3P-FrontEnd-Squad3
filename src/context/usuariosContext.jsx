@@ -178,7 +178,7 @@ export const UsuariosContextProvider = ({ children }) => {
   async function cadastrarUsuario(usuario) {
     try {
       const response = await fetch('http://localhost:3000/usuarios');
-      const dados = await response.json();
+      const dados = await response.json();    
       dados.map((usuarios) => {
         if (usuario.cpf.length !== 11) {
           throw new Error('cpf falta/sobra numeros');
