@@ -11,7 +11,7 @@ export const UsuariosContextProvider = ({ children }) => {
   const [localTopResiduos, setLocalTopResiduos] = useState();
 
   function getUsuarios() {
-    fetch('http://localhost:3000/usuarios')
+    fetch('http://localhost:3000/usuario')
       .then((response) => response.json())
       .then((data) => setUsuarios(data))
       .catch((error) => console.log(error));
@@ -177,20 +177,28 @@ export const UsuariosContextProvider = ({ children }) => {
 
   async function cadastrarUsuario(usuario) {
     try {
-      const response = await fetch('http://localhost:3000/usuarios');
-      const dados = await response.json();
-      dados.map((usuarios) => {
-        if (usuario.cpf.length !== 11) {
-          throw new Error('cpf falta/sobra numeros');
-        }
-        if (usuarios.cpf == usuario.cpf) {
-          throw new Error('cpf já existe');
-        }
-      });
+      // const response = await fetch('http://localhost:3000/usuario');
+      // const dados = await response.json();    
+      // dados.map((usuarios) => {
+      //   if (usuario.cpf.length !== 11) {
+      //     throw new Error('cpf falta/sobra numeros');
+      //   }
+      //   if (usuarios.cpf == usuario.cpf) {
+      //     throw new Error('cpf já existe');
+      //   }
+      // });
+
+      const enderecoCompleto = `${usuario.rua}, ${usuario.bairro}, ${usuario.cidade}, ${usuario.estado}`;
+      usuario.endereco = enderecoCompleto;
+
+      delete usuario.rua;
+      delete usuario.bairro;
+      delete usuario.cidade;
+      delete usuario.estado;
 
       usuario.ncoletas = 0;
 
-      await fetch('http://localhost:3000/usuarios', {
+      await fetch('http://localhost:3000/usuario', {
         method: 'POST',
         body: JSON.stringify(usuario),
         headers: {

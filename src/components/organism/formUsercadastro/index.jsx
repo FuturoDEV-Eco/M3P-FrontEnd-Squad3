@@ -42,6 +42,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
   }, [isEditing, reset, userData]);
 
   async function submitForm(formValue) {
+    console.log('formulario: ', formValue)
     if (isEditing == false) {
       await saveForm(formValue);
     } else {
@@ -138,7 +139,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
         <form className={styled.boxform} onSubmit={handleSubmit(submitForm)}>
           <div className={styled.inputsbetween}>
             <TextField
-              {...register('nomeusuario', {
+              {...register('nome', {
                 required: 'Este campo é obrigatorio',
                 maxLength: {
                   value: 50,
@@ -146,7 +147,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
                 },
               })}
               helperText={errors.nomeusuario?.message}
-              name="nomeusuario"
+              name="nome"
               label="Nome"
               variant="outlined"
               size="small"
@@ -209,11 +210,11 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               {...register('cpf')}
             ></TextField>
             <TextField
-              {...register('ndata', { required: 'Este campo é obrigatorio' })}
+              {...register('dataNascimento', { required: 'Este campo é obrigatorio' })}
               helperText={errors.ndata?.message || 'Data de Nascimento'}
               variant="outlined"
-              name="ndata"
-              disabled={!isEditing}
+              name="dataNascimento"
+              disabled={isEditing}
               defaultValue={isEditing ? userData.ndata : ''}
               size="small"
               type="date"
@@ -248,7 +249,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
             }}
           ></TextField>
           <TextField
-            {...register('senha', {
+            {...register('password', {
               required: 'Este campo é obrigatorio',
               maxLength: {
                 value: 11,
@@ -257,7 +258,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
             })}
             helperText={errors.senha?.message}
             label="Senha"
-            name="senha"
+            name="password"
             defaultValue={isEditing ? userData.senha : ''}
             variant="outlined"
             size="small"
@@ -268,7 +269,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
                 color: 'red',
               },
             }}
-            {...register('senha')}
+            {...register('password')}
           ></TextField>
           <Divider>Endereço</Divider>
           <div className={styled.inputsbetween}>
