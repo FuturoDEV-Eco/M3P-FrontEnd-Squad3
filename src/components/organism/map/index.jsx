@@ -8,16 +8,24 @@ import Styles from './map.module.css';
 export default function MapColetas() {
   const { locaisColetas } = useContext(UsuariosContext);
 
-  const locais = locaisColetas.map((coleta, index) => ({
-    id: index,
-    geocode: coleta.geocode,
-    nomeLocal: coleta.nomelocal,
-    descricao: coleta.descricao,
-    rua: coleta.rua,
-    ncasa: coleta.ncasa,
-    bairro: coleta.bairro,
-    residuos_aceitos: coleta.residuos_aceitos,
-  }));
+  console.log("locaisColetas map",locaisColetas)
+
+  const locais = locaisColetas.map((coleta, index) => {
+    const coordenadasArray = coleta.coordenadas
+      .split(',')               
+      .map(coord => parseFloat(coord.trim()));  
+    
+    return {
+      id: coleta.id,
+      coordenadas: coordenadasArray,  
+      nome: coleta.nome,
+      descricao: coleta.descricao,
+      logradouro: coleta.logradouro,
+      numero: coleta.numero,
+      bairro: coleta.bairro,
+      residuos_aceitos: coleta.residuos_aceitos,
+    };
+  });
 
   return (
     <div style={{ height: '500px' }}>
@@ -27,14 +35,14 @@ export default function MapColetas() {
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
          {locais.map((local, index) => (
-          <Marker key={index} position={local.geocode}>
+          <Marker key={index} position={local.coordenadas}>
             <Popup>
               <div className={Styles.popupcontent}>
                 <div className={Styles.popupheader}>
-                  <h3>{local.nomeLocal}</h3>
+                  <h3>{local.nome}</h3>
                 </div>
                 <div className={Styles.popupbody}>
-                <p>{`${local.rua}, ${local.ncasa}`}</p>
+                <p>{`${local.logradouro}, ${local.numero}`}</p>
                 <h4>Bairro:</h4><p>{local.bairro}</p>                  
                 <h4>Resíduos Aceitos:</h4>
                   <ul>

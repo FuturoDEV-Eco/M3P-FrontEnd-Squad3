@@ -10,6 +10,11 @@ export const UsuariosContextProvider = ({ children }) => {
   const [usuarioMaxColetas, setUsuarioMaxColetas] = useState();
   const [localTopResiduos, setLocalTopResiduos] = useState();
 
+  const [dashboardData, setDashboardData] = useState(null);
+  const [dashboardLoading, setDashboardLoading] = useState(true);
+  const [dashboardError, setDashboardError] = useState(null);
+ 
+
   function getUsuarios() {
     fetch('http://localhost:4000/usuarios')
       .then((response) => response.json())
@@ -18,15 +23,32 @@ export const UsuariosContextProvider = ({ children }) => {
   }
 
   function getLocaisColeta() {
-    fetch('http://localhost:4000/locaisColeta')
+    fetch('http://localhost:3000/local')
       .then((response) => response.json())
       .then((data) => setLocaisColeta(data))
       .catch((error) => console.log(error));
   }
 
+  const getDashboardData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/dashboard/');
+      if (!response.ok) {
+        throw new Error('Error na resposta da aPI');
+      }
+      const data = await response.json();
+      setDashboardData(data);
+    } catch (error) {
+      setDashboardError(error.message);
+    } finally {
+      setDashboardLoading(false); 
+    }
+  };
+
+
   useEffect(() => {
     getUsuarios();
     getLocaisColeta();
+    getDashboardData();
   }, []);
 
   useEffect(() => {
@@ -70,9 +92,10 @@ export const UsuariosContextProvider = ({ children }) => {
 
   async function getGeocoding(coleta) {
     const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
+    console.log('função getGeocoding', coleta)
 
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${coleta.ncasa}+${coleta.rua},+${coleta.cidade},+SC&key=${apiKey}`
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${coleta.numero}+${coleta.logradouro},+${coleta.localidade},+SC&key=${apiKey}`
     );
 
     if (!response.ok) {
@@ -80,6 +103,7 @@ export const UsuariosContextProvider = ({ children }) => {
     }
 
     const data = await response.json();
+
 
     if (data.results.length > 0) {
       const location = data.results[0].geometry.location;
@@ -95,7 +119,7 @@ export const UsuariosContextProvider = ({ children }) => {
   async function cadastrarColeta(coleta) {
     try {
       const currentUser = localStorage.getItem('currentUser');
-      const { latitud, longitud } = await getGeocoding(coleta);
+      // const { latitud, longitud } = await getGeocoding(coleta);
       coleta.geocode = [latitud, longitud];
 
       const googleMapsLink = `https://www.google.com/maps?q=${latitud},${longitud}`;
@@ -147,7 +171,7 @@ export const UsuariosContextProvider = ({ children }) => {
       }
 
       if (endpoint === 'locaisColeta') {
-        const { latitud, longitud } = await getGeocoding(data);
+        // const { latitud, longitud } = await getGeocoding(data);
         data.geocode = [latitud, longitud];
       }
 
@@ -275,7 +299,7 @@ export const UsuariosContextProvider = ({ children }) => {
     return { error };
   }
 }
-
+  
   return (
     <UsuariosContext.Provider
       value={{
@@ -285,6 +309,9 @@ export const UsuariosContextProvider = ({ children }) => {
         userNumbers,
         usuarioMaxColetas,
         localTopResiduos,
+        dashboardData,
+        dashboardLoading,
+        dashboardError,
         login,
         cadastrarUsuario,
         getUsuarios,
@@ -292,7 +319,8 @@ export const UsuariosContextProvider = ({ children }) => {
         cadastrarColeta,
         deleteData,
         editData,
-        getGeocoding
+        getGeocoding,
+        getDashboardData
       }}
     >
       {children}

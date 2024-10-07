@@ -18,12 +18,27 @@ function Dashboard() {
     userNumbers,
     usuarioMaxColetas,
     localTopResiduos,
+    dashboardData, 
+    dashboardLoading, 
+    dashboardError,
   } = useContext(UsuariosContext);
 
   const itemsPerPage = 4;
   const itemsPerPageUsuarios = 6;
   const [page, setPage] = useState(1);
   const [pageUsuarios, setPageUsuarios] = useState(1);
+ 
+  if (dashboardLoading) {
+    return <p>Carregando os dados...</p>;
+  }
+
+  if (dashboardError) {
+    return <p>Erro ao carregar os dados do dashboard: {dashboardError}</p>;
+  }
+
+  if (!dashboardData) {
+    return <p>Não tem dados disponíveis</p>;
+  }
 
   let isAutenticated =
     JSON.parse(localStorage.getItem('isAuthenticated')) || false;
@@ -86,12 +101,12 @@ function Dashboard() {
               buttonDisable={!isAutenticated}
             />
             <InfoHeaderCard
-              numberData={usuarioMaxColetas}
+              numberData={dashboardData.usuarioComMaisLocaisCadastrados}
               infoData="Usuário com mais registros"
               typeClass="cardtext"
             />
             <InfoHeaderCard
-              numberData={locaisColetasNumber}
+              numberData={dashboardData.totalLocais}
               infoData="Locais de coletas"
               typeClass="cardnumber"
               showButton={true}
@@ -100,7 +115,7 @@ function Dashboard() {
               buttonDisable={!isAutenticated}
             />
             <InfoHeaderCard
-              numberData={localTopResiduos}
+              numberData={dashboardData.localComMaisResiduosAceitos}
               infoData="Local com mais residuos aceitos"
               typeClass="cardtext"
               showButton={true}
@@ -120,9 +135,9 @@ function Dashboard() {
                   .slice(startIndex, endIndex)
                   .map((dadosColeta, index) => (
                     <BasicCardInfo
-                      dadoTitulo={dadosColeta.nomelocal}
+                      dadoTitulo={dadosColeta.nome}
                       dado2={dadosColeta.descricao}
-                      dado3={`${dadosColeta.rua}, ${dadosColeta.ncasa}, ${dadosColeta.bairro}, ${dadosColeta.cidade}`}
+                      dado3={`${dadosColeta.logradouro}, ${dadosColeta.numero}, ${dadosColeta.bairro}, ${dadosColeta.localidade}`}
                       key={index}
                     />
                   ))}

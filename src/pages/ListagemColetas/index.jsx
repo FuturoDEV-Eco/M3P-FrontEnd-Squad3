@@ -49,15 +49,15 @@ function ListagemColetas() {
         <h1>Lista de locais de coleta Cadastrados</h1>
         {locaisColetas.map((coletas, index) => (
           <FullCardInfo
-            dadoTitulo={coletas.nomelocal}
+            dadoTitulo={coletas.nome}
             dadoSubtitulo={coletas.descricao}
             dado3={{ titulo: 'Bairro:', descricao: coletas.bairro }}
             dado4={{
               titulo: 'Endereço:',
-              descricao: `${coletas.rua}, ${coletas.ncasa}`,
+              descricao: `${coletas.logradouro}, ${coletas.numero}`,
             }}
-            dado5={{ titulo: 'Por:', descricao: coletas.identiuser }}
-            dado6={{ titulo: 'Cidade', descricao: coletas.cidade }}
+            dado5={{ titulo: 'Por:', descricao: coletas.userId }}
+            dado6={{ titulo: 'Cidade', descricao: coletas.localidade }}
             dado7={{ titulo: "Link de Google Maps:", descricao: coletas.googleMapsLink}}
             showColetaIcon={true}
             showResiduos={{
