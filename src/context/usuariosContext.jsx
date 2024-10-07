@@ -11,8 +11,9 @@ export const UsuariosContextProvider = ({ children }) => {
   const [localTopResiduos, setLocalTopResiduos] = useState();
 
   const [dashboardData, setDashboardData] = useState(null);
+  const [dashboardLoading, setDashboardLoading] = useState(true);
   const [dashboardError, setDashboardError] = useState(null);
-  const [dashboardLoading, setDashboardLoading] = useState(true); 
+ 
 
   function getUsuarios() {
     fetch('http://localhost:4000/usuarios')
@@ -31,27 +32,23 @@ export const UsuariosContextProvider = ({ children }) => {
   const getDashboardData = async () => {
     try {
       const response = await fetch('http://localhost:3000/dashboard/');
-      
       if (!response.ok) {
-        throw new Error('Erro');
-      } 
+        throw new Error('Error na resposta da aPI');
+      }
       const data = await response.json();
-      
       setDashboardData(data);
     } catch (error) {
       setDashboardError(error.message);
     } finally {
-      setDashboardLoading(false);
+      setDashboardLoading(false); 
     }
   };
 
-  useEffect(() => {
-    getDashboardData();
-  }, []);
 
   useEffect(() => {
     getUsuarios();
     getLocaisColeta();
+    getDashboardData();
   }, []);
 
   useEffect(() => {
@@ -298,7 +295,7 @@ export const UsuariosContextProvider = ({ children }) => {
     return { error };
   }
 }
-
+  
   return (
     <UsuariosContext.Provider
       value={{
@@ -309,6 +306,8 @@ export const UsuariosContextProvider = ({ children }) => {
         usuarioMaxColetas,
         localTopResiduos,
         dashboardData,
+        dashboardLoading,
+        dashboardError,
         login,
         cadastrarUsuario,
         getUsuarios,

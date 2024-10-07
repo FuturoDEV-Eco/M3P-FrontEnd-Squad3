@@ -18,13 +18,27 @@ function Dashboard() {
     userNumbers,
     usuarioMaxColetas,
     localTopResiduos,
-    dashboardData,
+    dashboardData, 
+    dashboardLoading, 
+    dashboardError,
   } = useContext(UsuariosContext);
 
   const itemsPerPage = 4;
   const itemsPerPageUsuarios = 6;
   const [page, setPage] = useState(1);
   const [pageUsuarios, setPageUsuarios] = useState(1);
+ 
+  if (dashboardLoading) {
+    return <p>Carregando os dados...</p>;
+  }
+
+  if (dashboardError) {
+    return <p>Erro ao carregar os dados do dashboard: {dashboardError}</p>;
+  }
+
+  if (!dashboardData) {
+    return <p>Não tem dados disponíveis</p>;
+  }
 
   let isAutenticated =
     JSON.parse(localStorage.getItem('isAuthenticated')) || false;
