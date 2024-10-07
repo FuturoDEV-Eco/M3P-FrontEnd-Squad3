@@ -119,7 +119,6 @@ export const UsuariosContextProvider = ({ children }) => {
   async function cadastrarColeta(coleta) {
     try {
       const currentUser = localStorage.getItem('currentUser');
-      // const { latitud, longitud } = await getGeocoding(coleta);
       coleta.geocode = [latitud, longitud];
 
       const googleMapsLink = `https://www.google.com/maps?q=${latitud},${longitud}`;
@@ -159,9 +158,21 @@ export const UsuariosContextProvider = ({ children }) => {
       .catch(() => alert('Erro ao apagar usuário'));
   }
 
+
+
+
   async function editData(data, endpoint, id) {
+    const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:4000/${endpoint}/` + id);
+      const response = await fetch(`http://localhost:3000/${endpoint}/` + id, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+      });
+      
+      console.log("dados do editdata antes do fetch")
       const dados = await response.json();
 
       if (endpoint === 'usuarios') {
@@ -171,23 +182,27 @@ export const UsuariosContextProvider = ({ children }) => {
       }
 
       if (endpoint === 'locaisColeta') {
-        // const { latitud, longitud } = await getGeocoding(data);
-        data.geocode = [latitud, longitud];
+        const { latitud, longitud } = await getGeocoding(dados);
+        dados.geocode = [latitud, longitud];
       }
 
-      await fetch(`http://localhost:4000/${endpoint}/` + id, {
+      console.log("data antes del fetch", data)
+
+      await fetch(`http://localhost:3000/${endpoint}/` + id, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
       });
 
       localStorage.setItem('editOk', 'true');
       getUsuarios();
-      if (endpoint === 'usuarios') {
+
+      if (endpoint === 'usuario') {
         window.location.href = '/listagem-usuarios';
-      } else if (endpoint === 'locaisColeta') {
+      } else if (endpoint === 'local') {
         window.location.href = '/listagem-coletas';
       }
       console.log(data);
@@ -199,18 +214,12 @@ export const UsuariosContextProvider = ({ children }) => {
     }
   }
 
+
+
+
+
   async function cadastrarUsuario(usuario) {
     try {
-      // const response = await fetch('http://localhost:3000/usuario');
-      // const dados = await response.json();    
-      // dados.map((usuarios) => {
-      //   if (usuario.cpf.length !== 11) {
-      //     throw new Error('cpf falta/sobra numeros');
-      //   }
-      //   if (usuarios.cpf == usuario.cpf) {
-      //     throw new Error('cpf já existe');
-      //   }
-      // });
 
       const enderecoCompleto = `${usuario.rua}, ${usuario.bairro}, ${usuario.cidade}, ${usuario.estado}`;
       usuario.endereco = enderecoCompleto;
@@ -243,10 +252,6 @@ export const UsuariosContextProvider = ({ children }) => {
 
   async function login(email, senha) {
     try {
-      // const response = await fetch('http://localhost:3000/usuarios');
-      // const dados = await response.json();
-      // let usuarioExist = false;
-      
       const data = {email, senha}
 
       const response = await fetch('http://localhost:3000/login', {
@@ -274,25 +279,7 @@ export const UsuariosContextProvider = ({ children }) => {
         throw new Error('Token não recebido. Verifique o servidor.');
       }
 
-      
-
-      // antiga validação de usuario do front
-      // dados.map((usuarios) => {
-      //   if (usuarios.email == email) {
-      //     usuarioExist = true;
-      //     if (usuarios.senha == senha) {
-      //       localStorage.setItem('isAutenticated', true);
-      //       localStorage.setItem('currentUser', usuarios.nomeusuario);
-      //       window.location.href = '/';
-      //       return;
-      //     }
-      //     throw new Error('Senha incorreta');
-      //   }
-      // });
-
-      // if (!usuarioExist) {
-      //   throw new Error('Usuário não existe');
-      // }
+    
       return result;
   } catch (error) {
     console.error(error);

@@ -25,44 +25,45 @@ function FullCardInfo({
   const { deleteData } = useContext(UsuariosContext);
 
   function editData(endpoint, dataid) {
-    window.location.href = `/editar/${endpoint}/${dataid}`;
+    window.location.href = `editar/${endpoint}/${dataid}`;
   }
 
-  const currentUser = localStorage.getItem('currentUser');
-
-  function getDeleteButtonProps() {
-    if (typeof dado5.descricao === 'string') {
-      if (dado5.descricao === currentUser) {
-        return { disabled: false, tooltip: '' };
-      } else {
-        return { disabled: true, tooltip: 'Só pode apagar locais de coleta cadastrados por você' };
-      }
-    } 
-    else if (typeof dado5.descricao === 'number') {
-      if (dado5.descricao === 0) {
-        return { disabled: false, tooltip: '' };
-      } else {
-        return { disabled: true, tooltip: 'Não pode apagar usuários com pontos de coleta cadastrados' };
-      }
-    } else {
-      return { disabled: true, tooltip: 'Erro: Tipo de usuário inválido' };
-    }
-  }
+  const currentUser = localStorage.getItem('currentUserId');
   
-  function getEditButtonProps() {
-    if (typeof dado5.descricao === 'string') {
-      if (dado5.descricao === currentUser) {
-        return { disabled: false, tooltip: '' };  
+  function getDeleteButtonProps() {
+    const currentUser = parseInt(localStorage.getItem('currentUserId'), 10); 
+    if (typeof dado5.descricao === 'number') {
+      if (dado5.descricao === currentUser) { 
+        return { disabled: false, tooltip: '' }; 
       } else {
-        return { disabled: true, tooltip: 'Só pode editar locais de coleta cadastrados por você' };  
+        return { disabled: true, tooltip: 'Só pode apagar locais de coleta cadastrados por você' }; 
       }
     } 
-    else if (typeof dado5.descricao === 'number') {
-      return { disabled: false, tooltip: '' };  
+    else if (dado5.descricao === 0) { 
+      return { disabled: false, tooltip: '' }; 
     } else {
-      return { disabled: true, tooltip: 'Erro: Tipo de usuário inválido' };
+      return { disabled: true, tooltip: 'Erro: Tipo de usuário inválido' }; 
     }
   }
+
+
+  function getEditButtonProps() {
+    const currentUser = parseInt(localStorage.getItem('currentUserId'), 10); 
+    if (typeof dado5.descricao === 'number') {
+      if (dado5.descricao === currentUser) { 
+        return { disabled: false, tooltip: '' }; 
+      } else {
+        return { disabled: true, tooltip: 'Só pode editar locais de coleta cadastrados por você' }; 
+      }
+    } 
+    else if (dado5.descricao === 0) { 
+      return { disabled: false, tooltip: '' }; 
+    } else {
+      return { disabled: true, tooltip: 'Erro: Tipo de usuário inválido' }; 
+    }
+  }
+
+  
 
   const deleteButtonProps = getDeleteButtonProps();
   const editButtonProps = getEditButtonProps();

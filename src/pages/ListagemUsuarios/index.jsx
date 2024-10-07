@@ -52,7 +52,7 @@ function ListagemUsuarios() {
               dado7={{ titulo: false, descricao: false }}
               key={index}
               showUserIcon={true}
-              endpoint="usuarios"
+              endpoint="usuario"
               dataid={usuarios.id}
             />
           ))}

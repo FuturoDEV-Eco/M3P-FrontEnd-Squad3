@@ -19,6 +19,7 @@ import { TextField, InputLabel } from '@mui/material';
 function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   const currentUser = localStorage.getItem('currentUser');
   const [googleMapsLink, setGoogleMapsLink] = useState('');
+  const userName = localStorage.getItem('currentUserName');
 
 
   const {
@@ -39,14 +40,15 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     if (isEditing) {
       reset({
         bairro: userData.bairro,
-        rua: userData.rua,
-        cidade: userData.cidade,
+        rua: userData.logradouro,
+        cidade: userData.localidade,
         estado: userData.estado,
-        identiuser: userData.identiuser,
+        identiuser: userName,
+        cep: userData.cep.replace(/-/g, '')
       });
     } else {
       reset({
-        identiuser: currentUser,
+        identiuser: userName,
       });
     }
   }, [isEditing, reset, userData]);
@@ -74,12 +76,6 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
 
   async function saveForm(formColetaValue) {
     try {
-      const latitude = getValues('geocode[1]');
-      const longitude = getValues('geocode[0]');
-      
-      const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-  
-      formColetaValue.googleMapsLink = googleMapsLink;
   
       console.log(formColetaValue);
       const cadastroResult = await cadastrarColeta(formColetaValue);
@@ -141,10 +137,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
       const cidade = getValues('cidade');
     
       const coleta = { ncasa, rua, cidade };
-      // const { latitud, longitud } = await getGeocoding(coleta);
-  
-      setValue('geocode[1]', latitud);
-      setValue('geocode[0]', longitud);
+
       const googleMapsLink = await getGoogleMapsLink()
       console.log(googleMapsLink)
     } catch (error) {
@@ -196,7 +189,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
         <form className={styled.boxform} onSubmit={handleSubmit(submitForm)}>
           <InputLabel>Nome do local de coleta</InputLabel>
           <TextField
-            {...register('nomelocal', {
+            {...register('nome', {
               required: 'Este campo é obrigatorio',
               maxLength: {
                 value: 50,
@@ -204,8 +197,8 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               },
             })}
             helperText={errors.nomelocal?.message}
-            name="nomelocal"
-            defaultValue={isEditing ? userData.nomelocal : ''}
+            name="nome"
+            defaultValue={isEditing ? userData.nome : ''}
             variant="outlined"
             size="small"
             type="Text"
@@ -248,7 +241,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             helperText={errors.identiuser?.message}
             name="identiuser"
             variant="outlined"
-            defaultValue={isEditing ? userData.identiuser : ''}
+            defaultValue={isEditing ? userName : ''}
             size="small"
             placeholder={currentUser}
             type="text"
@@ -433,7 +426,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                 {...register('geocode[0]')}
                 name="longitude"
                 disabled={true}
-                defaultValue={isEditing ? userData.geocode[0] : ''}
+                // defaultValue={isEditing ? userData.coordenadas[0] : ''}
                 variant="outlined"
                 size="small"
                 type="number"
@@ -446,7 +439,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                 {...register('geocode[1]')}
                 name="latitude"
                 disabled={true}
-                defaultValue={isEditing ? userData.geocode[1] : ''}
+                // defaultValue={isEditing ? userData.coordenadas[1] : ''}
                 variant="outlined"
                 size="small"
                 type="number"
@@ -548,15 +541,15 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               {...register('rua')}
             ></TextField>
             <TextField
-              {...register('ncasa', {
+              {...register('numero', {
                 required: 'Este campo é obrigatorio',
               })}
-              helperText={errors.ncasa?.message}
+              helperText={errors.numero?.message}
               label="Número"
-              name="ncasa"
+              name="numero"
               variant="outlined"
               size="small"
-              defaultValue={isEditing ? userData.ncasa : ''}
+              defaultValue={isEditing ? userData.numero : ''}
               type="number"
               onBlur={() => handleLatitudeLongitude()}
               sx={{
