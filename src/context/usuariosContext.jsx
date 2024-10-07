@@ -25,14 +25,9 @@ export const UsuariosContextProvider = ({ children }) => {
   function getLocaisColeta() {
     fetch('http://localhost:3000/local')
       .then((response) => response.json())
-      .then((data) => {
-        console.log("respond",data)
-        setLocaisColeta(data)})
+      .then((data) => setLocaisColeta(data))
       .catch((error) => console.log(error));
   }
-
-
-
 
   const getDashboardData = async () => {
     try {
