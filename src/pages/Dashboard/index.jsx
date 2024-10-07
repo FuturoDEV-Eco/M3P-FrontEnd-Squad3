@@ -135,9 +135,9 @@ function Dashboard() {
                   .slice(startIndex, endIndex)
                   .map((dadosColeta, index) => (
                     <BasicCardInfo
-                      dadoTitulo={dadosColeta.nomelocal}
+                      dadoTitulo={dadosColeta.nome}
                       dado2={dadosColeta.descricao}
-                      dado3={`${dadosColeta.rua}, ${dadosColeta.ncasa}, ${dadosColeta.bairro}, ${dadosColeta.cidade}`}
+                      dado3={`${dadosColeta.logradouro}, ${dadosColeta.numero}, ${dadosColeta.bairro}, ${dadosColeta.localidade}`}
                       key={index}
                     />
                   ))}

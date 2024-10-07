@@ -9,16 +9,23 @@ export default function MapColetas() {
   const { locaisColetas } = useContext(UsuariosContext);
 
   console.log("locaisColetas map",locaisColetas)
-  const locais = locaisColetas.map((coleta, index) => ({
-    id: index,
-    coordenadas: coleta.coordenadas,
-    nome: coleta.nome,
-    descricao: coleta.descricao,
-    logradouro: coleta.logradouro,
-    numero: coleta.numero,
-    bairro: coleta.bairro,
-    residuos_aceitos: coleta.residuos_aceitos,
-  }));
+
+  const locais = locaisColetas.map((coleta, index) => {
+    const coordenadasArray = coleta.coordenadas
+      .split(',')               
+      .map(coord => parseFloat(coord.trim()));  
+    
+    return {
+      id: coleta.id,
+      coordenadas: coordenadasArray,  
+      nome: coleta.nome,
+      descricao: coleta.descricao,
+      logradouro: coleta.logradouro,
+      numero: coleta.numero,
+      bairro: coleta.bairro,
+      residuos_aceitos: coleta.residuos_aceitos,
+    };
+  });
 
   return (
     <div style={{ height: '500px' }}>
@@ -35,7 +42,7 @@ export default function MapColetas() {
                   <h3>{local.nome}</h3>
                 </div>
                 <div className={Styles.popupbody}>
-                <p>{`${local.rua}, ${local.numero}`}</p>
+                <p>{`${local.logradouro}, ${local.numero}`}</p>
                 <h4>Bairro:</h4><p>{local.bairro}</p>                  
                 <h4>Resíduos Aceitos:</h4>
                   <ul>

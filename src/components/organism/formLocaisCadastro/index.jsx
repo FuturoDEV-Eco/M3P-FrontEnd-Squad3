@@ -33,7 +33,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     identiuser: '',
   });
 
-  const { cadastrarColeta, editData, getGeocoding } = useContext(UsuariosContext);
+  const { cadastrarColeta, editData } = useContext(UsuariosContext);
 
   useEffect(() => {
     if (isEditing) {
@@ -141,7 +141,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
       const cidade = getValues('cidade');
     
       const coleta = { ncasa, rua, cidade };
-      const { latitud, longitud } = await getGeocoding(coleta);
+      // const { latitud, longitud } = await getGeocoding(coleta);
   
       setValue('geocode[1]', latitud);
       setValue('geocode[0]', longitud);
