@@ -154,7 +154,7 @@ export const UsuariosContextProvider = ({ children }) => {
 
       localStorage.setItem('cadastroColetaOk', 'true');
       getLocaisColeta();
-      // window.location.href = '/listagem-coletas';
+      window.location.href = '/listagem-coletas';
       return {};
     } catch (error) {
       console.error(error);
