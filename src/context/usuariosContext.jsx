@@ -162,22 +162,54 @@ export const UsuariosContextProvider = ({ children }) => {
     }
   }
 
+  // function deleteData(endpoint, id) {
+  //   fetch(`http://localhost:4000/${endpoint}/` + id, {
+  //     method: 'DELETE',
+  //   })
+  //     .then(() => {
+  //       localStorage.setItem('deleteOk', 'true');
+  //       getUsuarios();
+  //       if (endpoint === 'usuarios') {
+  //         window.location.href = '/listagem-usuarios';
+  //       } else if (endpoint === 'locaisColeta') {
+  //         window.location.href = '/listagem-coletas';
+  //       }
+  //     })
+  //     .catch(() => alert('Erro ao apagar usuário'));
+  // }
   function deleteData(endpoint, id) {
-    fetch(`http://localhost:4000/${endpoint}/` + id, {
-      method: 'DELETE',
-    })
-      .then(() => {
-        localStorage.setItem('deleteOk', 'true');
-        getUsuarios();
-        if (endpoint === 'usuarios') {
-          window.location.href = '/listagem-usuarios';
-        } else if (endpoint === 'locaisColeta') {
-          window.location.href = '/listagem-coletas';
-        }
-      })
-      .catch(() => alert('Erro ao apagar usuário'));
-  }
+    let url;
+    const token = localStorage.getItem('token');
+    console.log("endpoint");
 
+    if (endpoint === 'locaisColeta') {
+        url = `http://localhost:3000/local/${id}`;  
+    } else if (endpoint === 'usuarios') {
+        url = `http://localhost:3000/usuario/${id}`;  
+    } else {
+        console.error('Endpoint no válido');
+        return;
+    }
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
+       
+    })
+    .then(() => {
+        localStorage.setItem('deleteOk', 'true');
+        getUsuarios();  
+        if (endpoint === 'usuarios') {
+            window.location.href = '/listagem-usuarios';
+        } else if (endpoint === 'locaisColeta') {
+            window.location.href = '/listagem-coletas';
+        }
+    })
+    .catch(() => alert('Erro ao apagar item'));
+}
   async function editData(data, endpoint, id) {
     try {
       const response = await fetch(`http://localhost:4000/${endpoint}/` + id);
@@ -275,6 +307,7 @@ export const UsuariosContextProvider = ({ children }) => {
       });
 
       const result = await response.json();
+      console.log("result304",result)
 
       if (!response.ok) {
         throw new Error('Falha no login. Verifique suas credenciais.');

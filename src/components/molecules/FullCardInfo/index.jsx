@@ -1,11 +1,8 @@
 import Styles from './FullCardInfo.module.css';
-import Divider from '@mui/material/Divider';
-import React from 'react';
-
+import React, { useContext } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import Cbutton from '../../atoms/Cbutton/Cbutton';
-import { useContext } from 'react';
 import UsuariosContext from '../../../context/usuariosContext';
 
 function FullCardInfo({
@@ -24,52 +21,77 @@ function FullCardInfo({
   isUserList,
 }) {
   const { deleteData } = useContext(UsuariosContext);
+  const currentUser = localStorage.getItem('currentUserName');
+  const currentUserId = localStorage.getItem('currentUserId');
+  const isAuthenticated = localStorage.getItem('isAuthenticated')
+
 
   function editData(endpoint, dataid) {
     window.location.href = `/editar/${endpoint}/${dataid}`;
   }
 
-  const currentUser = localStorage.getItem('currentUser');
+  // function getDeleteButtonProps() {
+  //   if (!currentUserId) {
+  //     return { disabled: true, tooltip: 'Você precisa estar logado para apagar locais de coleta.' };
+  //   }
+
+    
+  //  console.log("dado5.descricao",dado5.descricao)
+  //  console.log("endpoint 40",endpoint)
+  //   if (dado5.descricao !== currentUserId) {
+  //     return { disabled: true, tooltip: 'Só pode apagar locais de coleta cadastrados por você.' };
+  //   } 
+
+  //   return { disabled: false, tooltip: '' }; 
+  // }
+
+  // function getDeleteButtonProps() {
+  //   if (typeof dado5.descricao === 'string') {
+  //     if (dado5.descricao === currentUserId) {
+  //       return { disabled: false, tooltip: '' };
+  //     } else {
+  //       return { disabled: true, tooltip: 'Só pode apagar locais de coleta cadastrados por você' };
+  //     }
+  //   } 
+  //   else if (typeof dado5.descricao === 'number') {
+  //     if (dado5.descricao === 0) {
+  //       return { disabled: false, tooltip: '' };
+  //     } else {
+  //       return { disabled: true, tooltip: 'Não pode apagar usuários com pontos de coleta cadastrados' };
+  //     }
+  //   } else {
+  //     return { disabled: true, tooltip: 'Erro: Tipo de usuário inválido' };
+  //   }
+  // }
 
   function getDeleteButtonProps() {
-    if (typeof dado5.descricao === 'string') {
-      if (dado5.descricao === currentUser) {
-        return { disabled: false, tooltip: '' };
+    const currentUser = parseInt(localStorage.getItem('currentUserId'), 10); 
+    if (typeof dado5.descricao === 'number') {
+      if (dado5.descricao === currentUser) { 
+        return { disabled: false, tooltip: '' }; 
       } else {
-        return {
-          disabled: true,
-          tooltip: 'Só pode apagar locais de coleta cadastrados por você',
-        };
+        return { disabled: true, tooltip: 'Só pode apagar locais de coleta cadastrados por você' }; 
       }
-    } else if (typeof dado5.descricao === 'number') {
-      if (dado5.descricao === 0) {
-        return { disabled: false, tooltip: '' };
-      } else {
-        return {
-          disabled: true,
-          tooltip: 'Não pode apagar usuários com pontos de coleta cadastrados',
-        };
-      }
+    } 
+    else if (dado5.descricao === 0) { 
+      return { disabled: false, tooltip: '' }; 
     } else {
-      return { disabled: true, tooltip: 'Ação não permitida' };
+      return { disabled: true, tooltip: 'Erro: Tipo de usuário inválido' }; 
     }
   }
-
   function getEditButtonProps() {
-    if (typeof dado5.descricao === 'string') {
-      if (dado5.descricao === currentUser) {
-        return { disabled: false, tooltip: '' };
-      } else {
-        return {
-          disabled: true,
-          tooltip: 'Só pode editar locais de coleta cadastrados por você',
-        };
-      }
-    } else if (typeof dado5.descricao === 'number') {
-      return { disabled: false, tooltip: '' };
-    } else {
-      return { disabled: true, tooltip: 'Ação não permitida' };
+    if (!currentUser) {
+      return { disabled: true, tooltip: 'Você precisa estar logado para editar locais de coleta.' };
     }
+
+    if (typeof dado5.descricao === 'string' && dado5.descricao !== currentUser) {
+      return {
+        disabled: true,
+        tooltip: 'Só pode editar locais de coleta cadastrados por você.',
+      };
+    }
+
+    return { disabled: false, tooltip: '' }; 
   }
 
   const deleteButtonProps = getDeleteButtonProps();
@@ -109,7 +131,7 @@ function FullCardInfo({
         {!isUserList && (
           <p>
             <b>{dado7.titulo} </b>
-            <a href={dado7.descricao} target="_blank">
+            <a href={dado7.descricao} target="_blank" rel="noopener noreferrer">
               https://www.google.com/maps...
             </a>
           </p>
