@@ -18,8 +18,8 @@ function Dashboard() {
     userNumbers,
     usuarioMaxColetas,
     localTopResiduos,
-    dashboardData, 
-    dashboardLoading, 
+    dashboardData,
+    dashboardLoading,
     dashboardError,
   } = useContext(UsuariosContext);
 
@@ -27,7 +27,7 @@ function Dashboard() {
   const itemsPerPageUsuarios = 6;
   const [page, setPage] = useState(1);
   const [pageUsuarios, setPageUsuarios] = useState(1);
- 
+
   if (dashboardLoading) {
     return <p>Carregando os dados...</p>;
   }
@@ -92,7 +92,7 @@ function Dashboard() {
         <div className={styled.boxright}>
           <div className={styled.headerinfo}>
             <InfoHeaderCard
-              numberData={userNumbers}
+              numberData={dashboardData.totalUsuarios}
               infoData="Usuários Cadastrados"
               typeClass="cardnumber"
               showButton={true}

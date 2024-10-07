@@ -21,6 +21,7 @@ function FullCardInfo({
   showResiduos,
   endpoint,
   dataid,
+  isUserList,
 }) {
   const { deleteData } = useContext(UsuariosContext);
 
@@ -35,32 +36,39 @@ function FullCardInfo({
       if (dado5.descricao === currentUser) {
         return { disabled: false, tooltip: '' };
       } else {
-        return { disabled: true, tooltip: 'Só pode apagar locais de coleta cadastrados por você' };
+        return {
+          disabled: true,
+          tooltip: 'Só pode apagar locais de coleta cadastrados por você',
+        };
       }
-    } 
-    else if (typeof dado5.descricao === 'number') {
+    } else if (typeof dado5.descricao === 'number') {
       if (dado5.descricao === 0) {
         return { disabled: false, tooltip: '' };
       } else {
-        return { disabled: true, tooltip: 'Não pode apagar usuários com pontos de coleta cadastrados' };
+        return {
+          disabled: true,
+          tooltip: 'Não pode apagar usuários com pontos de coleta cadastrados',
+        };
       }
     } else {
-      return { disabled: true, tooltip: 'Erro: Tipo de usuário inválido' };
+      return { disabled: true, tooltip: 'Ação não permitida' };
     }
   }
-  
+
   function getEditButtonProps() {
     if (typeof dado5.descricao === 'string') {
       if (dado5.descricao === currentUser) {
-        return { disabled: false, tooltip: '' };  
+        return { disabled: false, tooltip: '' };
       } else {
-        return { disabled: true, tooltip: 'Só pode editar locais de coleta cadastrados por você' };  
+        return {
+          disabled: true,
+          tooltip: 'Só pode editar locais de coleta cadastrados por você',
+        };
       }
-    } 
-    else if (typeof dado5.descricao === 'number') {
-      return { disabled: false, tooltip: '' };  
+    } else if (typeof dado5.descricao === 'number') {
+      return { disabled: false, tooltip: '' };
     } else {
-      return { disabled: true, tooltip: 'Erro: Tipo de usuário inválido' };
+      return { disabled: true, tooltip: 'Ação não permitida' };
     }
   }
 
@@ -98,12 +106,16 @@ function FullCardInfo({
           <b>{dado4.titulo} </b>
           {dado4.descricao}
         </p>
-        <p>
-          <b>{dado7.titulo} </b> 
-          <a href={dado7.descricao} target="_blank">https://www.google.com/maps...</a>
-        </p>
+        {!isUserList && (
+          <p>
+            <b>{dado7.titulo} </b>
+            <a href={dado7.descricao} target="_blank">
+              https://www.google.com/maps...
+            </a>
+          </p>
+        )}
       </div>
-      
+
       {showResiduos && (
         <div>
           <p>
@@ -113,15 +125,15 @@ function FullCardInfo({
         </div>
       )}
       <div className={Styles.buttonbox}>
-        <Cbutton 
-          disabled={deleteButtonProps.disabled} 
+        <Cbutton
+          disabled={deleteButtonProps.disabled}
           onClick={() => deleteData(endpoint, dataid)}
           tooltip={deleteButtonProps.tooltip}
         >
           Apagar
         </Cbutton>
-        <Cbutton 
-          disabled={editButtonProps.disabled} 
+        <Cbutton
+          disabled={editButtonProps.disabled}
           onClick={() => editData(endpoint, dataid)}
           tooltip={editButtonProps.tooltip}
         >

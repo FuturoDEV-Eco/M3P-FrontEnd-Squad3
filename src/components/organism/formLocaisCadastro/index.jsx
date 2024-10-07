@@ -20,7 +20,6 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   const currentUser = localStorage.getItem('currentUser');
   const [googleMapsLink, setGoogleMapsLink] = useState('');
 
-
   const {
     register,
     handleSubmit,
@@ -51,8 +50,6 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     }
   }, [isEditing, reset, userData]);
 
-
-
   async function submitForm(formValue) {
     console.log('FORM value IS:');
     console.log(formValue);
@@ -70,17 +67,15 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     });
   }, [register]);
 
-
-
   async function saveForm(formColetaValue) {
     try {
       const latitude = getValues('geocode[1]');
       const longitude = getValues('geocode[0]');
-      
+
       const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-  
+
       formColetaValue.googleMapsLink = googleMapsLink;
-  
+
       console.log(formColetaValue);
       const cadastroResult = await cadastrarColeta(formColetaValue);
     } catch (error) {
@@ -111,11 +106,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
       });
       return;
     }
-  
+
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const dados = await response.json();
-      
+
       if (dados.erro) {
         setError('cep', {
           type: 'custom',
@@ -123,7 +118,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
         });
         return;
       }
-      
+
       setValue('bairro', dados.bairro);
       setValue('rua', dados.logradouro);
       setValue('cidade', dados.localidade);
@@ -139,57 +134,54 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
       const ncasa = getValues('ncasa');
       const rua = getValues('rua');
       const cidade = getValues('cidade');
-    
+
       const coleta = { ncasa, rua, cidade };
       // const { latitud, longitud } = await getGeocoding(coleta);
-  
+
       setValue('geocode[1]', latitud);
       setValue('geocode[0]', longitud);
-      const googleMapsLink = await getGoogleMapsLink()
-      console.log(googleMapsLink)
+      const googleMapsLink = await getGoogleMapsLink();
+      console.log(googleMapsLink);
     } catch (error) {
       console.log('Erro em obter latitude y longitude:', error);
     }
   };
 
-
   const getGoogleMapsLink = async () => {
     try {
       const latitude = getValues('geocode[1]');
       const longitude = getValues('geocode[0]');
-  
+
       if (!latitude || !longitude) {
-        const error = new Error("Incomplete location data");
+        const error = new Error('Incomplete location data');
         error.statusCode = 400;
         throw error;
       }
-  
+
       const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
-      setGoogleMapsLink(link)
+      setGoogleMapsLink(link);
       return link;
     } catch (error) {
-      console.error("Error in getGoogleMapsLink:", error.message);
+      console.error('Error in getGoogleMapsLink:', error.message);
       error.statusCode = error.statusCode || 500;
       throw error;
     }
-  }
+  };
 
   const verifyLinkButton = async () => {
     try {
-      const googleMapsLink = getValues('googleMapsLink'); 
+      const googleMapsLink = getValues('googleMapsLink');
       if (googleMapsLink) {
         return true;
       } else {
         return false;
       }
     } catch (error) {
-      console.error("Error verifying Google Maps link:", error);
+      console.error('Error verifying Google Maps link:', error);
       return false;
     }
   };
-  
 
-  
   return (
     <div className={styled.container}>
       <div className={styled.boxcontainer}>
@@ -311,7 +303,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                     label="Papel"
                     sx={{ width: '123px', margin: '0', display: 'flex' }}
                   />
-                   <FormControlLabel
+                  <FormControlLabel
                     control={
                       <Checkbox
                         name="Papelão"
@@ -319,7 +311,8 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                         type="checkbox"
                         {...register('residuos_aceitos')}
                         defaultChecked={
-                          userData?.residuos_aceitos?.includes('Papelão') || false
+                          userData?.residuos_aceitos?.includes('Papelão') ||
+                          false
                         }
                       />
                     }
@@ -425,7 +418,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               sx={{
                 display: 'flex',
                 gap: '16px',
-                marginBottom: '24px', 
+                marginBottom: '24px',
               }}
             >
               {/* Campo Latitude */}
@@ -452,7 +445,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                 type="number"
                 placeholder="latitude"
                 fullWidth
-                sx={{ flex: 1 }} 
+                sx={{ flex: 1 }}
               />
             </Box>
             <TextField
@@ -571,10 +564,28 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             <Cbutton type="submit">Salvar</Cbutton>
             <div className={styled.linkBoxButtons}>
               <div className={styled.boxbuttons}>
-                <Cbutton type="button" disabled={!googleMapsLink} onClick={() => navigator.clipboard.writeText(googleMapsLink).then(() => alert('Link copiado para a área de transferência!'))}>Copiar Link</Cbutton>
+                <Cbutton
+                  type="button"
+                  disabled={!googleMapsLink}
+                  onClick={() =>
+                    navigator.clipboard
+                      .writeText(googleMapsLink)
+                      .then(() =>
+                        alert('Link copiado para a área de transferência!')
+                      )
+                  }
+                >
+                  Copiar Link
+                </Cbutton>
               </div>
               <div className={styled.boxbuttons}>
-                <Cbutton type="button" disabled={!googleMapsLink} onClick={() => window.open(googleMapsLink, '_blank')}>Abrir no Google Maps</Cbutton>
+                <Cbutton
+                  type="button"
+                  disabled={!googleMapsLink}
+                  onClick={() => window.open(googleMapsLink, '_blank')}
+                >
+                  Abrir no Google Maps
+                </Cbutton>
               </div>
             </div>
           </div>

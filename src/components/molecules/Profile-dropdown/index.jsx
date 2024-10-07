@@ -51,7 +51,7 @@ function ProfileDropdown() {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-         <MenuItem onClick={() => (window.location.href = '/')}>
+        <MenuItem onClick={() => (window.location.href = '/')}>
           Dashboard
         </MenuItem>
         <MenuItem onClick={() => (window.location.href = '/cadastro-coletas')}>

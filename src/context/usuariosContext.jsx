@@ -13,13 +13,30 @@ export const UsuariosContextProvider = ({ children }) => {
   const [dashboardData, setDashboardData] = useState(null);
   const [dashboardLoading, setDashboardLoading] = useState(true);
   const [dashboardError, setDashboardError] = useState(null);
- 
 
   function getUsuarios() {
-    fetch('http://localhost:4000/usuarios')
-      .then((response) => response.json())
-      .then((data) => setUsuarios(data))
-      .catch((error) => console.log(error));
+    const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+
+    fetch('http://localhost:3000/usuario', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`, // Add the Bearer token to the headers
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('data from GET usuoario IS:');
+        console.log(JSON.stringify(data));
+
+        setUsuarios(data.maskedUsuarios);
+      })
+      .catch((error) => console.log('Error fetching data:', error));
   }
 
   function getLocaisColeta() {
@@ -40,10 +57,9 @@ export const UsuariosContextProvider = ({ children }) => {
     } catch (error) {
       setDashboardError(error.message);
     } finally {
-      setDashboardLoading(false); 
+      setDashboardLoading(false);
     }
   };
-
 
   useEffect(() => {
     getUsuarios();
@@ -92,7 +108,7 @@ export const UsuariosContextProvider = ({ children }) => {
 
   async function getGeocoding(coleta) {
     const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
-    console.log('função getGeocoding', coleta)
+    console.log('função getGeocoding', coleta);
 
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${coleta.numero}+${coleta.logradouro},+${coleta.localidade},+SC&key=${apiKey}`
@@ -103,7 +119,6 @@ export const UsuariosContextProvider = ({ children }) => {
     }
 
     const data = await response.json();
-
 
     if (data.results.length > 0) {
       const location = data.results[0].geometry.location;
@@ -123,7 +138,6 @@ export const UsuariosContextProvider = ({ children }) => {
       coleta.geocode = [latitud, longitud];
 
       const googleMapsLink = `https://www.google.com/maps?q=${latitud},${longitud}`;
-
 
       await fetch('http://localhost:4000/locaisColeta', {
         method: 'POST',
@@ -155,7 +169,8 @@ export const UsuariosContextProvider = ({ children }) => {
           window.location.href = '/listagem-usuarios';
         } else if (endpoint === 'locaisColeta') {
           window.location.href = '/listagem-coletas';
-        }      })
+        }
+      })
       .catch(() => alert('Erro ao apagar usuário'));
   }
 
@@ -202,7 +217,7 @@ export const UsuariosContextProvider = ({ children }) => {
   async function cadastrarUsuario(usuario) {
     try {
       // const response = await fetch('http://localhost:3000/usuario');
-      // const dados = await response.json();    
+      // const dados = await response.json();
       // dados.map((usuarios) => {
       //   if (usuario.cpf.length !== 11) {
       //     throw new Error('cpf falta/sobra numeros');
@@ -215,13 +230,11 @@ export const UsuariosContextProvider = ({ children }) => {
       const enderecoCompleto = `${usuario.rua}, ${usuario.bairro}, ${usuario.cidade}, ${usuario.estado}`;
       usuario.endereco = enderecoCompleto;
 
-
       delete usuario.rua;
       delete usuario.bairro;
       delete usuario.cidade;
       delete usuario.estado;
-      delete usuario.ncoletas
-
+      delete usuario.ncoletas;
 
       await fetch('http://localhost:3000/usuario', {
         method: 'POST',
@@ -230,7 +243,7 @@ export const UsuariosContextProvider = ({ children }) => {
           'Content-Type': 'application/json',
         },
       });
-      console.log(usuario)
+      console.log(usuario);
       localStorage.setItem('signInOk', 'true');
       getUsuarios();
       window.location.href = '/login';
@@ -246,19 +259,18 @@ export const UsuariosContextProvider = ({ children }) => {
       // const response = await fetch('http://localhost:3000/usuarios');
       // const dados = await response.json();
       // let usuarioExist = false;
-      
-      const data = {email, senha}
+
+      const data = { email, senha };
 
       const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
       const result = await response.json();
-
 
       if (!response.ok) {
         throw new Error('Falha no login. Verifique suas credenciais.');
@@ -267,14 +279,12 @@ export const UsuariosContextProvider = ({ children }) => {
       if (result.token) {
         localStorage.setItem('token', result.token);
         localStorage.setItem('isAuthenticated', true);
-        localStorage.setItem('currentUserName', result.name); 
-        localStorage.setItem('currentUserId', result.id)
+        localStorage.setItem('currentUserName', result.name);
+        localStorage.setItem('currentUserId', result.id);
         window.location.href = '/';
       } else {
         throw new Error('Token não recebido. Verifique o servidor.');
       }
-
-      
 
       // antiga validação de usuario do front
       // dados.map((usuarios) => {
@@ -294,12 +304,12 @@ export const UsuariosContextProvider = ({ children }) => {
       //   throw new Error('Usuário não existe');
       // }
       return result;
-  } catch (error) {
-    console.error(error);
-    return { error };
+    } catch (error) {
+      console.error(error);
+      return { error };
+    }
   }
-}
-  
+
   return (
     <UsuariosContext.Provider
       value={{
@@ -320,7 +330,7 @@ export const UsuariosContextProvider = ({ children }) => {
         deleteData,
         editData,
         getGeocoding,
-        getDashboardData
+        getDashboardData,
       }}
     >
       {children}

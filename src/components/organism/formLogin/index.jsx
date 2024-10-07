@@ -6,7 +6,6 @@ import UsuariosContext from '../../../context/usuariosContext.jsx';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
-
 function FormLogin() {
   const [signInOk, setsignInOk] = useState(false);
   const {
@@ -17,7 +16,6 @@ function FormLogin() {
   } = useForm();
 
   const { login } = useContext(UsuariosContext);
-
 
   useEffect(() => {
     if (localStorage.getItem('signInOk')) {
@@ -44,16 +42,18 @@ function FormLogin() {
       }
     }
   }
-  
+
   return (
     <div className={styled.boxlogin}>
       <form className={styled.boxform} onSubmit={handleSubmit(realizarLogin)}>
         <div className={styled.inputWrapper}>
-      {signInOk && (
-        <div className={styled.registroOk}>
-          <b>Registro feito com sucesso, agora você já pode fazer login...</b>
-        </div>
-      )}
+          {signInOk && (
+            <div className={styled.registroOk}>
+              <b>
+                Registro feito com sucesso, agora você já pode fazer login...
+              </b>
+            </div>
+          )}
           <InputLabel htmlFor="name">Email</InputLabel>
           <TextField
             {...register('email', {
@@ -101,13 +101,14 @@ function FormLogin() {
               },
             }}
           ></TextField>
-        </div> 
+        </div>
         <div className={styled.boxbuttons}>
           <Cbutton type="submit">Entrar</Cbutton>
         </div>
       </form>
       <div className={styled.linkRegister}>
-        <p>Ainda não tem cadastro?</p><Link to="/cadastro-usuarios">Cadastrar</Link>
+        <p>Ainda não tem cadastro?</p>
+        <Link to="/cadastro-usuarios">Cadastrar</Link>
       </div>
     </div>
   );
