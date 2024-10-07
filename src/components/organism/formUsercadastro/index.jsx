@@ -53,21 +53,21 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
   async function saveForm(formValue) {
     const cadastroResult = await cadastrarUsuario(formValue);
 
-    if (cadastroResult.error) {
-      if (cadastroResult.error.message === 'cpf já existe') {
-        setError('cpf', {
-          type: 'custom',
-          message: 'Este CPF já está registrado',
-        });
-      } else if (cadastroResult.error.message === 'cpf falta/sobra numeros') {
-        setError('cpf', {
-          type: 'custom',
-          message: 'Seu CPF deve conter 11 digitos',
-        });
-      }
-    } else {
-      console.log(cadastroResult.error.message);
-    }
+    // if (cadastroResult.error) {
+    //   if (cadastroResult.error.message === 'cpf já existe') {
+    //     setError('cpf', {
+    //       type: 'custom',
+    //       message: 'Este CPF já está registrado',
+    //     });
+    //   } else if (cadastroResult.error.message === 'cpf falta/sobra numeros') {
+    //     setError('cpf', {
+    //       type: 'custom',
+    //       message: 'Seu CPF deve conter 11 digitos',
+    //     });
+    //   }
+    // } else {
+    //   console.log(cadastroResult.error.message);
+    // }
   }
 
   async function editForm(formValue) {

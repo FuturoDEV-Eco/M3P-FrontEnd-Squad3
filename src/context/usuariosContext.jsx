@@ -191,21 +191,22 @@ export const UsuariosContextProvider = ({ children }) => {
       const enderecoCompleto = `${usuario.rua}, ${usuario.bairro}, ${usuario.cidade}, ${usuario.estado}`;
       usuario.endereco = enderecoCompleto;
 
+
       delete usuario.rua;
       delete usuario.bairro;
       delete usuario.cidade;
       delete usuario.estado;
+      delete usuario.ncoletas
 
-      usuario.ncoletas = 0;
 
-      await fetch('http://localhost:4000/usuario', {
+      await fetch('http://localhost:3000/usuario', {
         method: 'POST',
         body: JSON.stringify(usuario),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
+      console.log(usuario)
       localStorage.setItem('signInOk', 'true');
       getUsuarios();
       window.location.href = '/login';
@@ -242,7 +243,8 @@ export const UsuariosContextProvider = ({ children }) => {
       if (result.token) {
         localStorage.setItem('token', result.token);
         localStorage.setItem('isAuthenticated', true);
-        localStorage.setItem('currentUser', "led"); 
+        localStorage.setItem('currentUserName', result.name); 
+        localStorage.setItem('currentUserId', result.id)
         window.location.href = '/';
       } else {
         throw new Error('Token não recebido. Verifique o servidor.');

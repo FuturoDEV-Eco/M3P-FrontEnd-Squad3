@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 
 function ProfileDropdown() {
-  const currentUser = localStorage.getItem('currentUser');
+  const currentUser = localStorage.getItem('currentUserName');
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -21,8 +21,9 @@ function ProfileDropdown() {
 
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserName');
     localStorage.removeItem('token');
+    localStorage.removeItem('currentUserId');
     window.location.href = '/';
   };
 
