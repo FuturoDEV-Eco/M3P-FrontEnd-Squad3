@@ -4,15 +4,12 @@ import UsuariosContext from '../../context/usuariosContext';
 import Styles from './ListagemColetas.module.css';
 import { styled } from '@mui/material';
 
-
-
-
 function ListagemColetas() {
   const [deleteOk, setDeleteOk] = useState(false);
   const [editOk, setEditOk] = useState(false);
   const [cadastroColetaOk, setCadastroColetaOk] = useState(false);
   const { locaisColetas } = useContext(UsuariosContext);
-  console.log(locaisColetas)
+  console.log(locaisColetas);
 
   useEffect(() => {
     if (localStorage.getItem('cadastroColetaOk')) {
@@ -28,24 +25,26 @@ function ListagemColetas() {
       setEditOk(true);
       localStorage.removeItem('editOk');
     }
-
   }, []);
 
   return (
     <div className={Styles.section}>
       <div className={Styles.cardbox}>
-      {cadastroColetaOk && (
-        <div className={Styles.cadastroOk}>
-          <b>Local de coleta cadastrado com sucesso!</b>
-        </div>)}
+        {cadastroColetaOk && (
+          <div className={Styles.cadastroOk}>
+            <b>Local de coleta cadastrado com sucesso!</b>
+          </div>
+        )}
         {editOk && (
-        <div className={Styles.editOk}>
-          <b>Editado com sucesso!</b>
-        </div>)}
+          <div className={Styles.editOk}>
+            <b>Editado com sucesso!</b>
+          </div>
+        )}
         {deleteOk && (
-        <div className={Styles.deleteOk}>
-          <b>Apagado com sucesso!</b>
-        </div>)}
+          <div className={Styles.deleteOk}>
+            <b>Apagado com sucesso!</b>
+          </div>
+        )}
         <h1>Lista de locais de coleta Cadastrados</h1>
         {locaisColetas.map((coletas, index) => (
           <FullCardInfo
@@ -56,9 +55,12 @@ function ListagemColetas() {
               titulo: 'Endereço:',
               descricao: `${coletas.logradouro}, ${coletas.numero}`,
             }}
-            dado5={{ titulo: 'Por:', descricao: coletas.userId }}
+            dado5={{ titulo: 'ID do autor:', descricao: coletas.userId }}
             dado6={{ titulo: 'Cidade', descricao: coletas.localidade }}
-            dado7={{ titulo: "Link de Google Maps:", descricao: coletas.googleMapsLink}}
+            dado7={{
+              titulo: 'Link de Google Maps:',
+              descricao: coletas.googleMapsLink,
+            }}
             showColetaIcon={true}
             showResiduos={{
               titulo: 'Residuos Aceitos:',
@@ -67,6 +69,7 @@ function ListagemColetas() {
             key={index}
             endpoint="locaisColeta"
             dataid={coletas.id}
+            isUserList={false}
           />
         ))}
       </div>

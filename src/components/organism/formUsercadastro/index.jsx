@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import UsuariosContext from '../../../context/usuariosContext.jsx';
 
-
 function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
   const {
     register,
@@ -42,7 +41,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
   }, [isEditing, reset, userData]);
 
   async function submitForm(formValue) {
-    console.log('formulario: ', formValue)
+    console.log('formulario: ', formValue);
     if (isEditing == false) {
       await saveForm(formValue);
     } else {
@@ -210,7 +209,9 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               {...register('cpf')}
             ></TextField>
             <TextField
-              {...register('dataNascimento', { required: 'Este campo é obrigatorio' })}
+              {...register('dataNascimento', {
+                required: 'Este campo é obrigatorio',
+              })}
               helperText={errors.ndata?.message || 'Data de Nascimento'}
               variant="outlined"
               name="dataNascimento"

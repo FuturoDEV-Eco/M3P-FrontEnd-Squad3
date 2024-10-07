@@ -7,7 +7,6 @@ function ListagemUsuarios() {
   const [deleteOk, setDeleteOk] = useState(false);
   const [editOk, setEditOk] = useState(false);
 
-
   useEffect(() => {
     if (localStorage.getItem('deleteOk')) {
       setDeleteOk(true);
@@ -18,45 +17,56 @@ function ListagemUsuarios() {
       setEditOk(true);
       localStorage.removeItem('editOk');
     }
-
   }, []);
 
   const { usuarios } = useContext(UsuariosContext);
   return (
     <div className={Styles.sectionUserList}>
       <div className={Styles.cardbox}>
-      {deleteOk && (
-        <div className={Styles.deleteOk}>
-          <b>Apagado com sucesso!</b>
-        </div>)}
+        {deleteOk && (
+          <div className={Styles.deleteOk}>
+            <b>Apagado com sucesso!</b>
+          </div>
+        )}
         {editOk && (
-        <div className={Styles.editOk}>
-          <b>Editado com sucesso!</b>
-        </div>)}
+          <div className={Styles.editOk}>
+            <b>Editado com sucesso!</b>
+          </div>
+        )}
         <h1>Lista de Usuários Cadastrados</h1>
         <div className={Styles.cardboxlist}>
           {usuarios.map((usuarios, index) => (
             <FullCardInfo
-              dadoTitulo={usuarios.nomeusuario}
+              dadoTitulo={usuarios.nome}
               dadoSubtitulo={usuarios.email}
               dado3={{ titulo: 'CPF:', descricao: usuarios.cpf }}
               dado4={{
                 titulo: 'Endereço:',
-                descricao: `${usuarios.rua}, ${usuarios.ncasa}, ${usuarios.bairro}, ${usuarios.cidade}`,
+                descricao: `${usuarios.endereco}`,
               }}
-              dado5={{
-                titulo: 'Número de locais:',
-                descricao: usuarios.ncoletas,
+              dado5={
+                {
+                  // titulo: 'Número de locais:',
+                  // descricao: usuarios.ncoletas,
+                }
+              }
+              dado6={{
+                titulo: 'Data de nascimento',
+                descricao: usuarios.dataNascimento,
               }}
-              dado6={{ titulo: 'Data de nascimento', descricao: usuarios.ndata }}
-              dado7={{ titulo: false, descricao: false }}
+              dado7={
+                {
+                  // titulo: false, descricao: false
+                }
+              }
               key={index}
-              showUserIcon={true}
+              // showUserIcon={true}
               endpoint="usuarios"
-              dataid={usuarios.id}
+              isUserList={true}
+              // dataid={usuarios.id}
             />
           ))}
-       </div> 
+        </div>
       </div>
     </div>
   );

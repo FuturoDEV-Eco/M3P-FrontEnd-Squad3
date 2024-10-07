@@ -26,10 +26,14 @@ function Header() {
           <div></div>
         </div>
         <div className={Styles.loginRegister}>
-          {isAuthenticated ? <ProfileDropdown /> :  <>
-            <ButtonLoginRegister />
-            <ButtonRegister />
-          </>}          
+          {isAuthenticated ? (
+            <ProfileDropdown />
+          ) : (
+            <>
+              <ButtonLoginRegister />
+              <ButtonRegister />
+            </>
+          )}
         </div>
       </div>
     </AppBar>
