@@ -61,7 +61,15 @@ function Dashboard() {
     <div className={styled.bodygeral}>
       <div className={styled.containerBox}>
         <div className={styled.sidebar}>
-          <h3>Lista de Usuários</h3>
+          <h3
+            style={{
+              marginBottom: '10px',
+              color: '#0e3d6b',
+              borderBottom: '1px gray',
+            }}
+          >
+            Lista de Usuários
+          </h3>
           <Stack spacing={2}>
             {isAutenticated ? (
               <>
@@ -70,9 +78,9 @@ function Dashboard() {
                     .slice(startIndexUsuarios, endIndexUsuarios)
                     .map((usuario, index) => (
                       <BasicCardInfo
-                        dadoTitulo={usuario.nomeusuario}
+                        dadoTitulo={usuario.nome}
                         dado2={usuario.email}
-                        dado3={usuario.cidade}
+                        dado3={usuario.localidade}
                         key={index}
                       />
                     ))}
