@@ -31,8 +31,8 @@ export const UsuariosContextProvider = ({ children }) => {
         return response.json();
       })
       .then((data) => {
-        console.log('data from GET usuoario IS:');
-        console.log(JSON.stringify(data));
+        // console.log('data from GET usuoario IS:');
+        // console.log(JSON.stringify(data));
 
         setUsuarios(data.maskedUsuarios);
       })
@@ -132,22 +132,26 @@ export const UsuariosContextProvider = ({ children }) => {
   }
 
   async function cadastrarColeta(coleta) {
+    const token = localStorage.getItem('token');
     try {
-      const currentUser = localStorage.getItem('currentUser');
+      // const currentUser = localStorage.getItem('currentUser');
       // const { latitud, longitud } = await getGeocoding(coleta);
-      coleta.geocode = [latitud, longitud];
+      // coleta.geocode = [latitud, longitud];
 
-      const googleMapsLink = `https://www.google.com/maps?q=${latitud},${longitud}`;
+      // const googleMapsLink = `https://www.google.com/maps?q=${latitud},${longitud}`;
 
-      await fetch('http://localhost:4000/locaisColeta', {
+      await fetch('http://localhost:3000/local', {
         method: 'POST',
         body: JSON.stringify(coleta),
         headers: {
+          Authorization: `Bearer ${token}`, // Add the Bearer token to the headers
           'Content-Type': 'application/json',
-          CurrentUser: currentUser,
-          googleMapsLink: googleMapsLink,
         },
       });
+      //°
+
+      //°
+
       localStorage.setItem('cadastroColetaOk', 'true');
       getLocaisColeta();
       window.location.href = '/listagem-coletas';

@@ -38,8 +38,8 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     if (isEditing) {
       reset({
         bairro: userData.bairro,
-        rua: userData.rua,
-        cidade: userData.cidade,
+        rua: userData.logradouro,
+        cidade: userData.localidade,
         estado: userData.estado,
         identiuser: userData.identiuser,
       });
@@ -68,6 +68,9 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   }, [register]);
 
   async function saveForm(formColetaValue) {
+    console.log('Inside saveForm IS:');
+    console.log(formColetaValue);
+
     try {
       const latitude = getValues('geocode[1]');
       const longitude = getValues('geocode[0]');
@@ -120,8 +123,8 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
       }
 
       setValue('bairro', dados.bairro);
-      setValue('rua', dados.logradouro);
-      setValue('cidade', dados.localidade);
+      setValue('logradouro', dados.logradouro);
+      setValue('localidade', dados.localidade);
       setValue('estado', dados.uf);
     } catch (error) {
       console.log(error);
@@ -188,7 +191,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
         <form className={styled.boxform} onSubmit={handleSubmit(submitForm)}>
           <InputLabel>Nome do local de coleta</InputLabel>
           <TextField
-            {...register('nomelocal', {
+            {...register('nome', {
               required: 'Este campo é obrigatorio',
               maxLength: {
                 value: 50,
@@ -196,7 +199,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               },
             })}
             helperText={errors.nomelocal?.message}
-            name="nomelocal"
+            name="nome"
             defaultValue={isEditing ? userData.nomelocal : ''}
             variant="outlined"
             size="small"
@@ -423,9 +426,9 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             >
               {/* Campo Latitude */}
               <TextField
-                {...register('geocode[0]')}
+                {...register('longitude')}
                 name="longitude"
-                disabled={true}
+                disabled={false}
                 defaultValue={isEditing ? userData.geocode[0] : ''}
                 variant="outlined"
                 size="small"
@@ -436,9 +439,9 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               />
               {/* Campo Longitude */}
               <TextField
-                {...register('geocode[1]')}
+                {...register('latitude')}
                 name="latitude"
-                disabled={true}
+                disabled={false}
                 defaultValue={isEditing ? userData.geocode[1] : ''}
                 variant="outlined"
                 size="small"
@@ -474,7 +477,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             <TextField
               disabled
               label=""
-              name="cidade"
+              name="localidade"
               defaultValue={isEditing ? userData.cidade : ''}
               variant="outlined"
               size="small"
@@ -486,7 +489,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                   color: 'red',
                 },
               }}
-              {...register('cidade')}
+              {...register('localidade')}
             ></TextField>
             <TextField
               disabled
@@ -527,7 +530,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             <TextField
               label=""
               disabled
-              name="rua"
+              name="logradouro"
               variant="outlined"
               defaultValue={isEditing ? userData.rua : ''}
               size="small"
@@ -538,15 +541,15 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                 },
                 width: 350,
               }}
-              {...register('rua')}
+              {...register('logradouro')}
             ></TextField>
             <TextField
-              {...register('ncasa', {
+              {...register('numero', {
                 required: 'Este campo é obrigatorio',
               })}
               helperText={errors.ncasa?.message}
               label="Número"
-              name="ncasa"
+              name="numero"
               variant="outlined"
               size="small"
               defaultValue={isEditing ? userData.ncasa : ''}
