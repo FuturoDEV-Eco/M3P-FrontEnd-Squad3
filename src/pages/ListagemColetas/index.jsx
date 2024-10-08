@@ -67,7 +67,7 @@ function ListagemColetas() {
               descricao: coletas.residuos_aceitos.join(', '),
             }}
             key={index}
-            endpoint="locaisColeta"
+            endpoint="local"
             dataid={coletas.id}
             isUserList={false}
           />

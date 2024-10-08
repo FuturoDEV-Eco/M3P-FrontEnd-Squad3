@@ -19,6 +19,8 @@ import { TextField, InputLabel } from '@mui/material';
 function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   const currentUser = localStorage.getItem('currentUser');
   const [googleMapsLink, setGoogleMapsLink] = useState('');
+  const userName = localStorage.getItem('currentUserName');
+
 
   const {
     register,
@@ -41,11 +43,12 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
         rua: userData.logradouro,
         cidade: userData.localidade,
         estado: userData.estado,
-        identiuser: userData.identiuser,
+        identiuser: userName,
+        cep: userData.cep.replace(/-/g, '')
       });
     } else {
       reset({
-        identiuser: currentUser,
+        identiuser: userName,
       });
     }
   }, [isEditing, reset, userData]);
@@ -74,11 +77,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     try {
       const latitude = getValues('geocode[1]');
       const longitude = getValues('geocode[0]');
-
+      
       const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-
+  
       formColetaValue.googleMapsLink = googleMapsLink;
-
+  
       console.log(formColetaValue);
       const cadastroResult = await cadastrarColeta(formColetaValue);
     } catch (error) {
@@ -140,11 +143,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
 
       const coleta = { ncasa, rua, cidade };
       // const { latitud, longitud } = await getGeocoding(coleta);
-
+  
       setValue('geocode[1]', latitud);
       setValue('geocode[0]', longitud);
-      const googleMapsLink = await getGoogleMapsLink();
-      console.log(googleMapsLink);
+      const googleMapsLink = await getGoogleMapsLink()
+      console.log(googleMapsLink)
     } catch (error) {
       console.log('Erro em obter latitude y longitude:', error);
     }
@@ -199,7 +202,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               },
             })}
             helperText={errors.nomelocal?.message}
-            name="nome"
+            name="nomelocal"
             defaultValue={isEditing ? userData.nomelocal : ''}
             variant="outlined"
             size="small"
@@ -243,7 +246,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             helperText={errors.identiuser?.message}
             name="identiuser"
             variant="outlined"
-            defaultValue={isEditing ? userData.identiuser : ''}
+            defaultValue={isEditing ? userName : ''}
             size="small"
             placeholder={currentUser}
             type="text"
@@ -428,7 +431,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               <TextField
                 {...register('longitude')}
                 name="longitude"
-                disabled={false}
+                disabled={true}
                 defaultValue={isEditing ? userData.geocode[0] : ''}
                 variant="outlined"
                 size="small"
@@ -441,7 +444,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               <TextField
                 {...register('latitude')}
                 name="latitude"
-                disabled={false}
+                disabled={true}
                 defaultValue={isEditing ? userData.geocode[1] : ''}
                 variant="outlined"
                 size="small"
@@ -547,12 +550,12 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               {...register('numero', {
                 required: 'Este campo é obrigatorio',
               })}
-              helperText={errors.ncasa?.message}
+              helperText={errors.numero?.message}
               label="Número"
               name="numero"
               variant="outlined"
               size="small"
-              defaultValue={isEditing ? userData.ncasa : ''}
+              defaultValue={isEditing ? userData.numero : ''}
               type="number"
               onBlur={() => handleLatitudeLongitude()}
               sx={{

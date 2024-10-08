@@ -15,12 +15,12 @@ export const UsuariosContextProvider = ({ children }) => {
   const [dashboardError, setDashboardError] = useState(null);
 
   function getUsuarios() {
-    const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+    const token = localStorage.getItem('token'); 
 
     fetch('http://localhost:3000/usuario', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`, // Add the Bearer token to the headers
+        Authorization: `Bearer ${token}`, 
         'Content-Type': 'application/json',
       },
     })
@@ -31,8 +31,7 @@ export const UsuariosContextProvider = ({ children }) => {
         return response.json();
       })
       .then((data) => {
-        // console.log('data from GET usuoario IS:');
-        // console.log(JSON.stringify(data));
+    
 
         setUsuarios(data.maskedUsuarios);
       })
@@ -134,23 +133,19 @@ export const UsuariosContextProvider = ({ children }) => {
   async function cadastrarColeta(coleta) {
     const token = localStorage.getItem('token');
     try {
-      // const currentUser = localStorage.getItem('currentUser');
-      // const { latitud, longitud } = await getGeocoding(coleta);
-      // coleta.geocode = [latitud, longitud];
+      const currentUser = localStorage.getItem('currentUser');
+      coleta.geocode = [latitud, longitud];
 
-      // const googleMapsLink = `https://www.google.com/maps?q=${latitud},${longitud}`;
 
       await fetch('http://localhost:3000/local', {
         method: 'POST',
         body: JSON.stringify(coleta),
         headers: {
-          Authorization: `Bearer ${token}`, // Add the Bearer token to the headers
+          Authorization: `Bearer ${token}`, 
           'Content-Type': 'application/json',
         },
       });
-      //°
 
-      //°
 
       localStorage.setItem('cadastroColetaOk', 'true');
       getLocaisColeta();
@@ -162,21 +157,6 @@ export const UsuariosContextProvider = ({ children }) => {
     }
   }
 
-  // function deleteData(endpoint, id) {
-  //   fetch(`http://localhost:4000/${endpoint}/` + id, {
-  //     method: 'DELETE',
-  //   })
-  //     .then(() => {
-  //       localStorage.setItem('deleteOk', 'true');
-  //       getUsuarios();
-  //       if (endpoint === 'usuarios') {
-  //         window.location.href = '/listagem-usuarios';
-  //       } else if (endpoint === 'locaisColeta') {
-  //         window.location.href = '/listagem-coletas';
-  //       }
-  //     })
-  //     .catch(() => alert('Erro ao apagar usuário'));
-  // }
   function deleteData(endpoint, id) {
     let url;
     const token = localStorage.getItem('token');
@@ -205,14 +185,26 @@ export const UsuariosContextProvider = ({ children }) => {
         if (endpoint === 'usuarios') {
             window.location.href = '/listagem-usuarios';
         } else if (endpoint === 'locaisColeta') {
-            window.location.href = '/listagem-coletas';
-        }
-    })
-    .catch(() => alert('Erro ao apagar item'));
-}
+          window.location.href = '/listagem-coletas';
+        }      })
+      .catch(() => alert('Erro ao apagar item'));
+  }
+
+
+
+
   async function editData(data, endpoint, id) {
+    const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:4000/${endpoint}/` + id);
+      const response = await fetch(`http://localhost:3000/${endpoint}/` + id, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+      });
+      
+      console.log("dados do editdata antes do fetch")
       const dados = await response.json();
 
       if (endpoint === 'usuarios') {
@@ -222,23 +214,27 @@ export const UsuariosContextProvider = ({ children }) => {
       }
 
       if (endpoint === 'locaisColeta') {
-        // const { latitud, longitud } = await getGeocoding(data);
-        data.geocode = [latitud, longitud];
+        const { latitud, longitud } = await getGeocoding(dados);
+        dados.geocode = [latitud, longitud];
       }
 
-      await fetch(`http://localhost:4000/${endpoint}/` + id, {
+      console.log("data antes del fetch", data)
+
+      await fetch(`http://localhost:3000/${endpoint}/` + id, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
       });
 
       localStorage.setItem('editOk', 'true');
       getUsuarios();
-      if (endpoint === 'usuarios') {
+
+      if (endpoint === 'usuario') {
         window.location.href = '/listagem-usuarios';
-      } else if (endpoint === 'locaisColeta') {
+      } else if (endpoint === 'local') {
         window.location.href = '/listagem-coletas';
       }
       console.log(data);
@@ -250,18 +246,12 @@ export const UsuariosContextProvider = ({ children }) => {
     }
   }
 
+
+
+
+
   async function cadastrarUsuario(usuario) {
     try {
-      // const response = await fetch('http://localhost:3000/usuario');
-      // const dados = await response.json();
-      // dados.map((usuarios) => {
-      //   if (usuario.cpf.length !== 11) {
-      //     throw new Error('cpf falta/sobra numeros');
-      //   }
-      //   if (usuarios.cpf == usuario.cpf) {
-      //     throw new Error('cpf já existe');
-      //   }
-      // });
 
       const enderecoCompleto = `${usuario.rua}, ${usuario.bairro}, ${usuario.cidade}, ${usuario.estado}`;
       usuario.endereco = enderecoCompleto;
@@ -292,11 +282,7 @@ export const UsuariosContextProvider = ({ children }) => {
 
   async function login(email, senha) {
     try {
-      // const response = await fetch('http://localhost:3000/usuarios');
-      // const dados = await response.json();
-      // let usuarioExist = false;
-
-      const data = { email, senha };
+      const data = {email, senha}
 
       const response = await fetch('http://localhost:3000/login', {
         method: 'POST',
@@ -323,23 +309,7 @@ export const UsuariosContextProvider = ({ children }) => {
         throw new Error('Token não recebido. Verifique o servidor.');
       }
 
-      // antiga validação de usuario do front
-      // dados.map((usuarios) => {
-      //   if (usuarios.email == email) {
-      //     usuarioExist = true;
-      //     if (usuarios.senha == senha) {
-      //       localStorage.setItem('isAutenticated', true);
-      //       localStorage.setItem('currentUser', usuarios.nomeusuario);
-      //       window.location.href = '/';
-      //       return;
-      //     }
-      //     throw new Error('Senha incorreta');
-      //   }
-      // });
-
-      // if (!usuarioExist) {
-      //   throw new Error('Usuário não existe');
-      // }
+    
       return result;
     } catch (error) {
       console.error(error);

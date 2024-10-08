@@ -60,10 +60,9 @@ function ListagemUsuarios() {
                 }
               }
               key={index}
-              // showUserIcon={true}
-              endpoint="usuarios"
-              isUserList={true}
-              // dataid={usuarios.id}
+              showUserIcon={true}
+              endpoint="usuario"
+              dataid={usuarios.id}
             />
           ))}
         </div>
