@@ -7,6 +7,8 @@
   background-color: var(--primary);
   color: white;
   height: 60px;
+  top: 0;
+  z-index: -1;
 }
 
 .title {
@@ -14,6 +16,7 @@
   text-decoration: none;
   font-weight: bold;
   font-size: 30px;
+  color: white;
 }
 
 .boxbutton {
@@ -29,4 +32,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.loginRegister {
+  display: flex;
 }

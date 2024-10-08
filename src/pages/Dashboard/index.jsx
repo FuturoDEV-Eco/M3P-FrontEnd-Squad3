@@ -10,7 +10,6 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 
-
 function Dashboard() {
   const {
     usuarios,
@@ -19,12 +18,30 @@ function Dashboard() {
     userNumbers,
     usuarioMaxColetas,
     localTopResiduos,
+    dashboardData,
+    dashboardLoading,
+    dashboardError,
   } = useContext(UsuariosContext);
 
   const itemsPerPage = 4;
   const itemsPerPageUsuarios = 6;
   const [page, setPage] = useState(1);
   const [pageUsuarios, setPageUsuarios] = useState(1);
+
+  if (dashboardLoading) {
+    return <p>Carregando os dados...</p>;
+  }
+
+  if (dashboardError) {
+    return <p>Erro ao carregar os dados do dashboard: {dashboardError}</p>;
+  }
+
+  if (!dashboardData) {
+    return <p>Não tem dados disponíveis</p>;
+  }
+
+  let isAutenticated =
+    JSON.parse(localStorage.getItem('isAuthenticated')) || false;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -44,60 +61,75 @@ function Dashboard() {
     <div className={styled.bodygeral}>
       <div className={styled.containerBox}>
         <div className={styled.sidebar}>
-        <h3>Lista de Usuarios</h3>
-        <Divider variant="middle"  />
+          <h3
+            style={{
+              marginBottom: '10px',
+              color: '#0e3d6b',
+              borderBottom: '1px gray',
+            }}
+          >
+            Lista de Usuários
+          </h3>
           <Stack spacing={2}>
-            {usuarios
-              .slice(startIndexUsuarios, endIndexUsuarios)
-              .map((usuarios, index) => (
-                <BasicCardInfo
-                  dadoTitulo={usuarios.nomeusuario}
-                  dado2={usuarios.email}
-                  dado3={usuarios.cidade}
-                  key={index}
+            {isAutenticated ? (
+              <>
+                <Stack spacing={2}>
+                  {usuarios
+                    .slice(startIndexUsuarios, endIndexUsuarios)
+                    .map((usuario, index) => (
+                      <BasicCardInfo
+                        dadoTitulo={usuario.nome}
+                        dado2={usuario.email}
+                        dado3={usuario.localidade}
+                        key={index}
+                      />
+                    ))}
+                </Stack>
+                <Pagination
+                  count={Math.ceil(usuarios.length / itemsPerPageUsuarios)}
+                  page={pageUsuarios}
+                  onChange={handleChangePageUsuarios}
+                  shape="rounded"
                 />
-              ))}
+              </>
+            ) : (
+              <p>Precisa Fazer Login para</p>
+            )}
           </Stack>
-          <Pagination
-            count={Math.ceil(usuarios.length / itemsPerPageUsuarios)}
-            page={pageUsuarios}
-            onChange={handleChangePageUsuarios}
-            shape="rounded"
-          />
         </div>
         <div className={styled.boxright}>
           <div className={styled.headerinfo}>
             <InfoHeaderCard
-              numberData={userNumbers}
-              infoData="Usuarios Cadastrados"
+              numberData={dashboardData.totalUsuarios}
+              infoData="Usuários Cadastrados"
               typeClass="cardnumber"
               showButton={true}
-              textButton="Ver todos os usuarios"
+              textButton="Ver usuários"
               linkButton="/listagem-usuarios"
+              buttonDisable={!isAutenticated}
             />
             <InfoHeaderCard
-              numberData={usuarioMaxColetas}
-              infoData="Usuário com mais cad. locais"
+              numberData={dashboardData.usuarioComMaisLocaisCadastrados}
+              infoData="Usuário com mais registros"
               typeClass="cardtext"
-              showButton={true}
-              textButton="Cadastrar mais usuários"
-              linkButton="/cadastro-usuarios"
             />
             <InfoHeaderCard
-              numberData={locaisColetasNumber}
+              numberData={dashboardData.totalLocais}
               infoData="Locais de coletas"
               typeClass="cardnumber"
               showButton={true}
-              textButton="Ver todos os locais"
+              textButton="Ver locais de coleta"
               linkButton="/listagem-coletas"
+              buttonDisable={!isAutenticated}
             />
             <InfoHeaderCard
-              numberData={localTopResiduos}
+              numberData={dashboardData.localComMaisResiduosAceitos}
               infoData="Local com mais residuos aceitos"
               typeClass="cardtext"
               showButton={true}
-              textButton="Cadastrar mais locais"
+              textButton="Cadastrar local de coleta"
               linkButton="/cadastro-coletas"
+              buttonDisable={!isAutenticated}
             />
           </div>
           <div className={styled.mapinfo}>
@@ -106,16 +138,14 @@ function Dashboard() {
             </div>
             <div className={styled.boxmapright}>
               <h2>Locais de coletas</h2>
-              <Divider variant="middle"  />
-
               <Stack spacing={2}>
                 {locaisColetas
                   .slice(startIndex, endIndex)
                   .map((dadosColeta, index) => (
                     <BasicCardInfo
-                      dadoTitulo={dadosColeta.nomelocal}
+                      dadoTitulo={dadosColeta.nome}
                       dado2={dadosColeta.descricao}
-                      dado3={`${dadosColeta.rua}, ${dadosColeta.ncasa}, ${dadosColeta.bairro}, ${dadosColeta.cidade}`}
+                      dado3={`${dadosColeta.logradouro}, ${dadosColeta.numero}, ${dadosColeta.bairro}, ${dadosColeta.localidade}`}
                       key={index}
                     />
                   ))}

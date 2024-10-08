@@ -5,10 +5,10 @@ import Header from './components/molecules/header';
 
 function App() {
   return (
-    <>
+    <main className="min">
       <Header />
       <Outlet />
-    </>
+    </main>
   );
 }
 

@@ -15,7 +15,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
     setError,
     reset,
     formState: { errors },
-  } = useForm({ 
+  } = useForm({
     vidro: false,
     metal: false,
     papel: false,
@@ -24,8 +24,8 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
     baterias: false,
     eletronicos: false,
     moveis: false,
-    ncoletas: 0 });
-
+    ncoletas: 0,
+  });
 
   const { cadastrarUsuario, editData } = useContext(UsuariosContext);
 
@@ -40,8 +40,8 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
     }
   }, [isEditing, reset, userData]);
 
-
   async function submitForm(formValue) {
+    console.log('formulario: ', formValue);
     if (isEditing == false) {
       await saveForm(formValue);
     } else {
@@ -52,21 +52,21 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
   async function saveForm(formValue) {
     const cadastroResult = await cadastrarUsuario(formValue);
 
-    if (cadastroResult.error) {
-      if (cadastroResult.error.message === 'cpf já existe') {
-        setError('cpf', {
-          type: 'custom',
-          message: 'Este CPF já está registrado',
-        });
-      } else if (cadastroResult.error.message === 'cpf falta/sobra numeros') {
-        setError('cpf', {
-          type: 'custom',
-          message: 'Seu CPF deve conter 11 digitos',
-        });
-      }
-    } else {
-      console.log(cadastroResult.error.message);
-    }
+    // if (cadastroResult.error) {
+    //   if (cadastroResult.error.message === 'cpf já existe') {
+    //     setError('cpf', {
+    //       type: 'custom',
+    //       message: 'Este CPF já está registrado',
+    //     });
+    //   } else if (cadastroResult.error.message === 'cpf falta/sobra numeros') {
+    //     setError('cpf', {
+    //       type: 'custom',
+    //       message: 'Seu CPF deve conter 11 digitos',
+    //     });
+    //   }
+    // } else {
+    //   console.log(cadastroResult.error.message);
+    // }
   }
 
   async function editForm(formValue) {
@@ -109,11 +109,11 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
       });
       return;
     }
-  
+
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const dados = await response.json();
-      
+
       if (dados.erro) {
         setError('cep', {
           type: 'custom',
@@ -121,7 +121,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
         });
         return;
       }
-      
+
       setValue('bairro', dados.bairro);
       setValue('rua', dados.logradouro);
       setValue('cidade', dados.localidade);
@@ -138,7 +138,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
         <form className={styled.boxform} onSubmit={handleSubmit(submitForm)}>
           <div className={styled.inputsbetween}>
             <TextField
-              {...register('nomeusuario', {
+              {...register('nome', {
                 required: 'Este campo é obrigatorio',
                 maxLength: {
                   value: 50,
@@ -146,7 +146,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
                 },
               })}
               helperText={errors.nomeusuario?.message}
-              name="nomeusuario"
+              name="nome"
               label="Nome"
               variant="outlined"
               size="small"
@@ -197,7 +197,8 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               label="CPF (somente numeros)"
               variant="outlined"
               size="small"
-              defaultValue={ isEditing ? userData.cpf : ''}
+              disabled={isEditing}
+              defaultValue={isEditing ? userData.cpf : ''}
               type="number"
               placeholder="Digite seu CPF"
               sx={{
@@ -208,10 +209,13 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               {...register('cpf')}
             ></TextField>
             <TextField
-              {...register('ndata', { required: 'Este campo é obrigatorio' })}
+              {...register('dataNascimento', {
+                required: 'Este campo é obrigatorio',
+              })}
               helperText={errors.ndata?.message || 'Data de Nascimento'}
               variant="outlined"
-              name="ndata"
+              name="dataNascimento"
+              disabled={isEditing}
               defaultValue={isEditing ? userData.ndata : ''}
               size="small"
               type="date"
@@ -246,7 +250,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
             }}
           ></TextField>
           <TextField
-            {...register('senha', {
+            {...register('password', {
               required: 'Este campo é obrigatorio',
               maxLength: {
                 value: 11,
@@ -255,7 +259,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
             })}
             helperText={errors.senha?.message}
             label="Senha"
-            name="senha"
+            name="password"
             defaultValue={isEditing ? userData.senha : ''}
             variant="outlined"
             size="small"
@@ -266,7 +270,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
                 color: 'red',
               },
             }}
-            {...register('senha')}
+            {...register('password')}
           ></TextField>
           <Divider>Endereço</Divider>
           <div className={styled.inputsbetween}>
@@ -314,7 +318,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               variant="outlined"
               size="small"
               type="text"
-              value={ isEditing ? userData.estado : ''}
+              value={isEditing ? userData.estado : ''}
               placeholder="UF"
               sx={{
                 '& .MuiFormHelperText-root': {
@@ -331,7 +335,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
             variant="outlined"
             size="small"
             type="text"
-            value={ isEditing ? userData.bairro : ''}
+            value={isEditing ? userData.bairro : ''}
             placeholder="Bairro"
             sx={{
               '& .MuiFormHelperText-root': {
@@ -348,7 +352,7 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               size="small"
               type="text"
               placeholder="Nome da rua"
-              value={ isEditing ? userData.rua : ''}
+              value={isEditing ? userData.rua : ''}
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',
@@ -366,8 +370,8 @@ function FormUserCadastro({ userData, endpoint, dataid, isEditing }) {
               name="ncasa"
               variant="outlined"
               size="small"
-              defaultValue={ isEditing ? userData.ncasa : ''}
-              type="text"
+              defaultValue={isEditing ? userData.ncasa : ''}
+              type="number"
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',

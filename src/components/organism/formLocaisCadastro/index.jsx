@@ -4,7 +4,6 @@ import Divider from '@mui/material/Divider';
 import { useForm } from 'react-hook-form';
 import UsuariosContext from '../../../context/usuariosContext.jsx';
 
-
 import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
@@ -19,6 +18,9 @@ import { TextField, InputLabel } from '@mui/material';
 
 function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   const currentUser = localStorage.getItem('currentUser');
+  const [googleMapsLink, setGoogleMapsLink] = useState('');
+  const userName = localStorage.getItem('currentUserName');
+
 
   const {
     register,
@@ -32,27 +34,29 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     identiuser: '',
   });
 
-
   const { cadastrarColeta, editData } = useContext(UsuariosContext);
 
   useEffect(() => {
     if (isEditing) {
       reset({
         bairro: userData.bairro,
-        rua: userData.rua,
-        cidade: userData.cidade,
+        rua: userData.logradouro,
+        cidade: userData.localidade,
         estado: userData.estado,
-        identiuser: userData.identiuser
+        identiuser: userName,
+        cep: userData.cep.replace(/-/g, '')
       });
-    }else {
+    } else {
       reset({
-        identiuser: currentUser
+        identiuser: userName,
       });
     }
   }, [isEditing, reset, userData]);
 
-  
   async function submitForm(formValue) {
+    console.log('FORM value IS:');
+    console.log(formValue);
+
     if (isEditing == false) {
       await saveForm(formValue);
     } else {
@@ -60,25 +64,34 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     }
   }
 
-
   useEffect(() => {
     register('residuos_aceitos', {
       required: 'Precisa seleccionar min 1 tipo de residuo',
     });
   }, [register]);
 
-
-
   async function saveForm(formColetaValue) {
+    console.log('Inside saveForm IS:');
     console.log(formColetaValue);
-    const cadastroResult = await cadastrarColeta(formColetaValue);
+
+    try {
+      const latitude = getValues('geocode[1]');
+      const longitude = getValues('geocode[0]');
+      
+      const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+  
+      formColetaValue.googleMapsLink = googleMapsLink;
+  
+      console.log(formColetaValue);
+      const cadastroResult = await cadastrarColeta(formColetaValue);
+    } catch (error) {
+      console.log('Error saving form:', error);
+    }
   }
 
   async function editForm(formValue) {
     const cadastroResult = await editData(formValue, endpoint, dataid);
   }
-
-
 
   const capitalizeWords = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -99,11 +112,11 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
       });
       return;
     }
-  
+
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const dados = await response.json();
-      
+
       if (dados.erro) {
         setError('cep', {
           type: 'custom',
@@ -111,10 +124,10 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
         });
         return;
       }
-      
+
       setValue('bairro', dados.bairro);
-      setValue('rua', dados.logradouro);
-      setValue('cidade', dados.localidade);
+      setValue('logradouro', dados.logradouro);
+      setValue('localidade', dados.localidade);
       setValue('estado', dados.uf);
     } catch (error) {
       console.log(error);
@@ -122,13 +135,66 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
     }
   };
 
+  const handleLatitudeLongitude = async () => {
+    try {
+      const ncasa = getValues('ncasa');
+      const rua = getValues('rua');
+      const cidade = getValues('cidade');
+
+      const coleta = { ncasa, rua, cidade };
+      // const { latitud, longitud } = await getGeocoding(coleta);
+  
+      setValue('geocode[1]', latitud);
+      setValue('geocode[0]', longitud);
+      const googleMapsLink = await getGoogleMapsLink()
+      console.log(googleMapsLink)
+    } catch (error) {
+      console.log('Erro em obter latitude y longitude:', error);
+    }
+  };
+
+  const getGoogleMapsLink = async () => {
+    try {
+      const latitude = getValues('geocode[1]');
+      const longitude = getValues('geocode[0]');
+
+      if (!latitude || !longitude) {
+        const error = new Error('Incomplete location data');
+        error.statusCode = 400;
+        throw error;
+      }
+
+      const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
+      setGoogleMapsLink(link);
+      return link;
+    } catch (error) {
+      console.error('Error in getGoogleMapsLink:', error.message);
+      error.statusCode = error.statusCode || 500;
+      throw error;
+    }
+  };
+
+  const verifyLinkButton = async () => {
+    try {
+      const googleMapsLink = getValues('googleMapsLink');
+      if (googleMapsLink) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error('Error verifying Google Maps link:', error);
+      return false;
+    }
+  };
+
   return (
     <div className={styled.container}>
       <div className={styled.boxcontainer}>
         <form className={styled.boxform} onSubmit={handleSubmit(submitForm)}>
-          <InputLabel>Nome do Local de coleta</InputLabel>
+          <InputLabel>Nome do local de coleta</InputLabel>
           <TextField
-            {...register('nomelocal', {
+            {...register('nome', {
               required: 'Este campo é obrigatorio',
               maxLength: {
                 value: 50,
@@ -147,6 +213,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               '& .MuiFormHelperText-root': {
                 color: 'red',
               },
+              marginBottom: '24px',
             }}
           ></TextField>
           <InputLabel>Descrição do local</InputLabel>
@@ -169,16 +236,17 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               '& .MuiFormHelperText-root': {
                 color: 'red',
               },
+              marginBottom: '24px',
             }}
           ></TextField>
-          <InputLabel>Seu Nome</InputLabel>
+          <InputLabel>Responsável pelo cadastro</InputLabel>
           <TextField
             {...register('identiuser')}
             disabled
             helperText={errors.identiuser?.message}
             name="identiuser"
             variant="outlined"
-            defaultValue={isEditing ? userData.identiuser : ''}
+            defaultValue={isEditing ? userName : ''}
             size="small"
             placeholder={currentUser}
             type="text"
@@ -186,138 +254,206 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               '& .MuiFormHelperText-root': {
                 color: 'red',
               },
+              marginBottom: '24px',
             }}
           ></TextField>
-          <div>
+          <div className={styled.outerBox}>
+            <div>
+              <FormLabel component="legend">
+                Tipos de residuos aceitos
+              </FormLabel>
+              <FormGroup sx={{ display: 'flex' }}>
+                <section className={styled.checkResiduos}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Vidro"
+                        value="Vidro"
+                        type="checkbox"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Vidro') || false
+                        }
+                      />
+                    }
+                    label="Vidro"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Metal"
+                        value="Metal"
+                        type="checkbox"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Metal') || false
+                        }
+                      />
+                    }
+                    label="Metal"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Papel"
+                        value="Papel"
+                        type="checkbox"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Papel') || false
+                        }
+                      />
+                    }
+                    label="Papel"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Papelão"
+                        value="Papelão"
+                        type="checkbox"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Papelão') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Papelão"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Plástico"
+                        type="checkbox"
+                        value="Plástico"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Plástico') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Plástico"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Orgânicos"
+                        type="checkbox"
+                        value="Orgânicos"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Orgânicos') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Orgânicos"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Baterias"
+                        type="checkbox"
+                        value="Baterias"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Baterias') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Baterias"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Eletrônicos"
+                        type="checkbox"
+                        value="Eletrônicos"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Eletrônicos') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Eletrônicos"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="Móveis"
+                        type="checkbox"
+                        value="Móveis"
+                        {...register('residuos_aceitos')}
+                        defaultChecked={
+                          userData?.residuos_aceitos?.includes('Móveis') ||
+                          false
+                        }
+                      />
+                    }
+                    label="Móveis"
+                    sx={{ width: '123px', margin: '0', display: 'flex' }}
+                  />
+                </section>
+                <div></div>
+              </FormGroup>
+              {errors.residuos_aceitos && (
+                <FormHelperText errors style={{ color: 'red' }}>
+                  {errors.residuos_aceitos?.message}
+                </FormHelperText>
+              )}{' '}
+            </div>
+
+            <Divider sx={{ marginY: '30px' }}>
+              Endereço do local de coleta
+            </Divider>
+
             <Box
-              className={styled.checkResiduos}
-              sx={{ display: 'flex', flexDirection: 'row' }}
+              sx={{
+                display: 'flex',
+                gap: '16px',
+                marginBottom: '24px',
+              }}
             >
-              <div></div>
-              <div className={styled.checkResiduos}>
-                <FormControl
-                  sx={{ m: 1 }}
-                  component="fieldset"
-                  variant="standard"
-                >
-                  <FormLabel component="legend">
-                    Tipos de residuos aceitos
-                  </FormLabel>
-                  <FormGroup>
-                    <div>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Vidro"
-                            value="Vidro"
-                            type="checkbox"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Vidro') || false}
-                          />
-                        }
-                        label="Vidro"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Metal"
-                            value="Metal"
-                            type="checkbox"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Metal') || false}
-                          />
-                        }
-                        label="Metal"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Papel"
-                            value="Papel"
-                            type="checkbox"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Papel') || false}
-                          />
-                        }
-                        label="Papel"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Plástico"
-                            type="checkbox"
-                            value="Plástico"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Plástico') || false}
-
-                          />
-                        }
-                        label="Plástico"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Orgânicos"
-                            type="checkbox"
-                            value="Orgânicos"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Orgânicos') || false}
-                          />
-                        }
-                        label="Orgânicos"
-                      />
-                    </div>
-                    <div>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Baterias"
-                            type="checkbox"
-                            value="Baterias"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Baterias') || false}
-                          />
-                        }
-                        label="Baterias"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Eletrônicos"
-                            type="checkbox"
-                            value="Eletrônicos"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Eletrônicos') || false}
-                          />
-                        }
-                        label="eletrônicos"
-                      />
-
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Móveis"
-                            type="checkbox"
-                            value="Móveis"
-                            {...register('residuos_aceitos')}
-                            defaultChecked={userData?.residuos_aceitos?.includes('Móveis') || false}
-
-                          />
-                        }
-                        label="Móveis"
-                      />
-                    </div>
-                  </FormGroup>
-                  {errors.residuos_aceitos && (
-                    <FormHelperText errors style={{ color: 'red' }}>
-                      {errors.residuos_aceitos?.message}
-                    </FormHelperText>
-                  )}{' '}
-                </FormControl>
-              </div>
+              {/* Campo Latitude */}
+              <TextField
+                {...register('longitude')}
+                name="longitude"
+                disabled={true}
+                defaultValue={isEditing ? userData.geocode[0] : ''}
+                variant="outlined"
+                size="small"
+                type="number"
+                placeholder="longitude"
+                fullWidth
+                sx={{ flex: 1 }}
+              />
+              {/* Campo Longitude */}
+              <TextField
+                {...register('latitude')}
+                name="latitude"
+                disabled={true}
+                defaultValue={isEditing ? userData.geocode[1] : ''}
+                variant="outlined"
+                size="small"
+                type="number"
+                placeholder="latitude"
+                fullWidth
+                sx={{ flex: 1 }}
+              />
             </Box>
-
-            <Divider>Endereço do local de coleta</Divider>
             <TextField
               {...register('cep', {
                 required: 'Este campo é obrigatorio',
@@ -343,23 +479,24 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
             ></TextField>
             <TextField
               disabled
-              label="Cidade"
-              name="cidade"
+              label=""
+              name="localidade"
               defaultValue={isEditing ? userData.cidade : ''}
               variant="outlined"
               size="small"
               type="text"
-              placeholder="Nome da rua"
+              placeholder="Cidade"
               sx={{
+                marginLeft: '1%',
                 '& .MuiFormHelperText-root': {
                   color: 'red',
                 },
               }}
-              {...register('cidade')}
+              {...register('localidade')}
             ></TextField>
             <TextField
               disabled
-              label="UF"
+              label=""
               name="estado"
               variant="outlined"
               defaultValue={isEditing ? userData.estado : ''}
@@ -367,6 +504,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
               type="text"
               placeholder="UF"
               sx={{
+                marginLeft: '1%',
                 '& .MuiFormHelperText-root': {
                   color: 'red',
                 },
@@ -377,7 +515,7 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
           </div>
           <TextField
             disabled
-            label="Bairro"
+            label=""
             name="bairro"
             variant="outlined"
             defaultValue={isEditing ? userData.bairro : ''}
@@ -393,9 +531,9 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
           ></TextField>
           <div className={styled.inputsbetween}>
             <TextField
-              label="Rua"
+              label=""
               disabled
-              name="rua"
+              name="logradouro"
               variant="outlined"
               defaultValue={isEditing ? userData.rua : ''}
               size="small"
@@ -406,19 +544,20 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
                 },
                 width: 350,
               }}
-              {...register('rua')}
+              {...register('logradouro')}
             ></TextField>
             <TextField
-              {...register('ncasa', {
+              {...register('numero', {
                 required: 'Este campo é obrigatorio',
               })}
-              helperText={errors.ncasa?.message}
-              label="Numero"
-              name="ncasa"
+              helperText={errors.numero?.message}
+              label="Número"
+              name="numero"
               variant="outlined"
               size="small"
-              defaultValue={isEditing ? userData.ncasa : ''}
-              type="text"
+              defaultValue={isEditing ? userData.numero : ''}
+              type="number"
+              onBlur={() => handleLatitudeLongitude()}
               sx={{
                 '& .MuiFormHelperText-root': {
                   color: 'red',
@@ -429,6 +568,32 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
           </div>
           <div className={styled.boxbuttons}>
             <Cbutton type="submit">Salvar</Cbutton>
+            <div className={styled.linkBoxButtons}>
+              <div className={styled.boxbuttons}>
+                <Cbutton
+                  type="button"
+                  disabled={!googleMapsLink}
+                  onClick={() =>
+                    navigator.clipboard
+                      .writeText(googleMapsLink)
+                      .then(() =>
+                        alert('Link copiado para a área de transferência!')
+                      )
+                  }
+                >
+                  Copiar Link
+                </Cbutton>
+              </div>
+              <div className={styled.boxbuttons}>
+                <Cbutton
+                  type="button"
+                  disabled={!googleMapsLink}
+                  onClick={() => window.open(googleMapsLink, '_blank')}
+                >
+                  Abrir no Google Maps
+                </Cbutton>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -436,5 +601,4 @@ function FormLocaisCadastro({ userData, endpoint, dataid, isEditing }) {
   );
 }
 
-
-export default FormLocaisCadastro
+export default FormLocaisCadastro;

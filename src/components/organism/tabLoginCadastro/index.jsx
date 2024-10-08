@@ -5,8 +5,8 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import FormUserCadastro from "../../organism/formLogin/index"
-import FormLogin from "../../organism/formUsercadastro/index"
+import FormUserCadastro from '../../organism/formLogin/index';
+import FormLogin from '../../organism/formUsercadastro/index';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -20,7 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }} >
+        <Box sx={{ p: 3 }}>
           <div>{children}</div>
         </Box>
       )}
@@ -45,14 +45,15 @@ export default function FormLoginTabs() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: 500,  transform: 'scale(0.9)'}}>
-      <AppBar position="static" >
+    <Box
+      sx={{ bgcolor: 'background.paper', width: 500, transform: 'scale(0.9)' }}
+    >
+      <AppBar position="static">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -62,14 +63,13 @@ export default function FormLoginTabs() {
           aria-label="full width tabs example"
         >
           <Tab label="Login" {...a11yProps(0)} />
-          <Tab label="Cadastre-se" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0} dir={theme.direction}>
         <FormUserCadastro />
       </TabPanel>
       <TabPanel value={value} index={1} dir={theme.direction}>
-        <FormLogin  />
+        <FormLogin />
       </TabPanel>
     </Box>
   );

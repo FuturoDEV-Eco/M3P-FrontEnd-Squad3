@@ -5,16 +5,17 @@
   background-color: #8ecae6;
   height: 100%;
   width: 280px;
+  border-radius: 5px;
 }
 
 .cardnumber h1 {
   font-size: 60px;
   margin-left: 15px;
-  color: #023047
+  color: #023047;
 }
 
-.cardnumber{
-  color: #023047
+.cardnumber {
+  color: #023047;
 }
 
 .cardnumber p {
@@ -23,10 +24,7 @@
   margin-bottom: 10px;
 }
 
-
 /* card text: */
-
-
 
 .cardtext {
   display: flex;
@@ -35,17 +33,30 @@
   height: 100%;
   width: 350px;
   gap: 10px;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .cardtext h1 {
   font-size: 25px;
   margin-left: 15px;
   margin-top: 14px;
-
 }
 
 .cardtext p {
   font-size: 18px;
   margin-left: 15px;
   margin-bottom: 10px;
+}
+
+.tooltip {
+  z-index: 1000;
+}
+
+button {
+  margin-left: 5%;
+}
+button:disabled {
+  background-color: gray; /* Cambia el color de fondo */
+  cursor: not-allowed; /* Cambia el cursor */
 }

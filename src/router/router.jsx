@@ -4,45 +4,51 @@ import CadastroColetas from '../pages/CadastroColetas';
 import ListagemColetas from '../pages/ListagemColetas';
 import LoginSignup from '../pages/login-signup';
 import Dashboard from '../pages/Dashboard';
-import ListagemUsuarios from '../pages/ListagemUsuarios'
-import CadastroUsuarios from '../pages/CadastroUsuarios'
+import ListagemUsuarios from '../pages/ListagemUsuarios';
+import CadastroUsuarios from '../pages/CadastroUsuarios';
 import EditarUsuariosEColetas from '../pages/EditarUsuariosEColetas';
 
-let isAutenticated = JSON.parse(localStorage.getItem("isAutenticated")) || false 
+let isAuthenticated =
+  JSON.parse(localStorage.getItem('isAuthenticated')) || false;
 
-const PrivateRouter = ({children}) => {
- return isAutenticated ? children : <Navigate to="/login" />
-}
+const PrivateRouter = ({ children }) => {
+  return isAuthenticated ? children : <Navigate to="/" />;
+};
 
 const routes = createBrowserRouter([
   {
-    path: '/login',
-    element: <LoginSignup />,
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: '/',
+        element: <Dashboard />,
+      },
+      {
+        path: '/cadastro-usuarios',
+        element: <CadastroUsuarios />,
+      },
+      {
+        path: '/login',
+        element: <LoginSignup />,
+      },
+    ],
   },
   {
     path: '/',
-    element: ( 
+    element: (
       <PrivateRouter>
         <App />
       </PrivateRouter>
     ),
     children: [
       {
-        path: '/dashboard',
-        element: <Dashboard />,
-      },
-      {
         path: '/cadastro-coletas',
         element: <CadastroColetas />,
       },
-
       {
         path: '/listagem-coletas',
         element: <ListagemColetas />,
-      },
-      {
-        path: '/cadastro-usuarios',
-        element: <CadastroUsuarios />,
       },
       {
         path: '/listagem-usuarios',
@@ -54,8 +60,6 @@ const routes = createBrowserRouter([
       },
     ],
   },
-
-  ,
 ]);
 
 export default routes;
